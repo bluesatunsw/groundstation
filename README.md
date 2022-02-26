@@ -1,2 +1,2 @@
 # groundstation
-Bluesat's autonomous, robotic groundstation proejct
+Bluesat's autonomous, robotic groundstation project
