@@ -1,7 +1,7 @@
 module.exports = {
     ci: {
       collect: {
-        "staticDistDir": "templates"
+        "staticDistDir": "./"
       },
       assert: {
         "preset": "lighthouse:no-pwa",
