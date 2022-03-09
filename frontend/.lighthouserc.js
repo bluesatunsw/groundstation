@@ -4,7 +4,10 @@ module.exports = {
         "staticDistDir": "templates"
       },
       assert: {
-        "preset": "lighthouse:no-pwa"
+        "preset": "lighthouse:no-pwa",
+        "assertions": {
+            "csp-xss": "off"
+        }
       },
       upload: {
         "target": "temporary-public-storage"
