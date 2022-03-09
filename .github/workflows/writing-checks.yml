@@ -1,4 +1,4 @@
-name: Writing Checks
+name: Writing Check
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
         run: write-good *.md --no-passive
 
   frontend_spelling:
-    name: Wording Check
+    name: Spelling Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
@@ -44,4 +44,4 @@ jobs:
         run: npm install -g write-good cspell
 
       - name: Check Spelling
-        run: cspell lint --locale en-AU "*.md" 
+        run: cspell lint --locale en-GB "*.md" 
