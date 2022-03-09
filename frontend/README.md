@@ -1,6 +1,19 @@
 # Front-end
 
-The website code to control the Bluesat Autonomous Groundstation.
+The frontend code to control the Bluesat Autonomous Groundstation.
+
+## Development
+
+*Installation*
+
+```
+npm ci
+npm run build
+```
+
+*Testing*
+
+`npm run lint`
 
 ## Hosting
 
