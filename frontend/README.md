@@ -1,6 +1,6 @@
 # Front-end
 
-The frontend code to control the Bluesat Autonomous Groundstation.
+The frontend code to control the Bluesat Autonomous Groundstation device.
 
 ## Development
 
