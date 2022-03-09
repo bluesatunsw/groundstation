@@ -54,4 +54,4 @@ jobs:
         working-directory: ./frontend
         run: | 
           npm run build
-          lhci autorun
+          lhci autorun --collect.staticDistDir=templates
