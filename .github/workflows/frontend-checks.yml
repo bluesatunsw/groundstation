@@ -54,4 +54,4 @@ jobs:
         working-directory: ./frontend
         run: | 
           npm run build
-          lhci autorun --collect.staticDistDir=templates
+          lhci autorun --collect.staticDistDir=templates assert --preset=lighthouse:no-pwa --assertions.uses-webp-images=off
