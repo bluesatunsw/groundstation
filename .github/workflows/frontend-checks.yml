@@ -52,5 +52,6 @@ jobs:
 
       - name: Generate Report
         working-directory: ./frontend
-        run: npm run build
-        run: lhci autorun
+        run: | 
+          npm run build
+          lhci autorun
