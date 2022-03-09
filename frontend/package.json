@@ -5,7 +5,8 @@
     "scripts": {
       "lint": "run-p lint:*",
       "lint:tsc": "tsc --noemit",
-      "lint:eslint": "eslint --ext .ts static/js/"
+      "lint:eslint": "eslint --ext .ts static/js/",
+      "build": "tsc"
     },
     "author": "Luke Prior",
     "devDependencies": {
