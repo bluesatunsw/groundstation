@@ -6,7 +6,8 @@ module.exports = {
       assert: {
         "preset": "lighthouse:no-pwa",
         "assertions": {
-            "csp-xss": "off"
+            "csp-xss": "off",
+            "errors-in-console": "off"
         }
       },
       upload: {
