@@ -3,9 +3,7 @@
     "version": "1.0.0",
     "description": "The website code to control the Bluesat Autonomous Groundstation.",
     "scripts": {
-      "lint": "run-p lint:*",
-      "lint:tsc": "tsc --noemit",
-      "lint:eslint": "eslint --ext .ts static/js/",
+      "lint": "eslint --ext .ts static/js/",
       "build": "tsc"
     },
     "author": "Luke Prior",

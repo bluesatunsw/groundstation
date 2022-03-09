@@ -6,7 +6,8 @@ module.exports = {
       assert: {
         "preset": "lighthouse:no-pwa",
         "assertions": {
-            "csp-xss": "off"
+            "csp-xss": "off",
+            "geolocation-on-start": "off"
         }
       },
       upload: {

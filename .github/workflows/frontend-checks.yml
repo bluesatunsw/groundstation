@@ -26,11 +26,33 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm install
+        run: npm ci
 
-      - name: Run ESLint & TSC
+      - name: Run TSC
         working-directory: ./frontend
         run: npm run lint
+
+  frontend_build:
+    name: Frontend Build Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Install Modules
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Run ESLint
+        working-directory: ./frontend
+        run: npm run build
 
   frontend_lighthouse:
     name: Frontend Lighthouse Report
@@ -50,7 +72,7 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm install && npm install -g @lhci/cli@0.8.x
+        run: npm ci && npm install -g @lhci/cli@0.8.x
 
       - name: Build Website
         working-directory: ./frontend
@@ -62,3 +84,25 @@ jobs:
           lhci autorun
         env:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+  frontend_security:
+    name: Frontend Security Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Install Modules
+        working-directory: ./frontend
+        run: npm ci && npm install -g audit-ci
+
+      - name: Run audit-ci
+        working-directory: ./frontend
+        run: npx audit-ci --moderate
