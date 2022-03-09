@@ -38,6 +38,8 @@ jobs:
     steps:
       - name: Checkout commit
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -54,4 +56,6 @@ jobs:
         working-directory: ./frontend
         run: | 
           npm run build
-          lhci autorun --collect.staticDistDir=templates assert --preset=lighthouse:no-pwa --assertions.uses-webp-images=off
+          lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
