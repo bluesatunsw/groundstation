@@ -28,7 +28,7 @@ jobs:
         working-directory: ./frontend
         run: npm ci
 
-      - name: Run TSC
+      - name: Run ESLint
         working-directory: ./frontend
         run: npm run lint
 
@@ -50,7 +50,7 @@ jobs:
         working-directory: ./frontend
         run: npm ci
 
-      - name: Run ESLint
+      - name: Run TSC
         working-directory: ./frontend
         run: npm run build
 
