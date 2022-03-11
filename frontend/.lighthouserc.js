@@ -7,7 +7,7 @@ module.exports = {
         "preset": "lighthouse:no-pwa",
         "assertions": {
             "csp-xss": "off",
-            "geolocation-on-start": "off"
+            "unused-javascript": ["warn", {"maxNumericValue": 1}]
         }
       },
       upload: {

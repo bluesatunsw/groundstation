@@ -6,14 +6,23 @@ The frontend code to control the Bluesat Autonomous Groundstation.
 
 *Installation*
 
-```
-npm ci
-npm run build
-```
+`npm ci`
+
+`npm run build`
 
 *Testing*
 
-`npm run lint`
+`npm run lint-ts`
+
+`npm run lint-html`
+
+`npm run lint-css`
+
+*Formatting*
+
+`npm run fix-ts`
+
+`npm run fix-css`
 
 ## Hosting
 
