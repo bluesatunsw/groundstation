@@ -48,11 +48,11 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci && npm install -g htmlhint
+        run: npm ci
 
       - name: Run HTMLHint
         working-directory: ./frontend
-        run: npx htmlhint 
+        run: npm run htmlhint 
 
   frontend_build_ts:
     name: TS Build
@@ -123,8 +123,8 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci && npm install -g audit-ci
+        run: npm ci
 
       - name: Run audit-ci
         working-directory: ./frontend
-        run: npx audit-ci --moderate
+        run: npx run audit
