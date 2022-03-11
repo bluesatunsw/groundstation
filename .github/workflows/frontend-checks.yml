@@ -30,7 +30,7 @@ jobs:
 
       - name: Run ESLint
         working-directory: ./frontend
-        run: npm run lint
+        run: npm run lint-ts
 
   frontend_lint_html:
     name: HTML Lint
@@ -52,7 +52,29 @@ jobs:
 
       - name: Run HTMLHint
         working-directory: ./frontend
-        run: npm run htmlhint 
+        run: npm run lint-html 
+
+  frontend_lint_css:
+    name: CSS Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Install Modules
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Run Stylelint
+        working-directory: ./frontend
+        run: npm run lint-css 
 
   frontend_build_ts:
     name: TS Build

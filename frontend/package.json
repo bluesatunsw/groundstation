@@ -3,10 +3,12 @@
     "version": "1.0.0",
     "description": "The website code to control the Bluesat Autonomous Groundstation.",
     "scripts": {
-        "lint": "eslint --ext .ts static/js/",
-        "fix": "eslint --fix --ext .ts static/js/",
-        "build": "tsc",
-        "htmlhint": "htmlhint"
+        "lint-ts": "eslint --ext .ts static/js/",
+        "fix-ts": "eslint --fix --ext .ts static/js/",
+        "lint-html": "htmlhint",
+        "lint-css": "stylelint static/css/*.css",
+        "fix-css": "stylelint --fix static/css/*.css",
+        "build": "tsc"
     },
     "author": "Luke Prior",
     "devDependencies": {
@@ -18,7 +20,9 @@
         "eslint-plugin-import": "^2.25.4",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^5.2.0",
-        "htmlhint": "^1.1.2"
+        "htmlhint": "^1.1.2",
+        "stylelint": "^14.5.3",
+        "stylelint-config-standard": "^25.0.0"
     },
     "dependencies": {
         "typescript": "^4.6.2"
