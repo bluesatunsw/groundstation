@@ -11,10 +11,8 @@
       <link rel="icon" href="static/img/favicon.ico">
       <link rel="apple-touch-icon" href="static/img/apple-touch-icon.png">
 
-      <script type="text/javascript" src="static/libraries/jquery-3.6.0.min.js"></script>
-
-      <script type="text/javascript" src="static/js/utilities.js"></script>
-      <script type="text/javascript" src="static/js/index.js"></script>
+      <script type="text/javascript" src="static/libraries/jquery-3.6.0.min.js" defer></script>
+      <script type="text/javascript" src="static/js/index.js" defer></script>
    </head>
    <body>
       <form id="noradID_form">
@@ -23,6 +21,7 @@
          <input type="submit" value="Submit">
       </form>
       <br>
+      <label for="noradID_result">DATA:</label>
       <textarea id="noradID_result" readonly>WAITING FOR DATA</textarea>
    </body>
 </html>
