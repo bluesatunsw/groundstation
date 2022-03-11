@@ -1,4 +1,4 @@
-name: Frontend Checks
+name: Frontend
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 jobs:
 
   frontend_lint:
-    name: Frontend Lint Analysis
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
@@ -33,7 +33,7 @@ jobs:
         run: npm run lint
 
   frontend_build:
-    name: Frontend Build Check
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
@@ -55,7 +55,7 @@ jobs:
         run: npm run build
 
   frontend_lighthouse:
-    name: Frontend Lighthouse Report
+    name: Lighthouse
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
@@ -86,7 +86,7 @@ jobs:
           LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
 
   frontend_security:
-    name: Frontend Security Check
+    name: Security
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
