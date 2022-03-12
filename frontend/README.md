@@ -27,3 +27,5 @@ The frontend code to control the Bluesat Autonomous Groundstation.
 ## Hosting
 
 `python serve.py`
+
+The frontend can be accessed from localhost:5001.

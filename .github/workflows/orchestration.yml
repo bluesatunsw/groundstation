@@ -1,0 +1,32 @@
+name: Orchestration
+
+on:
+  push:
+    paths:
+      - 'orch/**'
+  pull_request:
+    paths:
+      - 'orch/**'
+
+jobs:
+
+  orchestration_lint_python:
+    name: Python Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Python Modules
+        working-directory: ./orch
+        run: pip install -r requirements.txt && pip install pylint
+
+      - name: Run Pylint
+        working-directory: ./orch
+        run: |
+          pylint $(git ls-files '*.py')
