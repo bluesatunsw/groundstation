@@ -29,4 +29,4 @@ jobs:
       - name: Run Pylint
         working-directory: ./orch
         run: |
-          find . -name '*.py' -exec pylint {} \;
+          pylint $(git ls-files '*.py')
