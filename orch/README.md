@@ -10,4 +10,4 @@ The orchestrartion provides access between the frontend, hardware, and signal pr
 
 `python serve.py`
 
-The orchestration can be accessed from localhost:4999
+The orchestration can be accessed from localhost:4999.
