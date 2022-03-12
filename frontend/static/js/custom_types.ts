@@ -10,7 +10,7 @@ interface n2yo_radio_passes {
   endAzCompass: string,
   endUTC: number
 }
-  
+
 interface n2yo_above {
   satid: number,
   satname: string,
