@@ -10,8 +10,11 @@ def send_reqs(arguments):
     """
     api_key = "89SYPR-D26PHV-PZFC8D-4Q3K"
     req_url = f'https://api.n2yo.com/rest/v1/satellite/{arguments}/&apiKey={api_key}'
-    req_res = requests.get(req_url)
-    return req_res.json()
+    try:
+        req_res = requests.get(req_url).json()
+        return req_res
+    except requests.exceptions.RequestException as exception:
+        return exception
 
 
 def get_whats_up(
@@ -23,7 +26,8 @@ def get_whats_up(
     """
     Set paramters for N2YO What's up? API or use reasonable defaults.
     """
-    arguments = f'above/{observer_lat}/{observer_lng}/{observer_alt}/{search_radius}/{category_id}'
+    arguments = (f'above/{observer_lat}/{observer_lng}/'
+                 f'{observer_alt}/{search_radius}/{category_id}')
     return send_reqs(arguments)
 
 
@@ -37,5 +41,6 @@ def get_radiopasses(
     """
     Set paramters for N2YO Get radio passes API or use reasonable defaults.
     """
-    arguments = f'radiopasses/{norad_id}/{observer_lat}/{observer_lng}/{observer_alt}/{days}/{min_elevation}'
+    arguments = (f'radiopasses/{norad_id}/{observer_lat}/{observer_lng}/'
+                 f'{observer_alt}/{days}/{min_elevation}')
     return send_reqs(arguments)

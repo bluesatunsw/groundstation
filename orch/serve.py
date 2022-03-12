@@ -2,7 +2,7 @@
 The backend server used by all modules to communicate.
 """
 from json import dumps
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 import api as apis
 
@@ -15,14 +15,14 @@ def whats_up_request():
     """
     An internal endpoint that resolves to the N2YO What's up? API.
     """
-    lat_req = request.args.get('observer_lat')
-    long_req = request.args.get('observer_lng')
-    search_req = request.args.get('search_radius')
-    alt_req = request.args.get('observer_alt')
-    catid_req = request.args.get('category_id')
-    api_input = apis.get_whats_up(
-        lat_req, long_req, alt_req, search_req, catid_req)
-    return jsonify(api_input)
+    observer_lat = request.args.get('observer_lat', 33.8688)
+    observer_lng = request.args.get('observer_lng', 151.2093)
+    observer_alt = request.args.get('observer_alt', 3)
+    search_radius = request.args.get('search_radius', 75)
+    category_id = request.args.get('category_id', 0)
+    api_result = apis.get_whats_up(
+        observer_lat, observer_lng, observer_alt, search_radius, category_id)
+    return return_handler(api_result)
 
 
 @app.route('/radiopasses')
@@ -30,15 +30,25 @@ def radiopass_request():
     """
     An internal endpoint that resolves to the N2YO Get radio passes API.
     """
-    id_req = request.args.get('id')
-    lat_req = request.args.get('observer_lat')
-    long_req = request.args.get('observer_lng')
-    alt_req = request.args.get('observer_alt')
-    days_req = request.args.get('days')
-    m_ele_req = request.args.get('min_elevation')
-    api_input = apis.get_radiopasses(
-        id_req, lat_req, long_req, alt_req, days_req, m_ele_req)
-    return jsonify(api_input)
+    norad_id = request.args.get('norad_id', 25544)
+    observer_lat = request.args.get('observer_lat', 33.8688)
+    observer_lng = request.args.get('observer_lng', 151.2093)
+    observer_alt = request.args.get('observer_alt', 3)
+    days = request.args.get('days', 7)
+    min_elevation = request.args.get('min_elevation', 15)
+    api_result = apis.get_radiopasses(
+        norad_id, observer_lat, observer_lng, observer_alt, days, min_elevation)
+    return return_handler(api_result)
+
+
+def return_handler(api_result):
+    """
+    Processes input and produces error if required.
+    """
+    try:
+        return jsonify(api_result)
+    except TypeError:
+        return Response(f'{{"Error": "{api_result}"}}', status=404, mimetype='application/json')
 
 
 def default_handler(err):
