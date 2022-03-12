@@ -1,6 +1,6 @@
 # Orchestration
 
-It orchestrates
+It orchestrates. Interfaces with api (n2yo)
 
 ## Installation
 
