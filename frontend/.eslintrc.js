@@ -2,7 +2,8 @@ module.exports = {
     env: {
       browser: true,
       commonjs: true,
-      es2021: true
+      es2021: true,
+      jquery: true
     },
     extends: [
       'standard'
@@ -15,6 +16,10 @@ module.exports = {
       '@typescript-eslint'
     ],
     rules: {
-        "no-undef": "off"
+        "camelcase": "off",
+        "@typescript-eslint/naming-convention": [
+          "error",
+          { "selector": ['variable', 'function', 'interface'], "format": ["snake_case"] }
+        ]
     }
   }
