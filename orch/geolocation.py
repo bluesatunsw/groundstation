@@ -1,14 +1,11 @@
 '''
 Serial communications to retrieve location from GPS
 '''
-
-from asyncio.windows_events import NULL
-from serial import serial
-from string import *
+import serial
 
 BAUDRATE = 115200
 
-def get_GPS():
+def get_gps():
     """
     Retrieve location from GPS
     """
@@ -21,13 +18,13 @@ def get_GPS():
         try:
             gps = serial.Serial(port.device, baudrate=BAUDRATE, timeout=0.5)
 
-        except:
+        except OSError:
             continue
-    
+
     # If no port is found, panic
     if gps is None:
-        raise("No open ports found!")
-    
+        raise "No open ports found!"
+
     # Open serial port
     ser = serial.Serial(gps, BAUDRATE)
 
@@ -36,16 +33,16 @@ def get_GPS():
     # Read data from serial port until GPS has acquired for 3 cycles
     while True:
         data = ser.readline()
-        
+
         # Only extract line indicating acquisition state
         if data.strip().startswith("$GPGRMC"):
             if valid_data(data):
                 num_valid += 1
             else:
                 num_valid = 0 # If a response is invalid, start again
-        
+
         # Once signal is acquired, get longitude/latitude
-        if data.strip().startswith("GPGLL") and num_valid is 3:
+        if data.strip().startswith("GPGLL") and num_valid >= 3:
             response = data
             break
     # Close serial port
@@ -69,14 +66,13 @@ def valid_data(data):
 def interpret_gps_string(gps):
     '''
     Convert strings from the GPS module into tuples
-    consisting of 
+    consisting of
     '''
-    
+
     # Only look at strings containing latitude/longitude
     if gps.strip().startswith("$GPGLL"):
-        #TODO: find correct format
+        # need to find correct format
 
-        return ""
-    else:
-        return " "
+        return gps
 
+    return " "
