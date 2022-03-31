@@ -77,15 +77,13 @@ def interpret_gps_string(gps):
         lon_cardinality : string
         valid : bool
     }
-    '''
 
-    '''
     Valid input is of the form:
-    $--GLL,lll.ll,a,yyyyy.yy,a,hhmmss.ss,A 
+    $--GLL,lll.ll,a,yyyyy.yy,a,hhmmss.ss,A
     llll.ll = Latitude of position
     a = N or S
-    yyyyy.yy = Longitude of position 
-    a = E or W 
+    yyyyy.yy = Longitude of position
+    a = E or W
     hhmmss.ss = UTC of position
     A = status: A = valid data
     '''
@@ -96,13 +94,13 @@ def interpret_gps_string(gps):
         lat_cardinality = gps[14]
         long = gps[16:23]
         lon_cardinality = gps[25]
-        valid = gps[len(gps+1)]
+        valid = gps[len(gps+1)] == "A"
         return {
             "latitude" : lat,
             "lat_cardinality" : lat_cardinality,
             "longitude" : long,
             "lon_cardinality" : lon_cardinality,
-            "valid" : lambda valid : valid == "A",
+            "valid" : valid,
         }
 
     return None
