@@ -23,7 +23,7 @@ def get_gps():
 
     # If no port is found, panic
     if gps is None:
-        raise "No open ports found!"
+        raise OSError("No GPS module found!")
 
     # Open serial port
     ser = serial.Serial(gps, BAUDRATE)
