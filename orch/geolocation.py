@@ -57,7 +57,7 @@ def valid_data(data):
     that GPS has been acquired.
     '''
     data = data[7:len(data)]
-    if 'v' in data: # 'v' indicates void connection to satellites
+    if 'v' in data: # 'v' indicates no acquisition
         return False
 
     return True
@@ -66,13 +66,43 @@ def valid_data(data):
 def interpret_gps_string(gps):
     '''
     Convert strings from the GPS module into tuples
-    consisting of
+    consisting of geographic position, latitude, long
+    -itude and time.
+
+    Returns dictionary:
+    {
+        latitude : string
+        lat_cardinality : string
+        longitude : string
+        lon_cardinality : string
+        valid : bool
+    }
+    '''
+
+    '''
+    Valid input is of the form:
+    $--GLL,lll.ll,a,yyyyy.yy,a,hhmmss.ss,A 
+    llll.ll = Latitude of position
+    a = N or S
+    yyyyy.yy = Longitude of position 
+    a = E or W 
+    hhmmss.ss = UTC of position
+    A = status: A = valid data
     '''
 
     # Only look at strings containing latitude/longitude
     if gps.strip().startswith("$GPGLL"):
-        # need to find correct format
+        lat = gps[7:12]
+        lat_cardinality = gps[14]
+        long = gps[16:23]
+        lon_cardinality = gps[25]
+        valid = gps[len(gps+1)]
+        return {
+            "latitude" : lat,
+            "lat_cardinality" : lat_cardinality,
+            "longitude" : long,
+            "lon_cardinality" : lon_cardinality,
+            "valid" : lambda valid : valid == "A",
+        }
 
-        return gps
-
-    return " "
+    return None
