@@ -1,4 +1,4 @@
 flask
 flask_cors
 requests
-serial
+pyserial
