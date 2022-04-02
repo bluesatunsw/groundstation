@@ -17,3 +17,9 @@ label {
   display: block;
   margin-bottom: 10px;
 }
+
+button {
+  padding: 10px;
+  min-width: 48px;
+  min-height: 48px;
+}
