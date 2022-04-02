@@ -1,5 +1,5 @@
 frontend/node_modules
-frontent/package-lock.json
+frontend/package-lock.json
 frontend/static/js/*.js
 orch/env
 orch/Lib
