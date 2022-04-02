@@ -1,4 +1,4 @@
-import { n2yo_get_radio_passes } from './custom_types'
+import { n2yo_get_radio_passes, gps_position } from './custom_types'
 
 $(document).on('submit', 'form', function (e) {
   get_radio_passes(parseInt($(this).serializeArray()[0].value))
@@ -19,6 +19,22 @@ function get_radio_passes (norad_id: number) {
   })
 }
 
+function get_position () {
+  $.ajax({
+    url: 'http://localhost:4999/position',
+    type: 'GET',
+    dataType: 'json',
+    success: function (res: gps_position) {
+      console.log(res)
+    }
+  })
+}
+
 function update_data_field (data: n2yo_get_radio_passes) {
   $('#noradID_result').val(JSON.stringify(data))
 }
+
+
+$("#get_gps").click(function(){
+  get_position();
+}); 

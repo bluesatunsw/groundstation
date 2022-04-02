@@ -2,6 +2,7 @@
 Serial communications to retrieve location from GPS
 '''
 import serial
+import serial.tools.list_ports
 
 BAUDRATE = 115200
 

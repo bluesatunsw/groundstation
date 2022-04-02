@@ -5,6 +5,7 @@ from json import dumps
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 import api as apis
+import geolocation
 
 app = Flask(__name__)
 CORS(app)
@@ -39,6 +40,18 @@ def radiopass_request():
     api_result = apis.get_radiopasses(
         norad_id, observer_lat, observer_lng, observer_alt, days, min_elevation)
     return return_handler(api_result)
+
+
+@app.route('/position')
+def position_request():
+    """
+    An internal endpoint that returns the GPS position from serial device.
+    """
+    try:
+        api_result = geolocation.get_gps()
+        return return_handler(api_result)
+    except OSError as err:
+        return Response(str(err), status=404, mimetype='application/json')
 
 
 def return_handler(api_result):
