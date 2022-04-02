@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci
+        run: npm install
 
       - name: Run ESLint
         working-directory: ./frontend
@@ -44,7 +44,7 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci
+        run: npm install
 
       - name: Run HTMLHint
         working-directory: ./frontend
@@ -64,7 +64,7 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci
+        run: npm install
 
       - name: Run Stylelint
         working-directory: ./frontend
@@ -84,7 +84,7 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci
+        run: npm install
 
       - name: Run TSC
         working-directory: ./frontend
@@ -106,7 +106,7 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci && npm install -g @lhci/cli@0.8.x
+        run: npm install && npm install -g @lhci/cli@0.8.x
 
       - name: Build Website
         working-directory: ./frontend
