@@ -34,7 +34,6 @@ function update_data_field (data: n2yo_get_radio_passes) {
   $('#noradID_result').val(JSON.stringify(data))
 }
 
-
-$("#get_gps").click(function(){
-  get_position();
-}); 
+$('#get_gps').click(function () {
+  get_position()
+})
