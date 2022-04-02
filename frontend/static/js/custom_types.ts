@@ -40,9 +40,18 @@ interface n2yo_whats_up {
   above: n2yo_above[]
 }
 
+interface gps_position {
+  latitude : string
+  lat_cardinality : string
+  longitude : string
+  lon_cardinality : string
+  valid : boolean
+}
+
 export {
   n2yo_radio_passes,
   n2yo_above,
   n2yo_get_radio_passes,
-  n2yo_whats_up
+  n2yo_whats_up,
+  gps_position
 }

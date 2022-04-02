@@ -6,7 +6,7 @@ The frontend code to control the Bluesat Autonomous Groundstation.
 
 *Installation*
 
-`npm ci`
+`npm install`
 
 `npm run build`
 
