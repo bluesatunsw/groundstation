@@ -58,3 +58,4 @@ def get_visualpasses(
     arguments = (f'radiopasses/{norad_id}/{observer_lat}/{observer_lng}/'
                  f'{observer_alt}/{days}/{min_visibility}')
     return send_reqs(arguments)
+    
