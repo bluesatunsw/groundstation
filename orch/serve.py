@@ -41,6 +41,22 @@ def radiopass_request():
         norad_id, observer_lat, observer_lng, observer_alt, days, min_elevation)
     return return_handler(api_result)
 
+@app.route('/visualpasses')
+def visualpass_request():
+    """
+    An internal endpoint that resolves to the N2YO Get visual passes API.
+    """
+    norad_id = request.args.get('norad_id', 25544)
+    observer_lat = request.args.get('observer_lat', 33.8688)
+    observer_lng = request.args.get('observer_lng', 151.2093)
+    observer_alt = request.args.get('observer_alt', 3)
+    days = request.args.get('days', 7)
+    min_visibility = request.args.get('min_visibility', 60)
+    api_result = apis.get_visualpasses(
+        norad_id, observer_lat, observer_lng, observer_alt, days, min_visibility)
+    return return_handler(api_result)
+
+
 
 @app.route('/position')
 def position_request():

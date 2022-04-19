@@ -44,3 +44,18 @@ def get_radiopasses(
     arguments = (f'radiopasses/{norad_id}/{observer_lat}/{observer_lng}/'
                  f'{observer_alt}/{days}/{min_elevation}')
     return send_reqs(arguments)
+
+def get_visualpasses(
+        norad_id=25544,
+        observer_lat=33.8688,
+        observer_lng=151.2093,
+        observer_alt=3,
+        days=7,
+        min_visibility=60):
+    """
+    Set paramters for N2YO Get visual passes API or use reasonable defaults.
+    """
+    arguments = (f'radiopasses/{norad_id}/{observer_lat}/{observer_lng}/'
+                 f'{observer_alt}/{days}/{min_visibility}')
+    return send_reqs(arguments)
+    

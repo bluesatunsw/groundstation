@@ -31,6 +31,33 @@ interface n2yo_get_radio_passes {
   passes: n2yo_radio_passes[]
 }
 
+interface n2yo_visual_passes {
+  startAz: number,
+  startAzCompass: string,
+  startEl: number,
+  startUTC: number,
+  maxAz: number,
+  maxAzCompass: string,
+  maxEl: number,
+  maxUTC: number,
+  endAz: number,
+  endAzCompass: string,
+  endEl: number,
+  endUTC: number,
+  mag: number,
+  duration: number
+}
+
+interface n2yo_get_visual_passes {
+  info: {
+      satid: number,
+      satname: string,
+      transactionscount: number,
+      passescount: number
+  },
+  passes: n2yo_visual_passes[]
+}
+
 interface n2yo_whats_up {
   info: {
       category: string,
@@ -52,6 +79,8 @@ export {
   n2yo_radio_passes,
   n2yo_above,
   n2yo_get_radio_passes,
+  n2yo_visual_passes,
+  n2yo_get_visual_passes,
   n2yo_whats_up,
   gps_position
 }
