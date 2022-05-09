@@ -1,10 +1,13 @@
 """
 Functions to interface with the N2YO API.
 """
-import requests
 import json
+import requests
 
-api_key = json.load(open('../secrets.json'))['n2yo']
+api_key = None
+
+with open('../secrets.json', "rt", 1, "utf-8") as secrets_file:
+    api_key = json.load(secrets_file)['n2yo']
 
 def send_reqs(arguments):
     """
