@@ -25,7 +25,6 @@ interface n2yo_radio_passes {
     info: {
         satid: number,
         satname: string,
-        transactionscount: number,
         passescount: number
     },
     passes: n2yo_radio_passes[]

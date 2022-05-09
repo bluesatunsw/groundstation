@@ -6,7 +6,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import Stack from "@mui/material/Stack"
-import Fetch from "cross-fetch"
 
 import type { targetSat } from '../../types/targetSat';
 
@@ -31,7 +30,7 @@ const TargetInfo: React.FC<TargetInfoProps> = ({ sat }) => {
       <Container>
             <Stack>
                 <TargetName>
-                    {sat.name}
+                    Selected: {sat.name}
                 </TargetName>
                 <div>
                     int. ID  {sat.intDesignator}
