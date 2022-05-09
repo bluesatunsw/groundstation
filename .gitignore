@@ -6,3 +6,26 @@ orch/Lib
 orch/Scripts
 orch/__pycache__
 orch/pyvenv.cfg
+
+## React frontend
+# dependencies
+frontend-react/node_modules
+frontend-react/.pnp
+frontend-react/.pnp.js
+
+# testing
+frontend-react/coverage
+
+# production
+frontend-react/build
+
+# misc
+frontend-react/.DS_Store
+frontend-react/.env.local
+frontend-react/.env.development.local
+frontend-react/.env.test.local
+frontend-react/.env.production.local
+
+frontend-react/npm-debug.log*
+frontend-react/yarn-debug.log*
+frontend-react/yarn-error.log*
