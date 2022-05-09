@@ -6,3 +6,4 @@ orch/Lib
 orch/Scripts
 orch/__pycache__
 orch/pyvenv.cfg
+secrets.json
