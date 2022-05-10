@@ -51,12 +51,13 @@ const SidebarButton = styled(Button) <SideBarButtonProps>`
 interface SideBarProps {
   onWhatsUp: () => void;
   onFindId: () => void;
+  onCalcEn: () => void;
   setModalOpen : (b :boolean) => void;
   location: gps_pos;
 }
 
 // Wrapper component ${props => props.color}
-const SideBar: React.FC<SideBarProps> = ({ onWhatsUp, onFindId, setModalOpen, location }) => {
+const SideBar: React.FC<SideBarProps> = ({ onWhatsUp, onFindId, onCalcEn, setModalOpen, location }) => {
   return (
     <Container>
       <SidebarTitle>
@@ -72,7 +73,7 @@ const SideBar: React.FC<SideBarProps> = ({ onWhatsUp, onFindId, setModalOpen, lo
           </SidebarButton>
         </ButtonGroup>
         <ButtonGroup>
-          <SidebarButton bgColor="#82A3F8">
+          <SidebarButton bgColor="#82A3F8" onClick={onCalcEn}>
             Calculate encounter
           </SidebarButton>
           <SidebarButton bgColor="#82A3F8" onClick={(e) => {setModalOpen(true)}}>

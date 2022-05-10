@@ -1,3 +1,5 @@
+
+// Information from a single pass
 interface n2yo_radio_passes {
     startAz: number,
     startAzCompass: string,

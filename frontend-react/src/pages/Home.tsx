@@ -9,6 +9,7 @@ import TargetInfo from '../components/TargetInfo/TargetInfo';
 import LocationModal from '../components/LocationModal';
 import EncounterInfo from '../components/EncounterInfo/EncounterInfo';
 import { n2yo_visual_passes, n2yo_radio_passes } from '../types/n2yotypes';
+import { getRadioPasses, getVisualPasses } from '../logic/backend_req';
 
 const SectionTitle = styled.div`
   font-size: x-large;
@@ -29,11 +30,50 @@ const Index: React.FC = () => {
 
     const findId = () => { }
 
+    /// Get the radio and visual passes from backend and set props
+    const calcEncounter = async () => {
+        let re = await getRadioPasses(target.satid, parseFloat(loc.latitude), 
+                parseFloat(loc.longitude), parseFloat(loc.altitude));
+        let ve = await getVisualPasses(target.satid, parseFloat(loc.latitude),
+                parseFloat(loc.longitude), parseFloat(loc.altitude));
+        
+        setRe( {
+            startAz: re.passes[0].startAz,
+            startAzCompass: re.passes[0].startAzCompass,
+            startUTC: re.passes[0].startUTC,
+            maxAz: re.passes[0].maxAz,
+            maxAzCompass: re.passes[0].maxAzCompass,
+            maxEl: re.passes[0].maxEl,
+            maxUTC: re.passes[0].maxUTC,
+            endAz: re.passes[0].endAz,
+            endAzCompass: re.passes[0].endAzCompass,
+            endUTC: re.passes[0].endUTC,
+        })
+
+        setVe({
+            startAz: ve.passes[0].startAz,
+            startAzCompass: ve.passes[0].startAzCompass,
+            startEl: ve.passes[0].startEl,
+            startUTC: ve.passes[0].startUTC,
+            maxAz: ve.passes[0].maxAz,
+            maxAzCompass: ve.passes[0].maxAzCompass,
+            maxEl: ve.passes[0].maxEl,
+            maxUTC: ve.passes[0].maxUTC,
+            endAz: ve.passes[0].endAz,
+            endAzCompass: ve.passes[0].endAzCompass,
+            endEl: ve.passes[0].endEl,
+            endUTC: ve.passes[0].endUTC,
+            mag: ve.passes[0].mag,
+            duration: ve.passes[0].duration,
+        })
+        
+    }
 
     return (
 
         <div style={{ display: 'flex', float: "left", height: "100%" }}>
-            <Sidebar onWhatsUp={whatsup} onFindId={findId} setModalOpen={setLocModal} location={loc} />
+            <Sidebar onWhatsUp={whatsup} onFindId={findId} setModalOpen={setLocModal} 
+            onCalcEn={calcEncounter} location={loc} />
             <Dialog
                 open={locModal}
                 onClose={() => setLocModal(false)}
