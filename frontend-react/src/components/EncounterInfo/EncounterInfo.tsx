@@ -6,6 +6,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Stack from "@mui/material/Stack"
 import { n2yo_radio_passes, n2yo_visual_passes } from '../../types/n2yotypes';
+import UTCtoD from '../../logic/utility';
 
 
 const Container = styled.div`
@@ -36,14 +37,18 @@ interface EncounterInfoProps {
 }
 
 const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
-    return (
+  let rp_start : string = UTCtoD(rp.startUTC);
+  let rp_end : string = UTCtoD(rp.endUTC);
+  let rp_max : string = UTCtoD(rp.maxUTC);
+  
+  return (
       <Container>
             <Stack>
                 <Title>
                     Encounter details
                 </Title>
                 <Param>
-                    Encounter begins at {rp.startUTC}, ends at {rp.endUTC}
+                    Encounter begins at {rp_start}, ends at {rp_end}
                 </Param>
 
                 <Subtitle>
@@ -53,14 +58,14 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
                     Az: { rp.startAz }° - { rp.endAz }°
                 </Param>
                 <Param>
-                    Max Elevation {rp.maxEl}° at {rp.maxUTC}
+                    Max Elevation {rp.maxEl}° at {rp_max}
                 </Param>
                 
                 <Subtitle>
                     Visual encounter
                 </Subtitle>
                 <Param>
-                    ({vp.startAz}°, {vp.startEl}m) - ({vp.endAz}°, {vp.endEl}m)
+                    (Az {vp.startAz}°, El {vp.startEl}°) - (Az {vp.endAz}°, El {vp.endEl}°)
                 </Param>
                 <Param>
                     Visible for {vp.duration} seconds at magnitude {vp.mag} brightness
