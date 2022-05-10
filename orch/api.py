@@ -58,4 +58,10 @@ def get_visualpasses(
     arguments = (f'radiopasses/{norad_id}/{observer_lat}/{observer_lng}/'
                  f'{observer_alt}/{days}/{min_visibility}')
     return send_reqs(arguments)
-    
+
+def get_tle(norad_id=25544):
+    """
+    Set paramters for N2YO Get TLE API or use reasonable defaults.
+    """
+    arguments = (f'tle/{norad_id}')
+    return send_reqs(arguments)

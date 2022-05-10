@@ -56,7 +56,14 @@ def visualpass_request():
         norad_id, observer_lat, observer_lng, observer_alt, days, min_visibility)
     return return_handler(api_result)
 
-
+@app.route('/gettle')
+def gettle_request():
+    """
+    Internal endpoint to retrieve TLE
+    """
+    norad_id = request.args.get('norad_id', 25544)
+    api_result = apis.get_tle(norad_id)
+    return result_handler(api_result)
 
 @app.route('/position')
 def position_request():
