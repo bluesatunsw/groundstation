@@ -11,23 +11,10 @@ import { gps_pos } from '../types/hardwareTypes';
 import React from 'react';
 import styled from 'styled-components';
 import Stack from "@mui/material/Stack";
+import { Container, Body } from './Common';
 
-const Container = styled.div`
-  width: 300px;
-  height: 350px;
-  background: white;
-  padding: 10px;
-  left: 40%;
-  top: 30%;
-`
 
-const Body = styled.div`
-  display: flex;
-  flex-direction: row; 
-  height: 50%;
-`
-
-const Field = styled.div `
+const Field = styled.div`
     padding: 10px;
 `
 
@@ -65,20 +52,19 @@ const LocationModal: React.FC<LocationModalProps> = ({ onSetLocation, location, 
                         <Field>
                             <TextField label="Longitude" value={lon} onChange={(e) => setLon(e.target.value)} />
                         </Field>
-                        <Field> 
+                        <Field>
                             <TextField label="Altitude" value={alt} onChange={(e) => setAlt(e.target.value)} />
                         </Field>
                     </Stack>
                 </Body>
-                <div style = {{margin: "auto", width: "60%", padding:"15px"}}>
-                    <Button variant="outlined" color="secondary" onClick = {handleSetLocation}>
-                    Change location
+                <div style={{ margin: "auto", width: "60%", padding: "15px" }}>
+                    <Button variant="outlined" color="secondary" onClick={handleSetLocation}>
+                        Change location
                     </Button>
                 </div>
             </Stack>
         </Container>
     )
-  }
-  
+}
+
 export default LocationModal;
-  

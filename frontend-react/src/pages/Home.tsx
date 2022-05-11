@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Sidebar from '../components/Sidebar';
 import Stack from "@mui/material/Stack"
-import { Dialog, DialogContent, IconButton } from "@mui/material"
+import { Dialog, DialogContent } from "@mui/material"
 import type { gps_pos } from '../types/hardwareTypes';
 import type { targetSat } from '../types/targetSat';
 import TargetInfo from '../components/TargetInfo/TargetInfo';
@@ -10,6 +10,7 @@ import LocationModal from '../components/LocationModal';
 import EncounterInfo from '../components/EncounterInfo/EncounterInfo';
 import { n2yo_visual_passes, n2yo_radio_passes } from '../types/n2yotypes';
 import { getRadioPasses, getVisualPasses } from '../logic/backend_req';
+import SysLocation from '../components/SystemInfo/SysLocation';
 
 const SectionTitle = styled.div`
   font-size: x-large;
@@ -32,12 +33,12 @@ const Index: React.FC = () => {
 
     /// Get the radio and visual passes from backend and set props
     const calcEncounter = async () => {
-        let re = await getRadioPasses(target.satid, parseFloat(loc.latitude), 
-                parseFloat(loc.longitude), parseFloat(loc.altitude));
+        let re = await getRadioPasses(target.satid, parseFloat(loc.latitude),
+            parseFloat(loc.longitude), parseFloat(loc.altitude));
         let ve = await getVisualPasses(target.satid, parseFloat(loc.latitude),
-                parseFloat(loc.longitude), parseFloat(loc.altitude));
-        
-        setRe( {
+            parseFloat(loc.longitude), parseFloat(loc.altitude));
+
+        setRe({
             startAz: re.passes[0].startAz,
             startAzCompass: re.passes[0].startAzCompass,
             startUTC: re.passes[0].startUTC,
@@ -66,14 +67,14 @@ const Index: React.FC = () => {
             mag: ve.passes[0].mag,
             duration: ve.passes[0].duration,
         })
-        
+
     }
 
     return (
 
         <div style={{ display: 'flex', float: "left", height: "100%" }}>
-            <Sidebar onWhatsUp={whatsup} onFindId={findId} setModalOpen={setLocModal} 
-            onCalcEn={calcEncounter} location={loc} />
+            <Sidebar onWhatsUp={whatsup} onFindId={findId} setModalOpen={setLocModal}
+                onCalcEn={calcEncounter} location={loc} />
             <Dialog
                 open={locModal}
                 onClose={() => setLocModal(false)}
@@ -94,17 +95,7 @@ const Index: React.FC = () => {
                     <SectionTitle>
                         System
                     </SectionTitle>
-                    <Stack>
-                        <div>
-                            LONG {loc.longitude}
-                        </div>
-                        <div>
-                            LAT  {loc.latitude}
-                        </div>
-                        <div>
-                            ALT  {loc.altitude}
-                        </div>
-                    </Stack>
+                    <SysLocation location={loc} />
                 </Stack>
             </Stack>
         </div>

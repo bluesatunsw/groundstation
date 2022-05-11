@@ -3,35 +3,22 @@
 // Matt
 
 import React from 'react';
-import styled from 'styled-components';
-import Button from '@mui/material/Button';
 import Stack from "@mui/material/Stack"
-
+import { Container, Title } from '../Common';
 import type { targetSat } from '../../types/targetSat';
 
-const Container = styled.div`
-  width: 250px;
-  background: #c6c6c6;
-  height: 100%;
-`
-
-const TargetName = styled.div`
-  font-size: large;
-  margin: 2rem;
-  font-weight: bold;
-`
 
 interface TargetInfoProps {
-    sat : targetSat
+    sat: targetSat
 }
 
 const TargetInfo: React.FC<TargetInfoProps> = ({ sat }) => {
     return (
-      <Container>
+        <Container>
             <Stack>
-                <TargetName>
+                <Title>
                     Selected: {sat.name}
-                </TargetName>
+                </Title>
                 <div>
                     int. ID  {sat.intDesignator}
                 </div>
@@ -39,8 +26,8 @@ const TargetInfo: React.FC<TargetInfoProps> = ({ sat }) => {
                     NORAD ID {sat.satid}
                 </div>
             </Stack>
-      </Container>
+        </Container>
     )
-  }
-  
-  export default TargetInfo;
+}
+
+export default TargetInfo;
