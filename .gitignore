@@ -21,6 +21,9 @@ frontend-react/build
 
 # misc
 frontend-react/.DS_Store
+frontend-react/package-lock.json
+frontend-react/yarn.lock
+frontend-react/node_modules
 frontend-react/.env.local
 frontend-react/.env.development.local
 frontend-react/.env.test.local
