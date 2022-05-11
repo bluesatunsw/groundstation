@@ -63,7 +63,21 @@ def gettle_request():
     """
     norad_id = request.args.get('norad_id', 25544)
     api_result = apis.get_tle(norad_id)
-    return result_handler(api_result)
+    return return_handler(api_result)
+
+@app.route('/getpositions')
+def get_positions():
+    """
+    Internal endpoint to get satellite locations from n2yo
+    """
+    norad_id = request.args.get('norad_id', 25544)
+    observer_lat = request.args.get('observer_lat', 33.8688)
+    observer_lng = request.args.get('observer_lng', 151.2093)
+    observer_alt = request.args.get('observer_alt', 3)
+    seconds = request.args.get('seconds', 1)
+    api_result = apis.get_positions(norad_id, observer_lat, observer_lng, observer_alt, seconds)
+    return return_handler(api_result)
+
 
 @app.route('/position')
 def position_request():

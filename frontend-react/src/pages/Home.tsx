@@ -11,6 +11,7 @@ import EncounterInfo from '../components/EncounterInfo/EncounterInfo';
 import { n2yo_visual_passes, n2yo_radio_passes } from '../types/n2yotypes';
 import { getRadioPasses, getVisualPasses } from '../logic/backend_req';
 import SysLocation from '../components/SystemInfo/SysLocation';
+import SelectTargetModal from '../components/SelectTargetModal';
 
 const SectionTitle = styled.div`
   font-size: x-large;
@@ -19,9 +20,15 @@ const SectionTitle = styled.div`
 `
 
 const Index: React.FC = () => {
+    // Location state
     const [loc, setLoc] = useState<gps_pos>(default_pos);
-    const [target, setTarget] = useState<targetSat>(default_sat);
     const [locModal, setLocModal] = useState(false);
+
+    // Target state
+    const [target, setTarget] = useState<targetSat>(default_sat);
+    const [targetModal, setTargetModal] = useState(false);
+
+    // Encounter state
     const [radioEncounter, setRe] = useState<n2yo_radio_passes>(default_radio_passes);
     const [visualEncounter, setVe] = useState<n2yo_visual_passes>(default_visual_passes);
 
@@ -73,9 +80,10 @@ const Index: React.FC = () => {
     return (
 
         <div style={{ display: 'flex', float: "left", height: "100%" }}>
-            <Sidebar onWhatsUp={whatsup} onFindId={findId} setModalOpen={setLocModal}
-                onCalcEn={calcEncounter} location={loc} />
-            <Dialog
+            <Sidebar onWhatsUp={whatsup} onFindId={findId} setLocModal={setLocModal} 
+            setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
+            {/* Location selector modal */}
+            <Dialog 
                 open={locModal}
                 onClose={() => setLocModal(false)}
             >
@@ -83,6 +91,17 @@ const Index: React.FC = () => {
                     <LocationModal onSetLocation={setLoc} location={loc} setModalOpen={setLocModal} />
                 </DialogContent>
             </Dialog>
+
+            {/* Target selector modal */}
+            <Dialog
+                open={targetModal}
+                onClose={() => setTargetModal(false)}
+            >
+                <DialogContent>
+                    <SelectTargetModal onSetTarget={setTarget} cursat={target} setModalOpen={setTargetModal} />
+                </DialogContent>
+            </Dialog>
+
             <Stack direction="row">
                 <Stack>
                     <SectionTitle>

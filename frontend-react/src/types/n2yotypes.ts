@@ -68,6 +68,26 @@ interface n2yo_radio_passes {
     above: n2yo_above[]
   }
 
+  interface n2yo_position {
+    satlatitude: number,
+    satlongitude: number,
+    sataltitude: number,
+    azimuth: number,
+    elevation: number,
+    ra : number,
+    dec : number,
+    timestamp: number
+  }
+
+  interface n2yo_positions {
+    info : {
+      satid: number,
+      satname: string,
+      transactioncount: number,
+    },
+   positions: n2yo_position[]
+  }
+
   
   export type {
     n2yo_radio_passes,
@@ -76,4 +96,6 @@ interface n2yo_radio_passes {
     n2yo_visual_passes,
     n2yo_get_visual_passes,
     n2yo_whats_up,
+    n2yo_position,
+    n2yo_positions
   }
