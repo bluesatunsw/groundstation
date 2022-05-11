@@ -3,10 +3,10 @@ name: Frontend
 on:
   push:
     paths:
-      - 'frontend/**'
+      - 'frontend-react/**'
   pull_request:
     paths:
-      - 'frontend/**'
+      - 'frontend-react/**'
 
 jobs:
 
@@ -23,11 +23,11 @@ jobs:
           node-version: '14'
 
       - name: Install Modules
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm install
 
       - name: Run ESLint
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm run lint-ts
 
   frontend_lint_html:
@@ -43,11 +43,11 @@ jobs:
           node-version: '14'
 
       - name: Install Modules
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm install
 
       - name: Run HTMLHint
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm run lint-html 
 
   frontend_lint_css:
@@ -63,11 +63,11 @@ jobs:
           node-version: '14'
 
       - name: Install Modules
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm install
 
       - name: Run Stylelint
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm run lint-css 
 
   frontend_build_ts:
@@ -83,11 +83,11 @@ jobs:
           node-version: '14'
 
       - name: Install Modules
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm install
 
       - name: Run TSC
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm run build
 
   frontend_lighthouse:
@@ -105,15 +105,15 @@ jobs:
           node-version: '14'
 
       - name: Install Modules
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm install && npm install -g @lhci/cli@0.8.x
 
       - name: Build Website
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run: npm run build
 
       - name: Generate Report
-        working-directory: ./frontend
+        working-directory: ./frontend-react
         run:
           lhci autorun
         env:
