@@ -1,7 +1,10 @@
 interface targetSat {
     satid: number,
     name: string,
-    intDesignator: string,
+    ra : number,
+    dec : number,
+    lat : number,
+    lon : number
 }
 
 export type {targetSat};

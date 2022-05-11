@@ -98,7 +98,8 @@ const Index: React.FC = () => {
                 onClose={() => setTargetModal(false)}
             >
                 <DialogContent>
-                    <SelectTargetModal onSetTarget={setTarget} cursat={target} setModalOpen={setTargetModal} />
+                    <SelectTargetModal onSetTarget={setTarget} cursat={target} 
+                    setModalOpen={setTargetModal} pos={loc} />
                 </DialogContent>
             </Dialog>
 
@@ -132,8 +133,11 @@ const default_pos: gps_pos = {
 // Default to ISS Zarya
 const default_sat: targetSat = {
     satid: 25544,
-    name: "ISS (Zarya)",
-    intDesignator: "1998-067A"
+    name: "No target",
+    ra : 0,
+    dec : 0,
+    lat : 0,
+    lon : 0,
 }
 
 const default_visual_passes: n2yo_visual_passes = {
