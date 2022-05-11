@@ -104,14 +104,14 @@ const Index: React.FC = () => {
             </Dialog>
 
             <Stack direction="row">
-                <Stack style={{margin: "10px"}}>
+                <Stack>
                     <SectionTitle>
                         Target
                     </SectionTitle>
                     <TargetInfo sat={target} />
                     <EncounterInfo vp={visualEncounter} rp={radioEncounter} />
                 </Stack>
-                <Stack style={{margin: "10px"}}>
+                <Stack>
                     <SectionTitle>
                         System
                     </SectionTitle>

@@ -7,6 +7,7 @@ import styled from "styled-components"
 export const Container = styled.div`
 width: 250px;
 height: 100%;
+margin: 5px;
 `
 
 export const Title = styled.div`
