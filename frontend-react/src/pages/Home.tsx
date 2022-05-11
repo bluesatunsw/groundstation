@@ -80,10 +80,10 @@ const Index: React.FC = () => {
     return (
 
         <div style={{ display: 'flex', float: "left", height: "100%" }}>
-            <Sidebar onWhatsUp={whatsup} onFindId={findId} setLocModal={setLocModal} 
-            setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
+            <Sidebar onWhatsUp={whatsup} onFindId={findId}
+                setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
             {/* Location selector modal */}
-            <Dialog 
+            <Dialog
                 open={locModal}
                 onClose={() => setLocModal(false)}
             >
@@ -98,24 +98,24 @@ const Index: React.FC = () => {
                 onClose={() => setTargetModal(false)}
             >
                 <DialogContent>
-                    <SelectTargetModal onSetTarget={setTarget} cursat={target} 
-                    setModalOpen={setTargetModal} pos={loc} />
+                    <SelectTargetModal onSetTarget={setTarget} cursat={target}
+                        setModalOpen={setTargetModal} pos={loc} />
                 </DialogContent>
             </Dialog>
 
             <Stack direction="row">
-                <Stack>
+                <Stack style={{margin: "10px"}}>
                     <SectionTitle>
                         Target
                     </SectionTitle>
                     <TargetInfo sat={target} />
                     <EncounterInfo vp={visualEncounter} rp={radioEncounter} />
                 </Stack>
-                <Stack>
+                <Stack style={{margin: "10px"}}>
                     <SectionTitle>
                         System
                     </SectionTitle>
-                    <SysLocation location={loc} />
+                    <SysLocation location={loc} setLocModal={setLocModal} />
                 </Stack>
             </Stack>
         </div>
@@ -134,10 +134,10 @@ const default_pos: gps_pos = {
 const default_sat: targetSat = {
     satid: 25544,
     name: "No target",
-    ra : 0,
-    dec : 0,
-    lat : 0,
-    lon : 0,
+    ra: 0,
+    dec: 0,
+    lat: 0,
+    lon: 0,
 }
 
 const default_visual_passes: n2yo_visual_passes = {

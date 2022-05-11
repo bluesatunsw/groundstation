@@ -3,7 +3,6 @@
 // Matt
 
 import React from 'react';
-import Stack from "@mui/material/Stack"
 import { Container } from '../Common';
 import type { targetSat } from '../../types/targetSat';
 import { Card, CardContent, Typography } from '@mui/material';
@@ -16,8 +15,7 @@ interface TargetInfoProps {
 const TargetInfo: React.FC<TargetInfoProps> = ({ sat }) => {
     return (
         <Container>
-            <Stack>
-            <Card sx={{minWidth: 250}}>
+            <Card sx={{ minWidth: 250 }}>
                 <CardContent>
                     <Typography variant="h5" component="div">
                         {sat.name}
@@ -39,7 +37,6 @@ const TargetInfo: React.FC<TargetInfoProps> = ({ sat }) => {
                     </Typography>
                 </CardContent>
             </Card>
-            </Stack>
         </Container>
     )
 }

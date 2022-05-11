@@ -5,8 +5,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
-import Stack from "@mui/material/Stack"
-import { gps_pos } from '../types/hardwareTypes';
 
 const Container = styled.div`
   width: 250px;
@@ -52,12 +50,11 @@ interface SideBarProps {
   onWhatsUp: () => void;
   onFindId: () => void;
   onCalcEn: () => void;
-  setLocModal : (b :boolean) => void;
-  setTargetModal : (b :boolean) => void;
+  setTargetModal: (b: boolean) => void;
 }
 
 // Wrapper component ${props => props.color}
-const SideBar: React.FC<SideBarProps> = ({ onWhatsUp, onFindId, onCalcEn, setLocModal, setTargetModal}) => {
+const SideBar: React.FC<SideBarProps> = ({ onWhatsUp, onFindId, onCalcEn, setTargetModal }) => {
   return (
     <Container>
       <SidebarTitle>
@@ -68,16 +65,13 @@ const SideBar: React.FC<SideBarProps> = ({ onWhatsUp, onFindId, onCalcEn, setLoc
           <SidebarButton bgColor="#F88282" onClick={onWhatsUp}>
             What's up
           </SidebarButton>
-          <SidebarButton bgColor="#F88282" onClick={(e) => {setTargetModal(true)}}>
+          <SidebarButton bgColor="#F88282" onClick={(e) => { setTargetModal(true) }}>
             Find by ID
           </SidebarButton>
         </ButtonGroup>
         <ButtonGroup>
           <SidebarButton bgColor="#82A3F8" onClick={onCalcEn}>
             Calculate encounter
-          </SidebarButton>
-          <SidebarButton bgColor="#82A3F8" onClick={(e) => {setLocModal(true)}}>
-            Set location
           </SidebarButton>
         </ButtonGroup>
       </ButtonFlex>

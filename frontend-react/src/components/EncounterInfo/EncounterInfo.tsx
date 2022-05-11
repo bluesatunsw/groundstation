@@ -3,10 +3,10 @@
 // Matt
 
 import React from 'react';
-import Stack from "@mui/material/Stack"
+import { Card, CardContent, Typography } from "@mui/material"
 import { n2yo_radio_passes, n2yo_visual_passes } from '../../types/n2yotypes';
 import UTCtoD from '../../logic/utility';
-import { Container, Title, Subtitle, Param } from '../Common';
+import { Container } from '../Common';
 
 interface EncounterInfoProps {
   vp: n2yo_visual_passes,
@@ -20,34 +20,37 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
 
   return (
     <Container>
-      <Stack>
-        <Title>
-          Encounter details
-        </Title>
-        <Param>
-          Encounter begins at {rp_start}, ends at {rp_end}
-        </Param>
-
-        <Subtitle>
-          Radio encounter
-        </Subtitle>
-        <Param>
-          Az: {rp.startAz}° - {rp.endAz}°
-        </Param>
-        <Param>
-          Max Elevation {rp.maxEl}° at {rp_max}
-        </Param>
-
-        <Subtitle>
-          Visual encounter
-        </Subtitle>
-        <Param>
-          (Az {vp.startAz}°, El {vp.startEl}°) - (Az {vp.endAz}°, El {vp.endEl}°)
-        </Param>
-        <Param>
-          Visible for {vp.duration} seconds at magnitude {vp.mag} brightness
-        </Param>
-      </Stack>
+      <Card sx={{ minWidth: 240 }} variant="outlined">
+        <CardContent>
+          <Typography variant="h6" component="div">
+            Encounter details
+          </Typography>
+          <Typography variant="body2">
+            Encounter begins at {rp_start}, ends at {rp_end}
+          </Typography>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" style={{margin: "5px"}}>
+            Radio Encounter
+          </Typography>
+          <Typography variant="body2">
+            Az: {rp.startAz}° - {rp.endAz}°
+          </Typography>
+          <Typography variant="body2">
+            Max Elevation {rp.maxEl}° at {rp_max}
+          </Typography>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" style={{margin: "5px"}}>
+            Visual Encounter
+          </Typography>
+          <Typography variant="body2">
+            From (Az {vp.startAz}°, El {vp.startEl}°)
+          </Typography>
+          <Typography variant="body2">
+            To (Az {vp.endAz}°, El {vp.endEl}°)
+          </Typography>
+          <Typography variant="body2">
+            Visible for {vp.duration} seconds at magnitude {vp.mag} brightness
+          </Typography>
+        </CardContent>
+      </Card>
     </Container>
   )
 }
