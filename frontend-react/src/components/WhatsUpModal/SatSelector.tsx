@@ -36,6 +36,9 @@ const SatSelector: React.FC<SatSelectorProps> = ({ list, selected, setSelected }
                         setSelected={() => { setSelected(sat) }} />
                 )
             })}
+        <p style={{padding:"10px"}}>
+            {list.length} satellites found
+        </p>
         </ScrollDiv>
     )
 }

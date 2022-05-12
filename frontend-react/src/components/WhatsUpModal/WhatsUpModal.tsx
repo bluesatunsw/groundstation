@@ -3,8 +3,10 @@
 // // # # # 
 // // It contains a template selector + preview, as well as a title field.
 
-import { Button, FormControl, Select, MenuItem, InputLabel, 
-  Box, Stack, Slider, Typography } from '@mui/material';
+import {
+  Button, FormControl, Select, MenuItem, InputLabel,
+  Box, Stack, Slider, Typography
+} from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
 import SatSelector from './SatSelector';
@@ -12,7 +14,7 @@ import { categories } from './Category'
 import { n2yo_above } from '../../types/n2yotypes';
 import { gps_pos } from '../../types/hardwareTypes';
 import type { targetSat } from '../../types/targetSat';
-import { getWhatsUp } from '../../logic/backend_req';
+import { getPositions, getWhatsUp } from '../../logic/backend_req';
 
 const Container = styled.div`
   width: 300px;
@@ -31,9 +33,9 @@ interface WhatsUpProps {
 }
 
 // Wrapper component
-const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location }) => {
+const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location, setModalOpen }) => {
 
-  const [cat, setCat] = React.useState<string>('All')
+  const [cat, setCat] = React.useState<string>('0')
   const [list, setList] = React.useState<n2yo_above[]>([])
   const [radius, setRadius] = React.useState<number>(20)
 
@@ -51,14 +53,25 @@ const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location }) =
     }
   );
 
-  const aboveToTarget = (sat: n2yo_above) => {
-
+  // Convert satellite selected from above into target satellite format.
+  const aboveToTarget = async () => {
+    let response = await getPositions(selected.satid, location, 1)
+    let n = {
+      satid: response.info.satid,
+      name: response.info.satname,
+      ra: response.positions[0].ra,
+      dec: response.positions[0].dec,
+      lat: response.positions[0].satlatitude,
+      lon: response.positions[0].satlongitude,
+    };
+    setTarget(n)
+    setModalOpen(false)
   }
 
+  // Query the backend to get a list of satellites
   const queryWhatsUp = async () => {
-    let category: number = categories[cat]
-
-    let response = await getWhatsUp(location, radius, category)
+    let response = await getWhatsUp(location, radius, parseInt(cat))
+    setList([] as n2yo_above[]) // Flush this to avoid issues with caching when switching categories
     setList(response.above)
   }
 
@@ -70,47 +83,52 @@ const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location }) =
   return (
     <Container>
       <Stack direction={'row'}>
-          <Stack style={{marginRight:"20px"}}>
-            <FormControl fullWidth>
-              <InputLabel id="satellite-category">Search category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={cat}
-                label="Cat"
-                onChange={(e) => {
-                  setCat(e.target.value)
-                }}
-              >
-                {Object.keys(categories).map((key, index) => {
-                  return (<MenuItem value={index}>{key}</MenuItem>);
-                })}
-              </Select>
-            </FormControl>
-            <Typography gutterBottom>
-              Search radius
-            </Typography>
-            <Slider
-              aria-label="Small steps"
-              defaultValue={40}
-              step={1}
-              marks
-              min={0}
-              max={90}
-              valueLabelDisplay="on"
-              style={{ marginTop: '40px' }}
-              onChange={handleSliderChange}
-              sx={{ width: '150px' }}
-            />
-            <p>
-              Warning: Setting search radius above 40 will cause significant slowdown
-            </p>
-            <Button variant="outlined" color="secondary" onClick={() => {
-                queryWhatsUp();
-              }}>
-                Search
-            </Button>
-          </Stack>
+        <Stack style={{ marginRight: "20px" }}>
+          <FormControl fullWidth>
+            <InputLabel id="satellite-category">Search category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={cat}
+              label="Category"
+              onChange={(e) => {
+                setCat(e.target.value)
+              }}
+            >
+              {Object.keys(categories).map((key, index) => {
+                return (<MenuItem value={index}>{key}</MenuItem>);
+              })}
+            </Select>
+          </FormControl>
+          <Typography gutterBottom>
+            Search radius
+          </Typography>
+          <Slider
+            aria-label="Small steps"
+            defaultValue={40}
+            step={1}
+            marks
+            min={0}
+            max={90}
+            valueLabelDisplay="on"
+            style={{ marginTop: '40px' }}
+            onChange={handleSliderChange}
+            sx={{ width: '150px' }}
+          />
+          <p>
+            Warning: Setting search radius above 40 will cause significant slowdown without a category
+          </p>
+          <Button variant="outlined" color="secondary" onClick={() => {
+            queryWhatsUp();
+          }}>
+            Search
+          </Button>
+          <Button variant="outlined" style={{ marginTop: "5px" }} onClick={() => {
+            aboveToTarget();
+          }}>
+            Accept
+          </Button>
+        </Stack>
         <Stack>
           <SatSelector list={list} selected={selected} setSelected={setSelected} />
         </Stack>
