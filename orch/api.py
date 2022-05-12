@@ -45,6 +45,7 @@ def get_radiopasses(
                  f'{observer_alt}/{days}/{min_elevation}')
     return send_reqs(arguments)
 
+
 def get_visualpasses(
         norad_id=25544,
         observer_lat=33.8688,
@@ -59,6 +60,7 @@ def get_visualpasses(
                  f'{observer_alt}/{days}/{min_visibility}')
     return send_reqs(arguments)
 
+
 def get_tle(norad_id=25544):
     """
     Set paramters for N2YO Get TLE API or use reasonable defaults.
@@ -66,13 +68,15 @@ def get_tle(norad_id=25544):
     arguments = (f'tle/{norad_id}')
     return send_reqs(arguments)
 
+
 def get_positions(norad_id=25544,
-        observer_lat=33.8688,
-        observer_lng=151.2093,
-        observer_alt=3,
-        seconds = 1):
+                  observer_lat=33.8688,
+                  observer_lng=151.2093,
+                  observer_alt=3,
+                  seconds=1):
     """
     Get satellite positions from N2YO API.
     """
-    arguments=(f'positions/{norad_id}/{observer_lat}/{observer_lng}/{observer_alt}/{seconds}')
+    arguments = (
+        f'positions/{norad_id}/{observer_lat}/{observer_lng}/{observer_alt}/{seconds}')
     return send_reqs(arguments)
