@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Groundstation control",
+  "name": "bluesat groundstation control v1",
   "icons": [
     {
       "src": "favicon.ico",
