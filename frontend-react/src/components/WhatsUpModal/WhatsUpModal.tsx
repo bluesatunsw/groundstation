@@ -5,7 +5,7 @@
 
 import {
   Button, FormControl, Select, MenuItem, InputLabel,
-  Box, Stack, Slider, Typography
+  Stack, Slider, Typography
 } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';

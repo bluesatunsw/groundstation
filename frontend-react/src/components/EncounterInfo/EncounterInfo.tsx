@@ -28,7 +28,7 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
           <Typography variant="body2">
             Encounter begins at {rp_start}, ends at {rp_end}
           </Typography>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" style={{margin: "5px"}}>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" style={{ margin: "5px" }}>
             Radio Encounter
           </Typography>
           <Typography variant="body2">
@@ -37,7 +37,7 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
           <Typography variant="body2">
             Max Elevation {rp.maxEl}° at {rp_max}
           </Typography>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" style={{margin: "5px"}}>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" style={{ margin: "5px" }}>
             Visual Encounter
           </Typography>
           <Typography variant="body2">
@@ -47,7 +47,7 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
             To (Az {vp.endAz}°, El {vp.endEl}°)
           </Typography>
           <Typography variant="body2">
-            Visible for {vp.duration} seconds at magnitude {vp.mag < 10000 ? vp.mag : '?' 
+            Visible for {vp.duration} seconds at magnitude {vp.mag < 10000 ? vp.mag : '?'
             /* 10000 only if the world is ending or n2yo doesn't know*/} brightness
           </Typography>
         </CardContent>
