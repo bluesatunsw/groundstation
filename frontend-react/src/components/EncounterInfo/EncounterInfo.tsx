@@ -47,7 +47,8 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
             To (Az {vp.endAz}°, El {vp.endEl}°)
           </Typography>
           <Typography variant="body2">
-            Visible for {vp.duration} seconds at magnitude {vp.mag} brightness
+            Visible for {vp.duration} seconds at magnitude {vp.mag < 10000 ? vp.mag : '?' 
+            /* 10000 only if the world is ending or n2yo doesn't know*/} brightness
           </Typography>
         </CardContent>
       </Card>
