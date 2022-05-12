@@ -1,22 +1,19 @@
 // Scrollable selector for What's Up
-// Matthew Rossouw, @omeh-a (09/2021)
+// Matthew Rossouw, @omeh-a (05/2022)
 // # # # 
 
 
 import React from 'react';
 import styled from 'styled-components';
+import { n2yo_above } from '../../types/n2yotypes';
 import SatChip from './SatChip';
 
 
-interface TemplateFile {
-    name: string;
-    description: string;
-    img: string;
-}
 
 interface SatSelectorProps {
-    selected: string,
-    setSelected : (name: string) => void,
+    selected: n2yo_above,
+    list: n2yo_above[],
+    setSelected: (sat: n2yo_above) => void,
 }
 
 const ScrollDiv = styled.div`
@@ -29,23 +26,15 @@ const ScrollDiv = styled.div`
     margin: 10px;
 `
 
-
-/**
- * Subcomponent for NewDialogue which gets a list of
- * templates to present for selection by the user.
- */
-const SatSelector : React.FC<SatSelectorProps> = ({selected, setSelected}) => {
-    const GetWhatsUp = () => {
+const SatSelector: React.FC<SatSelectorProps> = ({ list, selected, setSelected }) => {
     
-    }
     return (
-        <ScrollDiv>
-            {templates["templates"].map((file: TemplateFile)=> {
+        <ScrollDiv style={{width : "300px"}}>
+            {list.map((sat: n2yo_above) => {
                 return (
-                    // eslint-disable-next-line
-                    <SatChip name={file.name} isSelected={file.name == selected}
-                    img={file.img} description={file.description} click={() => {setSelected(file.name)}}/>
-                )                   
+                    <SatChip isSelected={sat == selected} sat={sat}
+                        setSelected={() => { setSelected(sat) }} />
+                )
             })}
         </ScrollDiv>
     )

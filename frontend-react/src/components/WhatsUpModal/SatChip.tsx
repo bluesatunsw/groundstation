@@ -7,32 +7,29 @@
 
 import { Avatar, Chip, Tooltip } from '@mui/material';
 import React from 'react';
+import { n2yo_above } from '../../types/n2yotypes';
 
 
 interface SatChipProps {
-    name : string,
-    satid : number,
+    sat : n2yo_above,
     isSelected: boolean,
-    category: string,
-    click: (id : number) => void
+    setSelected: (sat : n2yo_above) => void
 }
 
 /**
  * Representation of a single template. Returns its name to the Selector
  * upon click to let it know which one is selected.
  */
-const SatChip : React.FC<SatChipProps> = ({name, satid, click, isSelected}) => {
+const SatChip : React.FC<SatChipProps> = ({sat, setSelected, isSelected}) => {
     return (
-        <Tooltip title = {description}>
+        <Tooltip title = {sat.satid}>
             <Chip
-                id = {name}
-                label = {name}
-                avatar = {<Avatar>{name.substring(0,1)}</Avatar>}
-                onClick = {() => {click(name)}}
+                label = {`${sat.satname} : ${sat.intDesignator}`}
+                avatar = {<Avatar>{sat.satname.substring(0,1)}</Avatar>}
+                onClick = {() => {setSelected(sat)}}
                 color = {isSelected ? "primary" : "default"}
-                style = {{margin: "3px"}}
+                style = {{margin: "3px", width: "340px"}}
             />
-
         </Tooltip>
     )
 }

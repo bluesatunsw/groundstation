@@ -16,6 +16,7 @@ interface n2yo_radio_passes {
   interface n2yo_above {
     satid: number,
     satname: string,
+    category: string,
     intDesignator: string,
     launchDate: string,
     satlat: number,

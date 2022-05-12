@@ -12,6 +12,7 @@ import { n2yo_visual_passes, n2yo_radio_passes } from '../types/n2yotypes';
 import { getRadioPasses, getVisualPasses } from '../logic/backend_req';
 import SysLocation from '../components/SystemInfo/SysLocation';
 import SelectTargetModal from '../components/SelectTargetModal';
+import WhatsUpModal from '../components/WhatsUpModal/WhatsUpModal';
 
 const SectionTitle = styled.div`
   font-size: x-large;
@@ -31,10 +32,9 @@ const Index: React.FC = () => {
     // Encounter state
     const [radioEncounter, setRe] = useState<n2yo_radio_passes>(default_radio_passes);
     const [visualEncounter, setVe] = useState<n2yo_visual_passes>(default_visual_passes);
-
-    const whatsup = () => {
-
-    }
+    
+    // What's up state
+    const [whatsUpModal, setWhatsUpModal] = useState(false);
 
     const findId = () => { }
 
@@ -80,7 +80,7 @@ const Index: React.FC = () => {
     return (
 
         <div style={{ display: 'flex', float: "left", height: "100%" }}>
-            <Sidebar onWhatsUp={whatsup} onFindId={findId}
+            <Sidebar setWhatsUpModal={setWhatsUpModal} onFindId={findId}
                 setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
             {/* Location selector modal */}
             <Dialog
@@ -96,10 +96,24 @@ const Index: React.FC = () => {
             <Dialog
                 open={targetModal}
                 onClose={() => setTargetModal(false)}
+                fullWidth={true}
             >
                 <DialogContent>
                     <SelectTargetModal onSetTarget={setTarget} cursat={target}
                         setModalOpen={setTargetModal} pos={loc} />
+                </DialogContent>
+            </Dialog>
+
+            {/* What's up modal */}
+            <Dialog
+                open={whatsUpModal}
+                onClose={() => setWhatsUpModal(false)}
+                maxWidth={'sm'}
+                fullWidth={true}
+            >
+                <DialogContent>
+                    <WhatsUpModal setTarget={setTarget} target={target}
+                        setModalOpen={setWhatsUpModal} location={loc} />
                 </DialogContent>
             </Dialog>
 

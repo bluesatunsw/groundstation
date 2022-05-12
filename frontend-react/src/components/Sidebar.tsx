@@ -47,14 +47,14 @@ const SidebarButton = styled(Button) <SideBarButtonProps>`
 `
 
 interface SideBarProps {
-  onWhatsUp: () => void;
   onFindId: () => void;
   onCalcEn: () => void;
   setTargetModal: (b: boolean) => void;
+  setWhatsUpModal: (b: boolean) => void;
 }
 
 // Wrapper component ${props => props.color}
-const SideBar: React.FC<SideBarProps> = ({ onWhatsUp, onFindId, onCalcEn, setTargetModal }) => {
+const SideBar: React.FC<SideBarProps> = ({ setWhatsUpModal, onFindId, onCalcEn, setTargetModal }) => {
   return (
     <Container>
       <SidebarTitle>
@@ -62,7 +62,7 @@ const SideBar: React.FC<SideBarProps> = ({ onWhatsUp, onFindId, onCalcEn, setTar
       </SidebarTitle>
       <ButtonFlex>
         <ButtonGroup>
-          <SidebarButton bgColor="#F88282" onClick={onWhatsUp}>
+          <SidebarButton bgColor="#F88282" onClick={(e) => {setWhatsUpModal(true)}}>
             What's up
           </SidebarButton>
           <SidebarButton bgColor="#F88282" onClick={(e) => { setTargetModal(true) }}>
