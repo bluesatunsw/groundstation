@@ -1,15 +1,19 @@
 """
 Functions to interface with the N2YO API.
 """
+import json
 import requests
 
+API_KEY = None
+
+with open('../secrets.json', "rt", 1, "utf-8") as secrets_file:
+    API_KEY = json.load(secrets_file)['n2yo']
 
 def send_reqs(arguments):
     """
     Return result of request to N2YO API using provided arguments.
     """
-    api_key = "89SYPR-D26PHV-PZFC8D-4Q3K"
-    req_url = f'https://api.n2yo.com/rest/v1/satellite/{arguments}/&apiKey={api_key}'
+    req_url = f'https://api.n2yo.com/rest/v1/satellite/{arguments}/&apiKey={API_KEY}'
     try:
         req_res = requests.get(req_url).json()
         return req_res

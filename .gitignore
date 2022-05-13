@@ -33,3 +33,6 @@ frontend-react/npm-debug.log*
 frontend-react/yarn-debug.log*
 frontend-react/yarn-error.log*
 frontend-react/build
+
+# secrets
+secrets.json
