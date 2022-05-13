@@ -1,38 +1,29 @@
-frontend/node_modules
-frontend/package-lock.json
-frontend/static/js/*.js
+# orch
 orch/env
 orch/Lib
 orch/Scripts
 orch/__pycache__
 orch/pyvenv.cfg
 
-## React frontend
-# dependencies
-frontend-react/node_modules
-frontend-react/.pnp
-frontend-react/.pnp.js
-
 # testing
-frontend-react/coverage
+frontend/coverage
 
 # production
-frontend-react/build
+frontend/build
 
-# misc
-frontend-react/.DS_Store
-frontend-react/package-lock.json
-frontend-react/yarn.lock
-frontend-react/node_modules
-frontend-react/.env.local
-frontend-react/.env.development.local
-frontend-react/.env.test.local
-frontend-react/.env.production.local
+# frontend
+frontend/.DS_Store
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/node_modules
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
 
-frontend-react/npm-debug.log*
-frontend-react/yarn-debug.log*
-frontend-react/yarn-error.log*
-frontend-react/build
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
 
 # secrets
 secrets.json

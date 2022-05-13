@@ -2,12 +2,17 @@
 Functions to interface with the N2YO API.
 """
 import json
+from sys import stderr
 import requests
 
 API_KEY = None
 
 with open('../secrets.json', "rt", 1, "utf-8") as secrets_file:
-    API_KEY = json.load(secrets_file)['n2yo']
+    try:
+        API_KEY = json.load(secrets_file)['n2yo']
+    except:
+        API_KEY = None
+        print("WARNING: NO SECRETS FILE SET")
 
 def send_reqs(arguments):
     """
