@@ -4,7 +4,7 @@ module.exports = {
       "url": [
         "http://127.0.0.1:4000"
       ],
-      "startServerCommand": "http-server ./frontend/build -p 4000 -g",
+      "startServerCommand": "http-server ./build -p 4000 -g",
       "startServerReadyPattern": "Available on",
       "numberOfRuns": 1
     },
