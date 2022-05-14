@@ -3,15 +3,15 @@ name: Frontend
 on:
   push:
     paths:
-      - 'frontend-react/**'
+      - 'frontend/**'
   pull_request:
     paths:
-      - 'frontend-react/**'
+      - 'frontend/**'
 
 jobs:
 
-  frontend_lint_ts:
-    name: TS Lint
+  frontend_lint:
+    name: React Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
@@ -20,18 +20,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Install Modules
-        working-directory: ./frontend-react
+        working-directory: ./frontend
         run: npm install
 
       - name: Run ESLint
-        working-directory: ./frontend-react
-        run: npm run lint-ts
+        working-directory: ./frontend
+        run: npm run lint
 
-  frontend_lint_html:
-    name: HTML Lint
+  frontend_build:
+    name: React Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
@@ -40,54 +40,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Install Modules
-        working-directory: ./frontend-react
-        run: npm install
-
-      - name: Run HTMLHint
-        working-directory: ./frontend-react
-        run: npm run lint-html 
-
-  frontend_lint_css:
-    name: CSS Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout commit
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-
-      - name: Install Modules
-        working-directory: ./frontend-react
-        run: npm install
-
-      - name: Run Stylelint
-        working-directory: ./frontend-react
-        run: npm run lint-css 
-
-  frontend_build_ts:
-    name: TS Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout commit
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-
-      - name: Install Modules
-        working-directory: ./frontend-react
+        working-directory: ./frontend
         run: npm install
 
       - name: Run TSC
-        working-directory: ./frontend-react
+        working-directory: ./frontend
         run: npm run build
 
   frontend_lighthouse:
@@ -102,18 +62,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Install Modules
-        working-directory: ./frontend-react
-        run: npm install && npm install -g @lhci/cli@0.8.x
+        working-directory: ./frontend
+        run: npm install && npm install -g @lhci/cli@0.8.x && npm install -g http-server
 
       - name: Build Website
-        working-directory: ./frontend-react
+        working-directory: ./frontend
         run: npm run build
 
       - name: Generate Report
-        working-directory: ./frontend-react
+        working-directory: ./frontend
         run:
           lhci autorun
         env:
