@@ -65,15 +65,15 @@ jobs:
           node-version: '16'
 
       - name: Install Modules
-        working-directory: ./frontend-react
+        working-directory: ./frontend
         run: npm install && npm install -g @lhci/cli@0.8.x
 
       - name: Build Website
-        working-directory: ./frontend-react
+        working-directory: ./frontend
         run: npm run build
 
       - name: Generate Report
-        working-directory: ./frontend-react
+        working-directory: ./frontend
         run:
           lhci autorun
         env:
