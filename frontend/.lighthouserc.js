@@ -8,6 +8,10 @@ module.exports = {
       "startServerReadyPattern": "Available on",
       "numberOfRuns": 1
     },
+    "settings": {
+      "chromeFlags": "--no-sandbox",
+      "emulatedFormFactor": "desktop"
+    },
     "upload": {
       "target": "temporary-public-storage"
     },
