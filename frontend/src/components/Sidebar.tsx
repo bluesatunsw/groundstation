@@ -34,6 +34,7 @@ const ButtonGroup = styled.div`
 
 interface SideBarButtonProps {
   bgColor: string;
+  Color: string;
 }
 
 const SidebarButton = styled(Button) <SideBarButtonProps>`
@@ -41,6 +42,7 @@ const SidebarButton = styled(Button) <SideBarButtonProps>`
     width: 160px;
     /* variant: contained; */
     background-color: ${props => props.bgColor};
+    color: ${props => props.Color};
     border-radius: 20px;
     text-transform: none;
   }
@@ -62,15 +64,15 @@ const SideBar: React.FC<SideBarProps> = ({ setWhatsUpModal, onFindId, onCalcEn, 
       </SidebarTitle>
       <ButtonFlex>
         <ButtonGroup>
-          <SidebarButton bgColor="#F88282" onClick={(e) => {setWhatsUpModal(true)}}>
+          <SidebarButton bgColor="#F88282" Color="#000000" onClick={(e) => {setWhatsUpModal(true)}}>
             What's up
           </SidebarButton>
-          <SidebarButton bgColor="#F88282" onClick={(e) => { setTargetModal(true) }}>
+          <SidebarButton bgColor="#F88282" Color="#000000" onClick={(e) => { setTargetModal(true) }}>
             Find by ID
           </SidebarButton>
         </ButtonGroup>
         <ButtonGroup>
-          <SidebarButton bgColor="#82A3F8" onClick={onCalcEn}>
+          <SidebarButton bgColor="#82A3F8" Color="#000000" onClick={onCalcEn}>
             Calculate encounter
           </SidebarButton>
         </ButtonGroup>
