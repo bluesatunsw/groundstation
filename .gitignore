@@ -1,9 +1,29 @@
-frontend/node_modules
-frontend/package-lock.json
-frontend/static/js/*.js
+# orch
 orch/env
 orch/Lib
 orch/Scripts
 orch/__pycache__
 orch/pyvenv.cfg
+
+# testing
+frontend/coverage
+
+# production
+frontend/build
+
+# frontend
+frontend/.DS_Store
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/node_modules
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# secrets
 secrets.json
