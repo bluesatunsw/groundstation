@@ -21,7 +21,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
 
       - name: Install Modules
         working-directory: ./frontend
@@ -42,7 +41,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
 
       - name: Install Modules
         working-directory: ./frontend
@@ -65,7 +63,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-          cache: 'npm'
 
       - name: Install Modules
         working-directory: ./frontend
