@@ -6,7 +6,7 @@ module.exports = {
       ],
       "startServerCommand": "http-server ./build -p 4000 -g",
       "startServerReadyPattern": "Available on",
-      "numberOfRuns": 1,
+      "numberOfRuns": 3,
       "settings": {
         "chromeFlags": "--no-sandbox",
         "formFactor": "desktop",
@@ -32,7 +32,13 @@ module.exports = {
       "target": "temporary-public-storage"
     },
     "assert": {
-      "preset": "lighthouse:no-pwa"
+      "preset": "lighthouse:no-pwa",
+      "assertions": {
+        "csp-xss": "off",
+        "unused-javascript": ["warn", {"maxNumericValue": 1}],
+        "uses-text-compression": "off",
+        "uses-long-cache-ttl": "off"
+      }
     }
   }
 };
