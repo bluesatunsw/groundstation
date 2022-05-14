@@ -2,7 +2,6 @@
 Functions to interface with the N2YO API.
 """
 import json
-from sys import stderr
 import requests
 
 API_KEY = None
@@ -10,7 +9,7 @@ API_KEY = None
 with open('../secrets.json', "rt", 1, "utf-8") as secrets_file:
     try:
         API_KEY = json.load(secrets_file)['n2yo']
-    except:
+    except FileNotFoundError:
         API_KEY = None
         print("WARNING: NO SECRETS FILE SET")
 
