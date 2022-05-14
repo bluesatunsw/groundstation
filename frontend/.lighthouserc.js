@@ -6,11 +6,11 @@ module.exports = {
       ],
       "startServerCommand": "http-server ./build -p 4000 -g",
       "startServerReadyPattern": "Available on",
-      "numberOfRuns": 1
-    },
-    "settings": {
-      "chromeFlags": "--no-sandbox",
-      "emulatedFormFactor": "desktop"
+      "numberOfRuns": 1,
+      "settings": {
+        "chromeFlags": "--no-sandbox",
+        "emulatedFormFactor": "desktop"
+      }
     },
     "upload": {
       "target": "temporary-public-storage"
