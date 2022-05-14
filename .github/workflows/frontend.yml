@@ -69,7 +69,7 @@ jobs:
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm install && npm install -g @lhci/cli@0.8.x
+        run: npm install && npm install -g @lhci/cli@0.8.x && npm install -g http-server
 
       - name: Build Website
         working-directory: ./frontend
