@@ -64,6 +64,7 @@ const SideBar: React.FC<SideBarProps> = ({ setWhatsUpModal, onFindId, onCalcEn, 
       </SidebarTitle>
       <ButtonFlex>
         <ButtonGroup>
+
           <SidebarButton bgColor="#F88282" Color="#000000" onClick={(e) => {setWhatsUpModal(true)}}>
             What&apos;s up
           </SidebarButton>
