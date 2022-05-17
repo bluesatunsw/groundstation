@@ -96,7 +96,7 @@ const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location, set
               }}
             >
               {Object.keys(categories).map((key, index) => {
-                return (<MenuItem value={index}>{key}</MenuItem>);
+                return (<MenuItem value={index} key={key}>{key}</MenuItem>);
               })}
             </Select>
           </FormControl>

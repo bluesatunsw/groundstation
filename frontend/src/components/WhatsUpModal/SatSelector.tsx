@@ -32,7 +32,7 @@ const SatSelector: React.FC<SatSelectorProps> = ({ list, selected, setSelected }
         <ScrollDiv style={{width : "300px"}}>
             {list.map((sat: n2yo_above) => {
                 return (
-                    <SatChip isSelected={sat === selected} sat={sat}
+                    <SatChip isSelected={sat === selected} sat={sat} key={sat.satid}
                         setSelected={() => { setSelected(sat) }} />
                 )
             })}
