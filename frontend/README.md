@@ -1,10 +1,24 @@
 # React frontend
 
-Refactor of frontend to use React to make the UI workable.
+Frontend for providing all user-level instructions to the groundstation; initial setup (i.e. hardware) not included. The frontend is built as a React app using ReactDOM/Router, served using NodeJS and written in Typescript. Material UI is also used a bunch.
 
-## Installation of nodejs 16
+(CHECK OUT THE REFERENCES AT THE BOTTOM OF THIS README!)
 
-By default node will be installed as version 10 if you install via apt on Linux. To get the newest version:
+## Using the frontend
+
+The frontend is broken up into three columns, with controls in the leftmost column, targeted satellite parameters + encounter info in the middle, and hardware/system parameters on the right. Run ``npm start`` (after following installation steps) and the frontend will begin to be served at ``http://localhost:3000/``.
+
+Note: most of the frontend is automatically disabled until the backend is detected. By default it should run at ``http://localhost:4999``, but if port 4999 is occupied for some reason it may be elsewhere. In this case, just set the port in the system parameters column.
+
+## Installing the frontend
+
+### Installation of nodejs 16
+
+By default node will be installed as version 10 if you install via apt on Linux.
+
+If you are running the groundstation software on Windows or macOS, just make sure you downloaded the right thing from the website, but bear in mind that this entire project is meant to run on Debian on a Raspberry Pi.
+
+To get the newest version:
 
 Install build tools if you don't have them already
 
@@ -24,7 +38,7 @@ Switch to the current stable release
 sudo n stable
 ``
 
-## Setting up React
+### Setting up React
 
 This package is already initialised with all the packages needed. To get started run
 
@@ -69,8 +83,14 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Learn More, references
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[React documentation](https://reactjs.org/docs/getting-started.html)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[React hooks / function components](https://reactjs.org/docs/hooks-intro.html)
+
+[Material UI elements and docs](https://mui.com/material-ui/)
+
+[Typescript docs](https://www.typescriptlang.org/docs/)
+
+[N2YO API](https://www.n2yo.com/api/)
