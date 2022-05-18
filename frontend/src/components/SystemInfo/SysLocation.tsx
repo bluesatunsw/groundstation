@@ -1,3 +1,7 @@
+// Card for displaying and modifying system location. Also hosts clock.
+// Matt Rossouw (omeh-a)
+// 05/2022
+
 import React from 'react';
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material"
 import { gps_pos } from '../../types/hardwareTypes';

@@ -27,8 +27,7 @@ const Index: React.FC = () => {
     const [locModal, setLocModal] = useState(false);
 
     // Backend connection state
-    const [beConnected, setBeConnected] = useState(true);
-    const [bePort, setBePort] = useState(4999);
+    const [beConnected, setBeConnected] = useState(false);
 
     // Target state
     const [target, setTarget] = useState<targetSat>(default_sat);
@@ -135,8 +134,7 @@ const Index: React.FC = () => {
                         System
                     </SectionTitle>
                     <SysLocation location={loc} setLocModal={setLocModal} />
-                    <BackendMonitor port={bePort} setPort={setBePort} 
-                        connected={beConnected} setConnected={setBeConnected}/>
+                    <BackendMonitor connected={beConnected} setConnected={setBeConnected}/>
                 </Stack>
             </Stack>
         </div>

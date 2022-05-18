@@ -88,3 +88,9 @@ def get_positions(norad_id=25544,
     arguments = (
         f'positions/{norad_id}/{observer_lat}/{observer_lng}/{observer_alt}/{seconds}')
     return send_reqs(arguments)
+
+def get_status():
+    """
+    Return current system status. Placeholder until hardware is built.
+    """
+    return json.dumps({"ready" : "True", "hardware_rdy" : "True"})

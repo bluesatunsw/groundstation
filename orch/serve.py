@@ -90,6 +90,15 @@ def position_request():
     except OSError as err:
         return Response(str(err), status=404, mimetype='application/json')
 
+@APP.route('/status')
+def getstatus():
+    """
+    Internal endpoint for polling backend readiness
+    """
+    try:
+        return return_handler(apis.get_status())
+    except OSError as err:
+        return Response(str(err), status=404, mimetype='application/json')
 
 def return_handler(api_result):
     """

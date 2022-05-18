@@ -6,18 +6,21 @@
 import { Button, Card, CardContent, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { Container } from '../../Common';
+import { backend_setPort } from '../../../logic/backend_req'
+import BackendConnection from './BackendConnection';
 
 
 
 interface Props {
-    port: number,
-    setPort: (n: number) => void,
     connected: boolean,
     setConnected: (connected: boolean) => void,
 }
 
-const BackendMonitor: React.FC<Props> = ({ port, setPort, connected, setConnected }) => {
-
+const BackendMonitor: React.FC<Props> = ({ connected, setConnected }) => {
+    const [port, setPort] = React.useState(4999);
+    const acceptPort = (port: number) => {
+        backend_setPort(port)
+    }
     return (
         <Container>
             <Card sx={{ minWidth: 240 }} variant="outlined">
@@ -29,11 +32,12 @@ const BackendMonitor: React.FC<Props> = ({ port, setPort, connected, setConnecte
                         <Typography variant="button">
                             {connected ? "Connected" : "Disconnected"}
                         </Typography>
-                        <TextField type="number" label="Port" sx={{ marginTop : 2 }}
-                        value={port} onChange={(e) => setPort(parseInt(e.target.value))} />
-                        <Button>
+                        <TextField type="number" label="Port" sx={{ marginTop: 2 }}
+                            value={port} onChange={(e) => setPort(parseInt(e.target.value))} />
+                        <Button onClick={(e) => {acceptPort(port)}}>
                             Update
                         </Button>
+                        <BackendConnection connected={connected} setConnected={setConnected}/>
                     </Stack>
                 </CardContent>
             </Card>
