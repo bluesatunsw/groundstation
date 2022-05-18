@@ -17,7 +17,7 @@ interface Props {
 }
 
 const BackendMonitor: React.FC<Props> = ({ connected, setConnected }) => {
-    const [port, setPort] = React.useState(4999);
+    const [port, setPort] = React.useState<number>(4999);
     const acceptPort = (port: number) => {
         backend_setPort(port)
     }

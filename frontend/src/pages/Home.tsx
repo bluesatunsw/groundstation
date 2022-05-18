@@ -27,7 +27,7 @@ const Index: React.FC = () => {
     const [locModal, setLocModal] = useState(false);
 
     // Backend connection state
-    const [beConnected, setBeConnected] = useState(false);
+    const [beConnected, setBeConnected] = useState<boolean>(false);
 
     // Target state
     const [target, setTarget] = useState<targetSat>(default_sat);

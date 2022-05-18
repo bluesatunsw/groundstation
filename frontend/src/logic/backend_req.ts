@@ -44,7 +44,7 @@ export async function getVisualPasses(satid: number, lat: number, long: number,
 
 // Get satellite positions from backend
 export async function getPositions(satid: number, pos: gps_pos, num_positions: number)
-    : Promise<n2yo_positions> {
+    : Promise<n2yo_positions> { 
     return await fetch(`http://127.0.0.1:${port}/getpositions?norad_id=${satid}&observer_lat=${pos.latitude}&
     observer_long=${pos.longitude}&observer_alt=${pos.altitude}&seconds=${num_positions}`)
         .then(res => res.json())

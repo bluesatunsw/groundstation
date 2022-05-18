@@ -93,4 +93,4 @@ def get_status():
     """
     Return current system status. Placeholder until hardware is built.
     """
-    return json.dumps({"ready" : "True", "hardware_rdy" : "True"})
+    return json.dumps({"ready" : True, "hardware_rdy" : False})
