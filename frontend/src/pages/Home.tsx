@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Sidebar from '../components/Sidebar';
 import Stack from "@mui/material/Stack"
-import { Dialog, DialogContent } from "@mui/material"
+import { Dialog, DialogContent, Snackbar } from "@mui/material"
 import type { gps_pos } from '../types/hardwareTypes';
 import type { targetSat } from '../types/targetSat';
 import TargetInfo from '../components/TargetInfo/TargetInfo';
@@ -86,9 +86,13 @@ const Index: React.FC = () => {
         <div style={{ display: 'flex', float: "left", height: "100%" }}>
             <Sidebar setWhatsUpModal={setWhatsUpModal} onFindId={findId}
                 setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
+            <Snackbar 
+                open={!beConnected}
+                message="Warning: backend is not connected or n2yo not reachable. Cannot interface with API."/>
+            
             {/* Location selector modal */}
             <Dialog
-                open={locModal}
+                open={locModal && beConnected}
                 onClose={() => setLocModal(false)}
             >
                 <DialogContent>
@@ -98,7 +102,7 @@ const Index: React.FC = () => {
 
             {/* Target selector modal */}
             <Dialog
-                open={targetModal}
+                open={targetModal && beConnected}
                 onClose={() => setTargetModal(false)}
                 fullWidth={true}
             >
@@ -110,7 +114,7 @@ const Index: React.FC = () => {
 
             {/* What's up modal */}
             <Dialog
-                open={whatsUpModal}
+                open={whatsUpModal  && beConnected}
                 onClose={() => setWhatsUpModal(false)}
                 maxWidth={'sm'}
                 fullWidth={true}
