@@ -6,4 +6,9 @@ interface gps_pos {     // note: we encode cardinality by sign.
                         //      for manual input.
   }
 
-  export type {gps_pos};
+interface backend_status {
+    ready: boolean
+    hardware_rdy: boolean
+}
+
+export type {gps_pos, backend_status};
