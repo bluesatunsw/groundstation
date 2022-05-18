@@ -2,6 +2,10 @@
 
 Bluesat's autonomous, robotic groundstation project.
 
+## Secrets
+
+After cloning this repo, put all of your tokens inside of ``secrets.json``. You may rename ``example_secrets.json`` if you want a template. If you want to get our API keys message @omeh-a (Matt_#4292). Note that this file is ignored by git and you don't need to change anything to keep things secure.
+
 ## Git Hygiene guide
 
 For this project we will be using standard software engineering principles for our version control.
