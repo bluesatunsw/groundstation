@@ -13,6 +13,7 @@ import { getRadioPasses, getVisualPasses } from '../logic/backend_req';
 import SysLocation from '../components/SystemInfo/SysLocation';
 import SelectTargetModal from '../components/SelectTargetModal';
 import WhatsUpModal from '../components/WhatsUpModal/WhatsUpModal';
+import BackendMonitor from '../components/SystemInfo/BackendMonitor/BackendMonitor'
 
 const SectionTitle = styled.div`
   font-size: x-large;
@@ -24,6 +25,10 @@ const Index: React.FC = () => {
     // Location state
     const [loc, setLoc] = useState<gps_pos>(default_pos);
     const [locModal, setLocModal] = useState(false);
+
+    // Backend connection state
+    const [beConnected, setBeConnected] = useState(true);
+    const [bePort, setBePort] = useState(4999);
 
     // Target state
     const [target, setTarget] = useState<targetSat>(default_sat);
@@ -130,6 +135,8 @@ const Index: React.FC = () => {
                         System
                     </SectionTitle>
                     <SysLocation location={loc} setLocModal={setLocModal} />
+                    <BackendMonitor port={bePort} setPort={setBePort} 
+                        connected={beConnected} setConnected={setBeConnected}/>
                 </Stack>
             </Stack>
         </div>

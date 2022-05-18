@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card, CardActions, CardContent, Typography } from "@mui/material"
 import { gps_pos } from '../../types/hardwareTypes';
 import { Container } from '../Common';
-
+import Clock from './Clock';
 interface SysLocationProps {
     location: gps_pos;
     setLocModal: (b: boolean) => void;
@@ -27,6 +27,7 @@ const SysLocation: React.FC<SysLocationProps> = ({ location, setLocModal }) => {
                     <Typography variant="body2">
                         Altitude: {location.altitude}°
                     </Typography>
+                    <Clock/>
                 </CardContent>
                 <CardActions>
                     <Button size="small" onClick={(e) => { setLocModal(true) }}>
