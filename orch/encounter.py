@@ -15,6 +15,9 @@ that aren't already catalogued.
 To start we will simply take the list of elevation/azimuth pairs and their timestamps, and
 send these straight to hardware. This might be improved by calculating a weighting for each
 step to help make a smoother and more accurate interpolation between steps.
+
+Note: lots of stuff here is global intentionally to avoid OS induced weirdness with the serial
+      port after context changes.
 """
 
 import serial
@@ -23,7 +26,9 @@ import serial.tools.list_ports
 # Store our list steps in a single array. Each entry contains the time, elevation, and azimuth.
 # {"time" : time, "el" : el, "az" : az} 
 steps = []
-
+BAUDRATE = 115200
+port = None
+ser = None
 
 def buildEncounter(id, lat, lng, alt):
     """
@@ -39,8 +44,33 @@ def buildEncounter(id, lat, lng, alt):
     the next window (if it exists). Generally encounters are quite short however, so we shouldn't
     cause too much API spam with this method.
     """
+    # Find the COM port for the motor controller. For now just take
+    # the first one found.
+    available_ports = serial.tools.list_ports.comports()
+    for port in available_ports:
+        try:
+            port = serial.Serial(port.device, baudrate = BAUDRATE)
+        
+        except OSError:
+            continue
+    
+    if port is None:
+        raise OSError("Microcontroller not detected.")
+    
+    # Open serial port
+    ser = serial.Serial(port, BAUDRATE)
+
+    # Get radio passes from API
+
     pass
 
+def encounterLoop():
+    """
+    Main function for managing the encounter. Takes turns transferring
+    steps to the motor controller and getting new positions from the API;
+    blocking when inactive to avoid throttling the server.
+    """
+    pass
 
 def transferSteps():
     """
@@ -48,10 +78,30 @@ def transferSteps():
     TODO: find a way to distinguish between the motor COM port and 
           the geolocation COM port
     """
+    try:
+        # Ensure port is open
+        ser = serial.Serial(port, BAUDRATE)
+    except OSError:
+        print("WARNING: Failed to reopen serial port during an encounter.")
+    
+    # Transfer steps
+    for step in steps:
+        # Build string to send to motor controller
+        s = "!" + str(step["az"]) + "," + str(step["el"]) + "," + str(step["time"]) + "\n"
+        ser.write(s.encode())
+    
+    # Clear buffer, except for very last position.
+    last = steps[len(steps) - 1]
+    steps = [last]
+    
+def terminateEncounter():
+    """
+    Terminate the current encounter.
+    """
+    steps = []
+    
+    # Close serial port
+    ser.close()
 
-    # Find the COM port for the motor controller. For now just take
-    # the first one found.
-    available_ports = serial.tools.list_ports.comports()
-    for port in available_ports:
-        try:
-            gps = serial.Serial(port.device, baudrate =)
+    # Abandon port for next run
+    port = None
