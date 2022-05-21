@@ -62,7 +62,9 @@ def buildEncounter(id, lat, lng, alt):
 
     # Get radio passes from API
 
-    pass
+
+
+    encounterLoop()
 
 def encounterLoop():
     """

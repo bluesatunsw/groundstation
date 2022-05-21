@@ -7,8 +7,17 @@ from flask_cors import CORS
 import api as apis
 import geolocation
 
+# Encounter imports
+import logging
+import threading
+import time
+
+from orch.encounter import buildEncounter, encounterLoop
+
 APP = Flask(__name__)
 CORS(APP)
+
+encounterThread = None
 
 
 @APP.route('/whats_up')
@@ -99,6 +108,25 @@ def getstatus():
         return return_handler(apis.get_status())
     except OSError as err:
         return Response(str(err), status=404, mimetype='application/json')
+
+@APP.route('/start_encounter')
+def start_encounter():
+    """
+    Endpoint to start an encounter and move data to the encounter thread.
+    If the encounter and timer thread are running already, terminate and restart
+    """
+    format = "%(asctime)s: %(message)s"
+
+    logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
+    while True:
+        if encounterThread is None:
+            logging.info("Starting encounter thread")
+            # We set daemon=True to force this thread to exit when the main thread exits.
+            encounterThread = threading.Thread(target=buildEncounter, args=(), daemon=True)
+            encounterThread.start()
+            break
+        else:
+            encounterThread.end()
 
 def return_handler(api_result):
     """
