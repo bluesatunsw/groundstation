@@ -10,89 +10,41 @@ on:
 
 jobs:
 
-  frontend_lint_ts:
-    name: TS Lint
+  frontend_lint:
+    name: React Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
-          cache: 'npm'
-          cache-dependency-path: 'frontend/package-lock.json'
+          node-version: '16'
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci
+        run: npm install
 
       - name: Run ESLint
         working-directory: ./frontend
-        run: npm run lint-ts
+        run: npm run lint
 
-  frontend_lint_html:
-    name: HTML Lint
+  frontend_build:
+    name: React Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
-          cache: 'npm'
-          cache-dependency-path: 'frontend/package-lock.json'
+          node-version: '16'
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci
-
-      - name: Run HTMLHint
-        working-directory: ./frontend
-        run: npm run lint-html 
-
-  frontend_lint_css:
-    name: CSS Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout commit
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'npm'
-          cache-dependency-path: 'frontend/package-lock.json'
-
-      - name: Install Modules
-        working-directory: ./frontend
-        run: npm ci
-
-      - name: Run Stylelint
-        working-directory: ./frontend
-        run: npm run lint-css 
-
-  frontend_build_ts:
-    name: TS Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout commit
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'npm'
-          cache-dependency-path: 'frontend/package-lock.json'
-
-      - name: Install Modules
-        working-directory: ./frontend
-        run: npm ci
+        run: npm install
 
       - name: Run TSC
         working-directory: ./frontend
@@ -103,20 +55,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
-          cache: 'npm'
-          cache-dependency-path: 'frontend/package-lock.json'
+          node-version: '16'
 
       - name: Install Modules
         working-directory: ./frontend
-        run: npm ci && npm install -g @lhci/cli@0.8.x
+        run: npm install && npm install -g @lhci/cli@0.8.x && npm install -g http-server
 
       - name: Build Website
         working-directory: ./frontend

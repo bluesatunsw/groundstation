@@ -1,17 +1,44 @@
 module.exports = {
-    ci: {
-      collect: {
-        "staticDistDir": "./"
-      },
-      assert: {
-        "preset": "lighthouse:no-pwa",
-        "assertions": {
-            "csp-xss": "off",
-            "unused-javascript": ["warn", {"maxNumericValue": 1}]
-        }
-      },
-      upload: {
-        "target": "temporary-public-storage"
+  "ci": {
+    "collect": {
+      "url": [
+        "http://127.0.0.1:4000"
+      ],
+      "startServerCommand": "http-server ./build -p 4000 -g",
+      "startServerReadyPattern": "Available on",
+      "numberOfRuns": 3,
+      "settings": {
+        "chromeFlags": "--no-sandbox",
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10 * 1024,
+          "cpuSlowdownMultiplier": 1,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+        },
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1350,
+          "height": 940,
+          "deviceScaleFactor": 1,
+          "disabled": false,
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4695.0 Safari/537.36 Chrome-Lighthouse"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    },
+    "assert": {
+      "preset": "lighthouse:no-pwa",
+      "assertions": {
+        "csp-xss": "off",
+        "unused-javascript": ["warn", {"maxNumericValue": 1}],
+        "uses-text-compression": "off",
+        "uses-long-cache-ttl": "off"
       }
     }
-  };
+  }
+};

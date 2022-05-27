@@ -2,13 +2,33 @@
 
 Bluesat's autonomous, robotic groundstation project.
 
+## Project structure
+
+The entire project runs on a Raspberry Pi 4 with child microcontrollers for hardware control.
+
+\> **Frontend**: React-based interface broadcasted from the Pi4 as a webserver. Almost everything can be controlled from here.
+
+\> **Backend**: Python based flask webserver / orchestration module which ties together the four modules. Responsible for all non-signal-proc or control-related computation. Performs ballistic computations, interfaces with web APIs and generates paths to control hardware. Also responsible for issuing all commands to microcontrollers (e.g. calibration, etc.).
+
+\> **Signal processing**: GNU radio module for converting raw radio data into usable serial data.
+
+\> **Hardware**: C++ and Rust modules for handling hardware operations. Responsible for translating a list of commands into real-time positions on the motors, monitoring sensor data, controlling motors and ensuring a _safe_ state to avoid injuring operators.
+
+Hardware consists of a "turret" with 360 degrees of traverse which carries an adjustable directional antenna module which can be elevated up to 90 degrees. A Raspberry Pi 4 performs communication while and Arduino Due is responsible for handling motor data. We use a HackRF One (or simple RTL SDR) for radio commuications.
+
+
+## Secrets
+
+After cloning this repo, put all of your tokens inside of ``secrets.json``. You may rename ``example_secrets.json`` if you want a template. If you want to get our API keys message @omeh-a (Matt_#4292). Note that this file is ignored by git and you don't need to change anything to keep things secure.
+
 ## Git Hygiene guide
 
 For this project we will be using standard software engineering principles for our version control.
 
-### Branches
+### Branches and forks
 
-The most important of these is to **make sure to use a fresh branch for every new feature**.
+The most important of these is to **make sure to make a fresh pull request for every new feature**. If you want to work on the main repo, this also means a new branch for every feature. If you are using forks, you can branch as you please.
+
 In this case a "feature" is any atomic piece of work you might be contributing, i.e. small enough that you are the only one likely to be working on it. For example, if you are working in /hardware you might implement the module to translate celestial coordinates to motor positions as a feature.
 
 In the case that you are working on a bigger part with another person (or people) you can make a branch with sub-branches for each feature.
@@ -46,4 +66,4 @@ For all of our microcontrollers (Arduino or otherwise) we will try and use C++ w
 
 #### PC / Mac / Linux
 
-We probably will have to use CMake for this unless we can agree on sticking to a platform. We can also use Rust (again probably better for Signal Processing especially) - but this is subject to the skills of the team.
+Since the target platform is the Raspberry Pi (on Raspbian), all development work should ideally be done on a UNIX-based platform - WSL2 if you are on Windows. If you use macOS, you can just proceed as normal; although correct operation is not guaranteed.
