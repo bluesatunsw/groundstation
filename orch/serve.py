@@ -12,7 +12,7 @@ import logging
 import threading
 import time
 
-from encounter import buildEncounter, encounterLoop
+from encounter import build_encounter, encounterLoop
 
 APP = Flask(__name__)
 CORS(APP)
@@ -122,7 +122,7 @@ def start_encounter():
         if encounterThread is None:
             logging.info("Starting encounter thread")
             # We set daemon=True to force this thread to exit when the main thread exits.
-            encounterThread = threading.Thread(target=buildEncounter, args=(), daemon=True)
+            encounterThread = threading.Thread(target=build_encounter, args=(), daemon=True)
             encounterThread.start()
             break
         else:
