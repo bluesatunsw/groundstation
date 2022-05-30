@@ -20,8 +20,12 @@ Note: lots of stuff here is global intentionally to avoid OS induced weirdness w
       port after context changes.
 """
 
+from asyncio import sleep
+import json
+import time
 import serial
 import serial.tools.list_ports
+import api
 
 # Store our list steps in a single array. Each entry contains the time, elevation, and azimuth.
 # {"time" : time, "el" : el, "az" : az} 
@@ -29,6 +33,9 @@ steps = []
 BAUDRATE = 115200
 port = None
 ser = None
+rp = None
+time_to_generate = 0
+prev_final_timestamp = None
 
 def buildEncounter(id, lat, lng, alt):
     """
@@ -61,8 +68,13 @@ def buildEncounter(id, lat, lng, alt):
     ser = serial.Serial(port, BAUDRATE)
 
     # Get radio passes from API
+    rp = json.dumps(api.get_radio_passes(id, lat, lng, alt))['passes'][0]
 
+    # Update total seconds left
+    time_to_generate = rp['duration']
 
+    # Sleep until 10 seconds before the start of the radio pass
+    sleep(rp['start'] - time.time() - 10)
 
     encounterLoop()
 
@@ -72,9 +84,34 @@ def encounterLoop():
     steps to the motor controller and getting new positions from the API;
     blocking when inactive to avoid throttling the server.
     """
+    while time_to_generate > 0:
+        # Get next 300 (or however much is left) seconds of positions
+        secs = time_to_generate if time_to_generate < 300 else 300
+        s = api.get_positions(rp['sat'], rp['start'] + secs)
+
+        new_final = None
+
+        # Ignore all entries from steps with a timestamp later than the final timestamp
+        # of the previous encounter.
+        if prev_final_timestamp is not None:
+            for step in s:
+                if step['timestamp'] < prev_final_timestamp:
+                    new_final = step['timestamp']
+                    steps.append step
+    
+        # Update final timestamp
+        prev_final_timestamp = new_final
+
+        # Subtract time from time_to_generate
+        time_to_generate -= secs
+
+        # Asynchronously transfer steps to hardware
+        transferSteps() 
+
     pass
 
-def transferSteps():
+# TODO: Implement this and make it asynchronous
+async def transferSteps():
     """
     Send steps to hardware and purge buffer.
     TODO: find a way to distinguish between the motor COM port and 
@@ -104,6 +141,14 @@ def terminateEncounter():
     
     # Close serial port
     ser.close()
+    ser = None
 
     # Abandon port for next run
     port = None
+
+    # Forget radio pass
+    rp = None
+
+    # Forget time stuff
+    prev_final_timestamp = None
+    time_to_generate = 0

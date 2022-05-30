@@ -12,7 +12,7 @@ import logging
 import threading
 import time
 
-from orch.encounter import buildEncounter, encounterLoop
+from encounter import buildEncounter, encounterLoop
 
 APP = Flask(__name__)
 CORS(APP)
