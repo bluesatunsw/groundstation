@@ -1,0 +1,1815 @@
+{
+   "43466":{
+      "name":"1KUNS-PF",
+      "norad":43466,
+      "transmitters":[
+         "437.300 MHz",
+         "437.300 MHz"
+      ]
+   },
+   "43728":{
+      "name":"3CAT-1",
+      "norad":43728,
+      "transmitters":[
+         "437.250 MHz"
+      ]
+   },
+   "41732":{
+      "name":"3CAT-2",
+      "norad":41732,
+      "transmitters":[
+         "145.970 MHz"
+      ]
+   },
+   "42775":{
+      "name":"AALTO-1",
+      "norad":42775,
+      "transmitters":[
+         "437.216 MHz",
+         "437.216 MHz"
+      ]
+   },
+   "41460":{
+      "name":"AAUSAT-4",
+      "norad":41460,
+      "transmitters":[
+         "437.425 MHz",
+         "437.425 MHz"
+      ]
+   },
+   "44369":{
+      "name":"ACRUX-1",
+      "norad":44369,
+      "transmitters":[
+         "437.200 MHz"
+      ]
+   },
+   "40054":{
+      "name":"AISAT",
+      "norad":40054,
+      "transmitters":[
+         "437.250 MHz"
+      ]
+   },
+   "43768":{
+      "name":"AISTECHSAT-2",
+      "norad":43768,
+      "transmitters":[
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz"
+      ]
+   },
+   "44103":{
+      "name":"AISTECHSAT-3",
+      "norad":44103,
+      "transmitters":[
+         "436.730 MHz",
+         "436.730 MHz"
+      ]
+   },
+   "43805":{
+      "name":"al-Farabi-2",
+      "norad":43805,
+      "transmitters":[
+         "436.500 MHz"
+      ]
+   },
+   "44394":{
+      "name":"AMGU-1",
+      "norad":44394,
+      "transmitters":[
+         "436.250 MHz"
+      ]
+   },
+   "46287":{
+      "name":"AmicalSat",
+      "norad":46287,
+      "transmitters":[
+         "436.100 MHz"
+      ]
+   },
+   "22825":{
+      "name":"AO-27",
+      "norad":22825,
+      "transmitters":[
+         "436.795 MHz"
+      ]
+   },
+   "26609":{
+      "name":"AO-40",
+      "norad":26609,
+      "transmitters":[
+         "2400.200 MHz",
+         "2400.200 MHz"
+      ]
+   },
+   "39444":{
+      "name":"AO-73",
+      "norad":39444,
+      "transmitters":[
+         "145.935 MHz"
+      ]
+   },
+   "44352":{
+      "name":"ARMADILLO",
+      "norad":44352,
+      "transmitters":[
+         "437.525 MHz"
+      ]
+   },
+   "43798":{
+      "name":"Astrocast 0.1",
+      "norad":43798,
+      "transmitters":[
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz"
+      ]
+   },
+   "44083":{
+      "name":"Astrocast 0.2",
+      "norad":44083,
+      "transmitters":[
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz"
+      ]
+   },
+   "42784":{
+      "name":"AT03",
+      "norad":42784,
+      "transmitters":[
+         "436.670 MHz"
+      ]
+   },
+   "41168":{
+      "name":"ATHENOXAT-1",
+      "norad":41168,
+      "transmitters":[
+         "437.485 MHz"
+      ]
+   },
+   "44830":{
+      "name":"ATL-1",
+      "norad":44830,
+      "transmitters":[
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz",
+         "437.175 MHz"
+      ]
+   },
+   "42737":{
+      "name":"ATLANTIS",
+      "norad":42737,
+      "transmitters":[
+         "436.388 MHz"
+      ]
+   },
+   "42723":{
+      "name":"AU02",
+      "norad":42723,
+      "transmitters":[
+         "436.525 MHz"
+      ]
+   },
+   "42731":{
+      "name":"AU03",
+      "norad":42731,
+      "transmitters":[
+         "436.330 MHz"
+      ]
+   },
+   "45258":{
+      "name":"AztechSat-1",
+      "norad":45258,
+      "transmitters":[
+         "437.300 MHz"
+      ]
+   },
+   "48041":{
+      "name":"BCCSAT 1",
+      "norad":48041,
+      "transmitters":[
+         "435.635 MHz"
+      ]
+   },
+   "52175":{
+      "name":"BDSat",
+      "norad":52175,
+      "transmitters":[
+         "436.025 MHz"
+      ]
+   },
+   "35933":{
+      "name":"BEESAT-1",
+      "norad":35933,
+      "transmitters":[
+         "435.950 MHz",
+         "435.950 MHz"
+      ]
+   },
+   "39136":{
+      "name":"BEESAT-2",
+      "norad":39136,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "41619":{
+      "name":"BEESAT-4",
+      "norad":41619,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "44412":{
+      "name":"BEESAT-9",
+      "norad":44412,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "49272":{
+      "name":"BINAR-1",
+      "norad":49272,
+      "transmitters":[
+         "435.810 MHz",
+         "435.810 MHz",
+         "435.810 MHz",
+         "435.810 MHz"
+      ]
+   },
+   "40968":{
+      "name":"BISONSAT",
+      "norad":40968,
+      "transmitters":[
+         "437.375 MHz"
+      ]
+   },
+   "46922":{
+      "name":"BOBCAT-1",
+      "norad":46922,
+      "transmitters":[
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz"
+      ]
+   },
+   "44355":{
+      "name":"BRICSat-2",
+      "norad":44355,
+      "transmitters":[
+         "145.825 MHz",
+         "437.600 MHz"
+      ]
+   },
+   "40014":{
+      "name":"BUGSAT-1",
+      "norad":40014,
+      "transmitters":[
+         "437.445 MHz"
+      ]
+   },
+   "45857":{
+      "name":"BY02",
+      "norad":45857,
+      "transmitters":[
+         "436.200 MHz"
+      ]
+   },
+   "46839":{
+      "name":"BY03",
+      "norad":46839,
+      "transmitters":[
+         "437.600 MHz"
+      ]
+   },
+   "41909":{
+      "name":"BY70-1",
+      "norad":41909,
+      "transmitters":[
+         "436.200 MHz"
+      ]
+   },
+   "42734":{
+      "name":"CA03",
+      "norad":42734,
+      "transmitters":[
+         "436.705 MHz",
+         "436.705 MHz"
+      ]
+   },
+   "47309":{
+      "name":"CAPE-3",
+      "norad":47309,
+      "transmitters":[
+         "437.325 MHz",
+         "437.325 MHz"
+      ]
+   },
+   "42761":{
+      "name":"CAS-4A",
+      "norad":42761,
+      "transmitters":[
+         "145.836 MHz"
+      ]
+   },
+   "42759":{
+      "name":"CAS-4B",
+      "norad":42759,
+      "transmitters":[
+         "145.893 MHz"
+      ]
+   },
+   "44881":{
+      "name":"CAS-6",
+      "norad":44881,
+      "transmitters":[
+         "145.890 MHz"
+      ]
+   },
+   "43855":{
+      "name":"CHOMPTT",
+      "norad":43855,
+      "transmitters":[
+         "437.560 MHz",
+         "437.560 MHz"
+      ]
+   },
+   "42702":{
+      "name":"COLUMBIA",
+      "norad":42702,
+      "transmitters":[
+         "437.055 MHz"
+      ]
+   },
+   "43793":{
+      "name":"CSIM-FD",
+      "norad":43793,
+      "transmitters":[
+         "437.250 MHz"
+      ]
+   },
+   "49275":{
+      "name":"CUAVA-1",
+      "norad":49275,
+      "transmitters":[
+         "437.075 MHz"
+      ]
+   },
+   "47448":{
+      "name":"CUBE-L",
+      "norad":47448,
+      "transmitters":[
+         "400.575 MHz"
+      ]
+   },
+   "43666":{
+      "name":"CubeBel-1",
+      "norad":43666,
+      "transmitters":[
+         "436.990 MHz"
+      ]
+   },
+   "39440":{
+      "name":"CUBEBUG-2",
+      "norad":39440,
+      "transmitters":[
+         "437.445 MHz"
+      ]
+   },
+   "47952":{
+      "name":"CubeSX-HSE",
+      "norad":47952,
+      "transmitters":[
+         "435.650 MHz",
+         "435.650 MHz",
+         "435.650 MHz",
+         "435.650 MHz"
+      ]
+   },
+   "47951":{
+      "name":"CubeSX-Sirius-HSE",
+      "norad":47951,
+      "transmitters":[
+         "437.050 MHz",
+         "437.050 MHz",
+         "437.050 MHz",
+         "437.050 MHz"
+      ]
+   },
+   "49263":{
+      "name":"CUTE",
+      "norad":49263,
+      "transmitters":[
+         "437.250 MHz"
+      ]
+   },
+   "42790":{
+      "name":"CZ02",
+      "norad":42790,
+      "transmitters":[
+         "437.240 MHz"
+      ]
+   },
+   "42794":{
+      "name":"D-SAT",
+      "norad":42794,
+      "transmitters":[
+         "437.505 MHz"
+      ]
+   },
+   "43879":{
+      "name":"D-STAR ONE iSat",
+      "norad":43879,
+      "transmitters":[
+         "435.700 MHz"
+      ]
+   },
+   "44393":{
+      "name":"D-STAR ONE LightSat",
+      "norad":44393,
+      "transmitters":[
+         "435.700 MHz"
+      ]
+   },
+   "43881":{
+      "name":"D-STAR ONE Sparrow",
+      "norad":43881,
+      "transmitters":[
+         "435.700 MHz"
+      ]
+   },
+   "46493":{
+      "name":"DEKART",
+      "norad":46493,
+      "transmitters":[
+         "437.000 MHz"
+      ]
+   },
+   "32789":{
+      "name":"DELFI-C3",
+      "norad":32789,
+      "transmitters":[
+         "145.867 MHz"
+      ]
+   },
+   "39428":{
+      "name":"DELFI-n3xt",
+      "norad":39428,
+      "transmitters":[
+         "145.870 MHz"
+      ]
+   },
+   "51074":{
+      "name":"DELFI-PQ",
+      "norad":51074,
+      "transmitters":[
+         "436.650 MHz"
+      ]
+   },
+   "44030":{
+      "name":"Delphini-1",
+      "norad":44030,
+      "transmitters":[
+         "437.500 MHz",
+         "437.500 MHz"
+      ]
+   },
+   "49016":{
+      "name":"DHABISAT",
+      "norad":49016,
+      "transmitters":[
+         "436.908 MHz",
+         "436.908 MHz",
+         "436.908 MHz",
+         "436.908 MHz"
+      ]
+   },
+   "47963":{
+      "name":"DIY-1",
+      "norad":47963,
+      "transmitters":[
+         "437.125 MHz"
+      ]
+   },
+   "44854":{
+      "name":"DUCHIFAT-3",
+      "norad":44854,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "41459":{
+      "name":"E-ST@R-II",
+      "norad":41459,
+      "transmitters":[
+         "437.485 MHz"
+      ]
+   },
+   "43790":{
+      "name":"Eaglet-I",
+      "norad":43790,
+      "transmitters":[
+         "435.200 MHz",
+         "435.800 MHz"
+      ]
+   },
+   "43019":{
+      "name":"ECAMSAT",
+      "norad":43019,
+      "transmitters":[
+         "437.095 MHz"
+      ]
+   },
+   "43617":{
+      "name":"ELFIN-A",
+      "norad":43617,
+      "transmitters":[
+         "437.450 MHz",
+         "437.450 MHz"
+      ]
+   },
+   "43616":{
+      "name":"ELFIN-B",
+      "norad":43616,
+      "transmitters":[
+         "437.475 MHz",
+         "437.475 MHz"
+      ]
+   },
+   "43551":{
+      "name":"ENDUROSAT ONE",
+      "norad":43551,
+      "transmitters":[
+         "437.050 MHz"
+      ]
+   },
+   "44429":{
+      "name":"EntrySat",
+      "norad":44429,
+      "transmitters":[
+         "436.950 MHz"
+      ]
+   },
+   "43792":{
+      "name":"ESEO",
+      "norad":43792,
+      "transmitters":[
+         "437.000 MHz",
+         "437.000 MHz"
+      ]
+   },
+   "47319":{
+      "name":"EXOCUBE-2",
+      "norad":47319,
+      "transmitters":[
+         "437.150 MHz"
+      ]
+   },
+   "37855":{
+      "name":"EXP-1",
+      "norad":37855,
+      "transmitters":[
+         "437.493 MHz"
+      ]
+   },
+   "43721":{
+      "name":"FACSAT-1",
+      "norad":43721,
+      "transmitters":[
+         "437.350 MHz"
+      ]
+   },
+   "30776":{
+      "name":"FALCONSAT-3",
+      "norad":30776,
+      "transmitters":[
+         "435.103 MHz"
+      ]
+   },
+   "40377":{
+      "name":"FIREBIRD 3",
+      "norad":40377,
+      "transmitters":[
+         "437.397 MHz"
+      ]
+   },
+   "40378":{
+      "name":"FIREBIRD 4",
+      "norad":40378,
+      "transmitters":[
+         "437.220 MHz"
+      ]
+   },
+   "44885":{
+      "name":"FloripaSat-1",
+      "norad":44885,
+      "transmitters":[
+         "145.900 MHz",
+         "436.100 MHz"
+      ]
+   },
+   "43192":{
+      "name":"FMN-1",
+      "norad":43192,
+      "transmitters":[
+         "435.350 MHz"
+      ]
+   },
+   "99999":{
+      "name":"FOSSASAT-1B",
+      "norad":99999,
+      "transmitters":[
+         "436.980 MHz"
+      ]
+   },
+   "99998":{
+      "name":"FOSSASAT-2",
+      "norad":99998,
+      "transmitters":[
+         "436.900 MHz"
+      ]
+   },
+   "41170":{
+      "name":"GALASSIA",
+      "norad":41170,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "51439":{
+      "name":"GASPACS",
+      "norad":51439,
+      "transmitters":[
+         "437.365 MHz",
+         "437.365 MHz"
+      ]
+   },
+   "25397":{
+      "name":"GO-32",
+      "norad":25397,
+      "transmitters":[
+         "435.325 MHz",
+         "435.225 MHz"
+      ]
+   },
+   "39430":{
+      "name":"GOMX-1",
+      "norad":39430,
+      "transmitters":[
+         "437.250 MHz"
+      ]
+   },
+   "40949":{
+      "name":"GOMX-3",
+      "norad":40949,
+      "transmitters":[
+         "437.250 MHz"
+      ]
+   },
+   "42724":{
+      "name":"GR01",
+      "norad":42724,
+      "transmitters":[
+         "436.420 MHz",
+         "436.420 MHz"
+      ]
+   },
+   "47959":{
+      "name":"GRBAlpha",
+      "norad":47959,
+      "transmitters":[
+         "437.025 MHz"
+      ]
+   },
+   "40379":{
+      "name":"GRIFEX",
+      "norad":40379,
+      "transmitters":[
+         "437.481 MHz"
+      ]
+   },
+   "51025":{
+      "name":"Grizu-263A",
+      "norad":51025,
+      "transmitters":[
+         "435.675 MHz"
+      ]
+   },
+   "51510":{
+      "name":"GT-1",
+      "norad":51510,
+      "transmitters":[
+         "437.175 MHz"
+      ]
+   },
+   "39433":{
+      "name":"HUMSAT-D",
+      "norad":39433,
+      "transmitters":[
+         "437.325 MHz"
+      ]
+   },
+   "47458":{
+      "name":"IDEASSat",
+      "norad":47458,
+      "transmitters":[
+         "437.345 MHz"
+      ]
+   },
+   "42718":{
+      "name":"IL01",
+      "norad":42718,
+      "transmitters":[
+         "437.740 MHz"
+      ]
+   },
+   "43738":{
+      "name":"INNOSAT-2",
+      "norad":43738,
+      "transmitters":[
+         "437.450 MHz"
+      ]
+   },
+   "43116":{
+      "name":"INS-1C",
+      "norad":43116,
+      "transmitters":[
+         "435.080 MHz"
+      ]
+   },
+   "51658":{
+      "name":"INS-2TD",
+      "norad":51658,
+      "transmitters":[
+         "435.080 MHz"
+      ]
+   },
+   "51657":{
+      "name":"INSPIRESat-1",
+      "norad":51657,
+      "transmitters":[
+         "437.500 MHz"
+      ]
+   },
+   "48912":{
+      "name":"ION SCV-003",
+      "norad":48912,
+      "transmitters":[
+         "437.515 MHz"
+      ]
+   },
+   "46274":{
+      "name":"ION-MK01",
+      "norad":46274,
+      "transmitters":[
+         "437.515 MHz"
+      ]
+   },
+   "43468":{
+      "name":"IRAZU",
+      "norad":43468,
+      "transmitters":[
+         "436.500 MHz"
+      ]
+   },
+   "51044":{
+      "name":"IRIS-A",
+      "norad":51044,
+      "transmitters":[
+         "436.915 MHz"
+      ]
+   },
+   "43693":{
+      "name":"IRVINE-01",
+      "norad":43693,
+      "transmitters":[
+         "437.800 MHz"
+      ]
+   },
+   "49017":{
+      "name":"IT-SPINS",
+      "norad":49017,
+      "transmitters":[
+         "437.405 MHz"
+      ]
+   },
+   "43786":{
+      "name":"ITASAT 1",
+      "norad":43786,
+      "transmitters":[
+         "145.860 MHz"
+      ]
+   },
+   "44419":{
+      "name":"JAISAT-1",
+      "norad":44419,
+      "transmitters":[
+         "435.700 MHz"
+      ]
+   },
+   "43803":{
+      "name":"JY1-Sat",
+      "norad":43803,
+      "transmitters":[
+         "145.840 MHz"
+      ]
+   },
+   "41915":{
+      "name":"KAIDUN-1",
+      "norad":41915,
+      "transmitters":[
+         "437.600 MHz"
+      ]
+   },
+   "40912":{
+      "name":"KAITUO-1B",
+      "norad":40912,
+      "transmitters":[
+         "145.475 MHz"
+      ]
+   },
+   "42714":{
+      "name":"KR01",
+      "norad":42714,
+      "transmitters":[
+         "436.030 MHz",
+         "436.030 MHz"
+      ]
+   },
+   "44427":{
+      "name":"KrakSat",
+      "norad":44427,
+      "transmitters":[
+         "435.500 MHz"
+      ]
+   },
+   "41845":{
+      "name":"KS-1Q",
+      "norad":41845,
+      "transmitters":[
+         "436.500 MHz"
+      ]
+   },
+   "47954":{
+      "name":"KSU CubeSat",
+      "norad":47954,
+      "transmitters":[
+         "437.130 MHz"
+      ]
+   },
+   "49069":{
+      "name":"LEDSAT",
+      "norad":49069,
+      "transmitters":[
+         "435.190 MHz",
+         "435.190 MHz"
+      ]
+   },
+   "44420":{
+      "name":"LightSail-2",
+      "norad":44420,
+      "transmitters":[
+         "437.025 MHz"
+      ]
+   },
+   "42725":{
+      "name":"LilacSat-1",
+      "norad":42725,
+      "transmitters":[
+         "436.510 MHz"
+      ]
+   },
+   "40908":{
+      "name":"LilacSat-2",
+      "norad":40908,
+      "transmitters":[
+         "437.200 MHz",
+         "437.225 MHz",
+         "437.200 MHz"
+      ]
+   },
+   "42768":{
+      "name":"LITUANICASAT-2",
+      "norad":42768,
+      "transmitters":[
+         "437.265 MHz"
+      ]
+   },
+   "44406":{
+      "name":"Lucky-7",
+      "norad":44406,
+      "transmitters":[
+         "437.525 MHz"
+      ]
+   },
+   "43908":{
+      "name":"LUME-1",
+      "norad":43908,
+      "transmitters":[
+         "437.060 MHz"
+      ]
+   },
+   "43485":{
+      "name":"Luojia-1",
+      "norad":43485,
+      "transmitters":[
+         "437.250 MHz"
+      ]
+   },
+   "44109":{
+      "name":"M6P",
+      "norad":44109,
+      "transmitters":[
+         "437.265 MHz"
+      ]
+   },
+   "39469":{
+      "name":"MCUBED-2",
+      "norad":39469,
+      "transmitters":[
+         "437.480 MHz"
+      ]
+   },
+   "46489":{
+      "name":"MEZNSAT",
+      "norad":46489,
+      "transmitters":[
+         "436.600 MHz",
+         "436.600 MHz",
+         "436.600 MHz"
+      ]
+   },
+   "41474":{
+      "name":"MINXSS",
+      "norad":41474,
+      "transmitters":[
+         "437.345 MHz"
+      ]
+   },
+   "43758":{
+      "name":"MinXSS 2",
+      "norad":43758,
+      "transmitters":[
+         "437.250 MHz",
+         "437.250 MHz"
+      ]
+   },
+   "48868":{
+      "name":"MIR-SAT1",
+      "norad":48868,
+      "transmitters":[
+         "436.925 MHz"
+      ]
+   },
+   "47314":{
+      "name":"MiTEE-1",
+      "norad":47314,
+      "transmitters":[
+         "437.800 MHz"
+      ]
+   },
+   "44045":{
+      "name":"MYSAT 1",
+      "norad":44045,
+      "transmitters":[
+         "435.775 MHz",
+         "435.775 MHz"
+      ]
+   },
+   "40024":{
+      "name":"NanosatC-BR1",
+      "norad":40024,
+      "transmitters":[
+         "145.865 MHz"
+      ]
+   },
+   "47950":{
+      "name":"NanosatC-BR2",
+      "norad":47950,
+      "transmitters":[
+         "145.865 MHz",
+         "145.865 MHz"
+      ]
+   },
+   "42017":{
+      "name":"Nayif-1",
+      "norad":42017,
+      "transmitters":[
+         "145.940 MHz"
+      ]
+   },
+   "46506":{
+      "name":"NETSAT 1",
+      "norad":46506,
+      "transmitters":[
+         "435.600 MHz"
+      ]
+   },
+   "46507":{
+      "name":"NETSAT 2",
+      "norad":46507,
+      "transmitters":[
+         "435.600 MHz"
+      ]
+   },
+   "46505":{
+      "name":"NETSAT 3",
+      "norad":46505,
+      "transmitters":[
+         "435.600 MHz"
+      ]
+   },
+   "46504":{
+      "name":"NETSAT 4",
+      "norad":46504,
+      "transmitters":[
+         "435.600 MHz"
+      ]
+   },
+   "46923":{
+      "name":"NEUTRON-1",
+      "norad":46923,
+      "transmitters":[
+         "435.300 MHz",
+         "435.300 MHz"
+      ]
+   },
+   "43937":{
+      "name":"NEXUS",
+      "norad":43937,
+      "transmitters":[
+         "435.900 MHz",
+         "435.900 MHz"
+      ]
+   },
+   "40654":{
+      "name":"NO-84",
+      "norad":40654,
+      "transmitters":[
+         "145.825 MHz"
+      ]
+   },
+   "41478":{
+      "name":"NODES 1",
+      "norad":41478,
+      "transmitters":[
+         "437.100 MHz",
+         "2401.200 MHz"
+      ]
+   },
+   "41477":{
+      "name":"NODES 2",
+      "norad":41477,
+      "transmitters":[
+         "437.100 MHz",
+         "2401.200 MHz"
+      ]
+   },
+   "46494":{
+      "name":"NORBI",
+      "norad":46494,
+      "transmitters":[
+         "436.700 MHz"
+      ]
+   },
+   "42726":{
+      "name":"NSIGHT-1",
+      "norad":42726,
+      "transmitters":[
+         "435.900 MHz"
+      ]
+   },
+   "41557":{
+      "name":"NuSat 1",
+      "norad":41557,
+      "transmitters":[
+         "436.445 MHz"
+      ]
+   },
+   "37224":{
+      "name":"O/OREOS",
+      "norad":37224,
+      "transmitters":[
+         "437.305 MHz"
+      ]
+   },
+   "44878":{
+      "name":"OPS-SAT",
+      "norad":44878,
+      "transmitters":[
+         "437.200 MHz"
+      ]
+   },
+   "47960":{
+      "name":"OrbiCraft-Zorkiy",
+      "norad":47960,
+      "transmitters":[
+         "437.850 MHz",
+         "437.850 MHz",
+         "437.850 MHz",
+         "437.850 MHz"
+      ]
+   },
+   "99410":{
+      "name":"OreSat0",
+      "norad":99410,
+      "transmitters":[
+         "436.500 MHz"
+      ]
+   },
+   "44365":{
+      "name":"PAINANI-1",
+      "norad":44365,
+      "transmitters":[
+         "437.475 MHz"
+      ]
+   },
+   "42706":{
+      "name":"PHOENIX",
+      "norad":42706,
+      "transmitters":[
+         "436.915 MHz"
+      ]
+   },
+   "39381":{
+      "name":"PHONESAT 2.4",
+      "norad":39381,
+      "transmitters":[
+         "437.425 MHz"
+      ]
+   },
+   "43132":{
+      "name":"PicSat",
+      "norad":43132,
+      "transmitters":[
+         "435.525 MHz",
+         "435.525 MHz"
+      ]
+   },
+   "99407":{
+      "name":"PlantSat",
+      "norad":99407,
+      "transmitters":[
+         "437.240 MHz"
+      ]
+   },
+   "40042":{
+      "name":"POLYITAN-1",
+      "norad":40042,
+      "transmitters":[
+         "437.675 MHz",
+         "437.676 MHz"
+      ]
+   },
+   "43814":{
+      "name":"PW-Sat2",
+      "norad":43814,
+      "transmitters":[
+         "435.275 MHz",
+         "435.275 MHz"
+      ]
+   },
+   "45257":{
+      "name":"QARMAN",
+      "norad":45257,
+      "transmitters":[
+         "437.350 MHz"
+      ]
+   },
+   "42708":{
+      "name":"QBEE",
+      "norad":42708,
+      "transmitters":[
+         "435.800 MHz"
+      ]
+   },
+   "48943":{
+      "name":"QMR-KWT",
+      "norad":48943,
+      "transmitters":[
+         "436.500 MHz"
+      ]
+   },
+   "43700":{
+      "name":"QO-100",
+      "norad":43700,
+      "transmitters":[
+         "10489.800 MHz",
+         "10489.800 MHz"
+      ]
+   },
+   "45598":{
+      "name":"Quetzal-1",
+      "norad":45598,
+      "transmitters":[
+         "437.200 MHz"
+      ]
+   },
+   "48850":{
+      "name":"RAMSAT",
+      "norad":48850,
+      "transmitters":[
+         "436.300 MHz"
+      ]
+   },
+   "43743":{
+      "name":"Reaktor Hello World",
+      "norad":43743,
+      "transmitters":[
+         "437.775 MHz"
+      ]
+   },
+   "42792":{
+      "name":"ROBUSTA-1B",
+      "norad":42792,
+      "transmitters":[
+         "437.325 MHz"
+      ]
+   },
+   "43188":{
+      "name":"S-NET A",
+      "norad":43188,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "43187":{
+      "name":"S-NET B",
+      "norad":43187,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "43189":{
+      "name":"S-NET C",
+      "norad":43189,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "43186":{
+      "name":"S-NET D",
+      "norad":43186,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "46495":{
+      "name":"SALSAT",
+      "norad":46495,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "51031":{
+      "name":"SanoSat-1",
+      "norad":51031,
+      "transmitters":[
+         "436.235 MHz"
+      ]
+   },
+   "43199":{
+      "name":"Shaonian Xing",
+      "norad":43199,
+      "transmitters":[
+         "436.375 MHz"
+      ]
+   },
+   "47941":{
+      "name":"SIMBA",
+      "norad":47941,
+      "transmitters":[
+         "435.310 MHz",
+         "435.310 MHz"
+      ]
+   },
+   "43595":{
+      "name":"SiriusSat-1",
+      "norad":43595,
+      "transmitters":[
+         "435.570 MHz"
+      ]
+   },
+   "43596":{
+      "name":"SiriusSat-2",
+      "norad":43596,
+      "transmitters":[
+         "435.670 MHz"
+      ]
+   },
+   "42789":{
+      "name":"SKCUBE",
+      "norad":42789,
+      "transmitters":[
+         "437.100 MHz"
+      ]
+   },
+   "47964":{
+      "name":"SMOG-1",
+      "norad":47964,
+      "transmitters":[
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz",
+         "437.345 MHz"
+      ]
+   },
+   "44832":{
+      "name":"SMOG-P",
+      "norad":44832,
+      "transmitters":[
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz",
+         "437.150 MHz"
+      ]
+   },
+   "43784":{
+      "name":"SNUGLITE",
+      "norad":43784,
+      "transmitters":[
+         "437.275 MHz"
+      ]
+   },
+   "48851":{
+      "name":"SOAR",
+      "norad":48851,
+      "transmitters":[
+         "401.725 MHz"
+      ]
+   },
+   "44404":{
+      "name":"SOKRAT",
+      "norad":44404,
+      "transmitters":[
+         "436.000 MHz"
+      ]
+   },
+   "47445":{
+      "name":"SOMP 2b",
+      "norad":47445,
+      "transmitters":[
+         "435.600 MHz"
+      ]
+   },
+   "46921":{
+      "name":"SPOC",
+      "norad":46921,
+      "transmitters":[
+         "437.350 MHz"
+      ]
+   },
+   "44332":{
+      "name":"SpooQy-1",
+      "norad":44332,
+      "transmitters":[
+         "436.200 MHz",
+         "436.200 MHz"
+      ]
+   },
+   "47962":{
+      "name":"STECCO",
+      "norad":47962,
+      "transmitters":[
+         "435.800 MHz"
+      ]
+   },
+   "39090":{
+      "name":"STRAND-1",
+      "norad":39090,
+      "transmitters":[
+         "437.568 MHz"
+      ]
+   },
+   "52191":{
+      "name":"SUCHAI-3",
+      "norad":52191,
+      "transmitters":[
+         "437.250 MHz",
+         "437.250 MHz",
+         "437.250 MHz"
+      ]
+   },
+   "43804":{
+      "name":"Suomi 100",
+      "norad":43804,
+      "transmitters":[
+         "437.775 MHz"
+      ]
+   },
+   "45115":{
+      "name":"SwampSat-2",
+      "norad":45115,
+      "transmitters":[
+         "436.350 MHz"
+      ]
+   },
+   "44426":{
+      "name":"Swiatowid",
+      "norad":44426,
+      "transmitters":[
+         "435.500 MHz",
+         "435.500 MHz"
+      ]
+   },
+   "43597":{
+      "name":"Tanusha-3",
+      "norad":43597,
+      "transmitters":[
+         "437.050 MHz",
+         "437.050 MHz"
+      ]
+   },
+   "99434":{
+      "name":"TARGIT",
+      "norad":99434,
+      "transmitters":[
+         "437.285 MHz"
+      ]
+   },
+   "44530":{
+      "name":"Taurus-1",
+      "norad":44530,
+      "transmitters":[
+         "435.840 MHz"
+      ]
+   },
+   "47926":{
+      "name":"TAUSAT-1",
+      "norad":47926,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "44356":{
+      "name":"TBEX-A",
+      "norad":44356,
+      "transmitters":[
+         "437.485 MHz"
+      ]
+   },
+   "44359":{
+      "name":"TBEX-B",
+      "norad":44359,
+      "transmitters":[
+         "437.535 MHz",
+         "437.485 MHz"
+      ]
+   },
+   "42829":{
+      "name":"TECHNOSAT",
+      "norad":42829,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "99471":{
+      "name":"TEVEL-1",
+      "norad":99471,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "99472":{
+      "name":"TEVEL-2",
+      "norad":99472,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "99473":{
+      "name":"TEVEL-3",
+      "norad":99473,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "99474":{
+      "name":"TEVEL-4",
+      "norad":99474,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "99475":{
+      "name":"TEVEL-5",
+      "norad":99475,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "99476":{
+      "name":"TEVEL-6",
+      "norad":99476,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "99477":{
+      "name":"TEVEL-7",
+      "norad":99477,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "99478":{
+      "name":"TEVEL-8",
+      "norad":99478,
+      "transmitters":[
+         "436.400 MHz"
+      ]
+   },
+   "40043":{
+      "name":"TIGRISAT",
+      "norad":40043,
+      "transmitters":[
+         "435.000 MHz"
+      ]
+   },
+   "46280":{
+      "name":"TRISAT",
+      "norad":46280,
+      "transmitters":[
+         "435.612 MHz"
+      ]
+   },
+   "47927":{
+      "name":"TSURU",
+      "norad":47927,
+      "transmitters":[
+         "437.375 MHz"
+      ]
+   },
+   "46312":{
+      "name":"TTU-100",
+      "norad":46312,
+      "transmitters":[
+         "435.450 MHz"
+      ]
+   },
+   "48900":{
+      "name":"TUBIN",
+      "norad":48900,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "40928":{
+      "name":"TW-1A",
+      "norad":40928,
+      "transmitters":[
+         "435.645 MHz"
+      ]
+   },
+   "40927":{
+      "name":"TW-1B",
+      "norad":40927,
+      "transmitters":[
+         "437.645 MHz"
+      ]
+   },
+   "40926":{
+      "name":"TW-1C",
+      "norad":40926,
+      "transmitters":[
+         "435.645 MHz"
+      ]
+   },
+   "43669":{
+      "name":"TY 4-01",
+      "norad":43669,
+      "transmitters":[
+         "435.925 MHz"
+      ]
+   },
+   "43155":{
+      "name":"TY-2",
+      "norad":43155,
+      "transmitters":[
+         "435.350 MHz"
+      ]
+   },
+   "43158":{
+      "name":"TY-6",
+      "norad":43158,
+      "transmitters":[
+         "436.100 MHz"
+      ]
+   },
+   "42732":{
+      "name":"UA01",
+      "norad":42732,
+      "transmitters":[
+         "436.600 MHz"
+      ]
+   },
+   "43467":{
+      "name":"UBAKUSAT",
+      "norad":43467,
+      "transmitters":[
+         "437.325 MHz"
+      ]
+   },
+   "42765":{
+      "name":"UCLSAT",
+      "norad":42765,
+      "transmitters":[
+         "435.975 MHz"
+      ]
+   },
+   "40074":{
+      "name":"UKube-1",
+      "norad":40074,
+      "transmitters":[
+         "145.840 MHz"
+      ]
+   },
+   "40012":{
+      "name":"UNISAT-6",
+      "norad":40012,
+      "transmitters":[
+         "437.421 MHz"
+      ]
+   },
+   "47945":{
+      "name":"UNISAT-7",
+      "norad":47945,
+      "transmitters":[
+         "437.425 MHz"
+      ]
+   },
+   "46276":{
+      "name":"UPMSat 2",
+      "norad":46276,
+      "transmitters":[
+         "437.405 MHz"
+      ]
+   },
+   "42776":{
+      "name":"URSA MAIOR",
+      "norad":42776,
+      "transmitters":[
+         "435.950 MHz"
+      ]
+   },
+   "42721":{
+      "name":"US01",
+      "norad":42721,
+      "transmitters":[
+         "437.505 MHz"
+      ]
+   },
+   "47438":{
+      "name":"UVSQ-SAT",
+      "norad":47438,
+      "transmitters":[
+         "437.020 MHz",
+         "437.020 MHz"
+      ]
+   },
+   "39446":{
+      "name":"UWE-3",
+      "norad":39446,
+      "transmitters":[
+         "437.385 MHz",
+         "437.384 MHz"
+      ]
+   },
+   "43880":{
+      "name":"UWE-4",
+      "norad":43880,
+      "transmitters":[
+         "435.600 MHz"
+      ]
+   },
+   "51085":{
+      "name":"VZLUSAT-2",
+      "norad":51085,
+      "transmitters":[
+         "437.325 MHz",
+         "437.325 MHz"
+      ]
+   },
+   "42707":{
+      "name":"X-CUBESAT",
+      "norad":42707,
+      "transmitters":[
+         "437.020 MHz",
+         "437.020 MHz"
+      ]
+   },
+   "40903":{
+      "name":"XW-2A",
+      "norad":40903,
+      "transmitters":[
+         "145.640 MHz"
+      ]
+   },
+   "40911":{
+      "name":"XW-2B",
+      "norad":40911,
+      "transmitters":[
+         "145.705 MHz"
+      ]
+   },
+   "40906":{
+      "name":"XW-2C",
+      "norad":40906,
+      "transmitters":[
+         "145.770 MHz"
+      ]
+   },
+   "40907":{
+      "name":"XW-2D",
+      "norad":40907,
+      "transmitters":[
+         "145.835 MHz"
+      ]
+   },
+   "40909":{
+      "name":"XW-2E",
+      "norad":40909,
+      "transmitters":[
+         "145.890 MHz"
+      ]
+   },
+   "40910":{
+      "name":"XW-2F",
+      "norad":40910,
+      "transmitters":[
+         "145.955 MHz"
+      ]
+   },
+   "50466":{
+      "name":"XW-3",
+      "norad":50466,
+      "transmitters":[
+         "435.725 MHz"
+      ]
+   },
+   "47439":{
+      "name":"YUSAT-1",
+      "norad":47439,
+      "transmitters":[
+         "436.250 MHz"
+      ]
+   },
+   "39417":{
+      "name":"ZACUBE-1",
+      "norad":39417,
+      "transmitters":[
+         "437.356 MHz"
+      ]
+   }
+}
