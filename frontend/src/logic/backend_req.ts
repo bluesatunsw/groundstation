@@ -60,6 +60,15 @@ export async function getWhatsUp(pos: gps_pos, search_radius: number, cat_id: nu
         .then(res => { return res as n2yo_whats_up })
 }
 
+// Send data to backend
+export async function setData(norad_id: number, lat: number, lon: number, alt: number)
+    : Promise<any> {
+    return await fetch(`http://127.0.0.1:${port}/setdata?norad_id=${norad_id}&lat=${lat}&
+    lon=${lon}&alt=${alt}`)
+        .then(res => res.json())
+        .then(res => { return res as any })
+}
+
 // Get backend status
 export async function getStatus() : Promise<backend_status> {
     return await fetch(`http://127.0.0.1:${port}/status`)

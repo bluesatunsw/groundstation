@@ -8,6 +8,7 @@
 
 import { Button, TextField } from '@mui/material';
 import { gps_pos } from '../types/hardwareTypes';
+import { setData } from '../logic/backend_req';
 import React from 'react';
 import styled from 'styled-components';
 import Stack from "@mui/material/Stack";
@@ -37,6 +38,7 @@ const LocationModal: React.FC<LocationModalProps> = ({ onSetLocation, location, 
             altitude: alt,
             valid: true
         };
+        setData(0, parseFloat(lat), parseFloat(lon), parseFloat(alt))
         onSetLocation(n);
         setModalOpen(false);
     }

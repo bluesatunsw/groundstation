@@ -7,9 +7,20 @@ from flask_cors import CORS
 import api as apis
 import geolocation
 
+# Encounter imports
+import logging
+import threading
+import time
+
+from encounter import build_encounter
+from storage import LastRequestInfo
+
 APP = Flask(__name__)
 CORS(APP)
 
+encounterThread = None
+
+LastRequest = LastRequestInfo(25544, 33.8688, 151.2093, 3)
 
 @APP.route('/whats_up')
 def whats_up_request():
@@ -78,6 +89,17 @@ def get_positions():
     api_result = apis.get_positions(norad_id, observer_lat, observer_lng, observer_alt, seconds)
     return return_handler(api_result)
 
+@APP.route('/setdata')
+def set_data():
+    """
+    Internal endpoint to save data from frotend
+    """
+    norad_id = request.args.get('norad_id', 25544)
+    observer_lat = request.args.get('observer_lat', 33.8688)
+    observer_lng = request.args.get('observer_lng', 151.2093)
+    observer_alt = request.args.get('observer_alt', 3)
+    LastRequest = LastRequestInfo(norad_id, observer_lat, observer_lng, observer_alt)
+    return return_handler({"good": "yes"})
 
 @APP.route('/position')
 def position_request():
@@ -97,6 +119,30 @@ def getstatus():
     """
     try:
         return return_handler(apis.get_status())
+    except OSError as err:
+        return Response(str(err), status=404, mimetype='application/json')
+
+@APP.route('/start_encounter')
+def start_encounter():
+    """
+    Endpoint to start an encounter and move data to the encounter thread.
+    If the encounter and timer thread are running already, terminate and restart
+    """
+    format = "%(asctime)s: %(message)s"
+    global encounterThread
+    logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
+    while True:
+        if encounterThread is None:
+            logging.info("Starting encounter thread")
+            # We set daemon=True to force this thread to exit when the main thread exits.
+            print(LastRequest)
+            encounterThread = threading.Thread(target=build_encounter, args=(LastRequest.norad_id, LastRequest.lat, LastRequest.lng, LastRequest.alt), daemon=True)
+            encounterThread.start()
+            break
+        else:
+            encounterThread.end()
+    try:
+        return Response("OK", status=200, mimetype='text/plain')
     except OSError as err:
         return Response(str(err), status=404, mimetype='application/json')
 
