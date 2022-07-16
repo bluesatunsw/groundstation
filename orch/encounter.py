@@ -1,3 +1,4 @@
+
 """
 Subsystem for generating encounters and transferring them to hardware.
 Matt Rossouw (omeh-a)
@@ -46,6 +47,7 @@ def build_encounter(norad_id, lat, lng, alt):
     radio_pass = None
     time_to_generate = 0
     prev_final_timestamp = None
+    port = None
     # Store our list steps in a single array. Each entry contains the time, elevation, and azimuth.
     # {"time" : time, "el" : el, "az" : az}
     steps = []
@@ -54,14 +56,13 @@ def build_encounter(norad_id, lat, lng, alt):
     # the first one found.
     for found in serial.tools.list_ports.comports():
         try:
-            found = serial.Serial(port.device, baudrate=BAUDRATE)
+            port = serial.Serial(found.device, baudrate=BAUDRATE)
 
         except OSError:
             continue
 
-    if found is None:
+    if port is None:
         raise OSError("Microcontroller not detected.")
-    port = found
 
     # Open serial port
     ser = serial.Serial(port, BAUDRATE)
@@ -126,6 +127,7 @@ async def transfer_steps():
         m_string = "!" + str(step["az"]) + "," + str(step["el"]) + \
             "," + str(step["time"]) + "\n"
         ser.write(m_string.encode())
+        print(step)
 
     # Clear buffer, except for very last position.
     last = steps[len(steps) - 1]
