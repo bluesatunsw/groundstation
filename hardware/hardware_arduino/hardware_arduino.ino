@@ -57,6 +57,9 @@ void setup()
         fatal("Invalid end marker.");
         return;
     }
+    // Start clock
+    rtc.setClockMode(false);    // 24 hour mode
+
 
     // Set RTC fields
     rtc.setYear(buffer[2] << 8 | buffer[3]);
@@ -66,6 +69,10 @@ void setup()
     rtc.setHour(buffer[10] << 8 | buffer[11]);
     rtc.setMinute(buffer[12] << 8 | buffer[13]);
     rtc.setSecond(buffer[14] << 8 | buffer[15]);
+
+
+    // Zero gantry. TODO: write this code once we add a limit switch, etc. for this.
+    //              For now we assume the servo begins pointing at true north.
 }
 
 void loop()
