@@ -123,6 +123,14 @@ async def transfer_steps():
     # Transfer steps
     for step in steps:
         # Build string to send to motor controller
+
+        # Convert azimuth and elevation to fixed point
+        az_i = int(step["az"]) # integer portion
+        az_dec = int((step["az"] - az_i)* 10**3) # first 4 decimal places
+
+        el_i = int(step["el"])
+        el_dec = int((step["el"] - el_i)* 10**3) # first 4 decmial places
+        
         m_string = "!" + str(step["az"]) + "," + str(step["el"]) + \
             "," + str(step["time"]) + "\n"
         ser.write(m_string.encode())
