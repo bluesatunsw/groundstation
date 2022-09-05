@@ -77,6 +77,20 @@ void setup()
 
 void loop()
 {
+    // Print current time to serial
+    Serial.print(rtc.getYear());
+    Serial.print("-");
+    Serial.print(rtc.getMonth());
+    Serial.print("-");
+    Serial.print(rtc.getDate());
+    Serial.print(" ");
+    Serial.print(rtc.getHour());
+    Serial.print(":");
+    Serial.print(rtc.getMinute());
+    Serial.print(":");
+    Serial.print(rtc.getSecond());
+    Serial.println();
+    sleep(1000);
 }
 
 /**
