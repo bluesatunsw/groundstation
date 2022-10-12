@@ -1,18 +1,18 @@
 """
 The backend server used by all modules to communicate.
 """
-from json import dumps
-from flask import Flask, request, jsonify, Response
-from flask_cors import CORS
-import api as apis
-import geolocation
-
-# Encounter imports
 import logging
 import threading
 import time
+from json import dumps
+import api as apis
+import geolocation
+from flask_cors import CORS
+from flask import Flask, request, jsonify, Response
 
-from encounter import build_encounter, encounterLoop
+# Encounter imports
+
+from encounter import build_encounter
 
 APP = Flask(__name__)
 CORS(APP)
@@ -50,6 +50,7 @@ def radiopass_request():
         norad_id, observer_lat, observer_lng, observer_alt, days, min_elevation)
     return return_handler(api_result)
 
+
 @APP.route('/visualpasses')
 def visualpass_request():
     """
@@ -65,6 +66,7 @@ def visualpass_request():
         norad_id, observer_lat, observer_lng, observer_alt, days, min_visibility)
     return return_handler(api_result)
 
+
 @APP.route('/gettle')
 def gettle_request():
     """
@@ -73,6 +75,7 @@ def gettle_request():
     norad_id = request.args.get('norad_id', 25544)
     api_result = apis.get_tle(norad_id)
     return return_handler(api_result)
+
 
 @APP.route('/getpositions')
 def get_positions():
@@ -84,7 +87,8 @@ def get_positions():
     observer_lng = request.args.get('observer_lng', 151.2093)
     observer_alt = request.args.get('observer_alt', 3)
     seconds = request.args.get('seconds', 1)
-    api_result = apis.get_positions(norad_id, observer_lat, observer_lng, observer_alt, seconds)
+    api_result = apis.get_positions(
+        norad_id, observer_lat, observer_lng, observer_alt, seconds)
     return return_handler(api_result)
 
 
@@ -99,6 +103,7 @@ def position_request():
     except OSError as err:
         return Response(str(err), status=404, mimetype='application/json')
 
+
 @APP.route('/status')
 def getstatus():
     """
@@ -108,6 +113,7 @@ def getstatus():
         return return_handler(apis.get_status())
     except OSError as err:
         return Response(str(err), status=404, mimetype='application/json')
+
 
 @APP.route('/start_encounter')
 def start_encounter():
@@ -119,14 +125,16 @@ def start_encounter():
 
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
     while True:
-        if encounterThread is None:
+        if encounter_thread is None:
             logging.info("Starting encounter thread")
             # We set daemon=True to force this thread to exit when the main thread exits.
-            encounterThread = threading.Thread(target=build_encounter, args=(), daemon=True)
-            encounterThread.start()
+            encounter_thread = threading.Thread(
+                target=build_encounter, args=(), daemon=True)
+            encounter_thread.start()
             break
         else:
-            encounterThread.end()
+            encounter_thread.end()
+
 
 def return_handler(api_result):
     """

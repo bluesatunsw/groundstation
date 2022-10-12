@@ -12,8 +12,7 @@ import api
 
 
 BAUDRATE = 115200
-port = None
-ser = None
+
 
 """
 For now we generate encounters by just grabbing the entire list of positions from
@@ -28,6 +27,8 @@ send these straight to hardware. This might be improved by calculating a weighti
 step to help make a smoother and more accurate interpolation between steps.
 
 """
+
+
 def build_encounter(norad_id, lat, lng, alt):
     """
     Given a NORAD id and observer position, build an encounter.
@@ -42,6 +43,7 @@ def build_encounter(norad_id, lat, lng, alt):
     the next window (if it exists). Generally encounters are quite short however, so we shouldn't
     cause too much API spam with this method.
     """
+    port = None
 
     radio_pass = None
     time_to_generate = 0
@@ -49,12 +51,12 @@ def build_encounter(norad_id, lat, lng, alt):
     # Store our list steps in a single array. Each entry contains the time, elevation, and azimuth.
     # {"time" : time, "el" : el, "az" : az}
     steps = []
-
+    found = None
     # Find the COM port for the motor controller. For now just take
     # the first one found.
-    for found in serial.tools.list_ports.comports():
+    for ports in serial.tools.list_ports.comports():
         try:
-            found = serial.Serial(port.device, baudrate=BAUDRATE)
+            found = serial.Serial(ports.device, baudrate=BAUDRATE)
 
         except OSError:
             continue
@@ -67,14 +69,14 @@ def build_encounter(norad_id, lat, lng, alt):
     ser = serial.Serial(port, BAUDRATE)
 
     # Get radio passes from API
-    radio_pass = json.dumps(api.get_radiopasses(norad_id, lat, lng, alt))['passes'][0]
+    radio_pass = json.dumps(api.get_radiopasses(
+        norad_id, lat, lng, alt))['passes'][0]
 
     # Update total seconds left
     time_to_generate = radio_pass['duration']
 
     # Sleep until 10 seconds before the start of the radio pass
     sleep(radio_pass['start'] - time.time() - 10)
-
 
     # Main segment for managing the encounter. Takes turns transferring
     # steps to the motor controller and getting new positions from the API;
@@ -83,7 +85,8 @@ def build_encounter(norad_id, lat, lng, alt):
     while time_to_generate > 0:
         # Get next 300 (or however much is left) seconds of positions
         secs = time_to_generate if time_to_generate < 300 else 300
-        new_steps = api.get_positions(radio_pass['sat'], radio_pass['start'] + secs)
+        new_steps = api.get_positions(
+            radio_pass['sat'], radio_pass['start'] + secs)
 
         new_final = None
 
@@ -105,10 +108,10 @@ def build_encounter(norad_id, lat, lng, alt):
         time_to_generate -= secs
 
         # Asynchronously transfer steps to hardware
-        transfer_steps()
+        transfer_steps(steps, port, ser)
 
-# TODO: Implement this and make it asynchronous
-async def transfer_steps():
+
+async def transfer_steps(steps, port, ser):
     """
     Send steps to hardware and purge buffer.
     TODO: find a way to distinguish between the motor COM port and
@@ -125,14 +128,13 @@ async def transfer_steps():
         # Build string to send to motor controller
 
         # Convert azimuth and elevation to fixed point
-        az_i = int(step["az"]) # integer portion
-        az_dec = int((step["az"] - az_i)* 10**3) # first 4 decimal places
+        az_i = int(step["az"])  # integer portion
+        az_dec = int((step["az"] - az_i) * 10**3)  # first 4 decimal places
 
         el_i = int(step["el"])
-        el_dec = int((step["el"] - el_i)* 10**3) # first 4 decmial places
-        
-        m_string = "!" + str(step["az"]) + "," + str(step["el"]) + \
-            "," + str(step["time"]) + "\n"
+        el_dec = int((step["el"] - el_i) * 10**3)  # first 4 decmial places
+
+        m_string = f"{az_i}.{az_dec},{el_i}.{el_dec}\0"
         ser.write(m_string.encode())
 
     # Clear buffer, except for very last position.
