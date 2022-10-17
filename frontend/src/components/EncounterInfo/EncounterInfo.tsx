@@ -3,7 +3,7 @@
 // Matt
 
 import React from 'react';
-import { Card, CardContent, Typography } from "@mui/material"
+import { Card, CardContent, Grid, Typography } from "@mui/material"
 import { n2yo_radio_passes, n2yo_visual_passes } from '../../types/n2yotypes';
 import UTCtoD from '../../logic/utility';
 import { Container } from '../Common';
@@ -19,7 +19,7 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
   let rp_max: string = UTCtoD(rp.maxUTC);
 
   return (
-    <Container>
+    <Grid>
       <Card sx={{ minWidth: 240 }} variant="outlined">
         <CardContent>
           <Typography variant="h6" component="div">
@@ -52,7 +52,7 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
           </Typography>
         </CardContent>
       </Card>
-    </Container>
+    </Grid>
   )
 }
 

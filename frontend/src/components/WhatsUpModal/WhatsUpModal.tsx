@@ -115,13 +115,19 @@ const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location, set
             onChange={handleSliderChange}
             sx={{ width: '150px' }}
           />
-          <p>
-            Warning: Setting search radius above 40 will cause significant slowdown without a category
-          </p>
+          <Typography variant="caption">
+            Warning: If radius is above 40, expect significant slowdown without a category
+          </Typography>
           <Button variant="outlined" color="secondary" onClick={() => {
             queryWhatsUp();
           }}>
             Search
+          </Button>
+          <Button variant="outlined" color="secondary" onClick={() => {
+            // open https://www.n2yo.com/satellite/?s=satid in a new window
+            window.open(`https://www.n2yo.com/satellite/?s=${selected.satid}`, '_blank')
+          }}>
+            Show on N2YO
           </Button>
           <Button variant="outlined" style={{ marginTop: "5px" }} onClick={() => {
             aboveToTarget();

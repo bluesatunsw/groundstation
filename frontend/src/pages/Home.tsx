@@ -14,6 +14,8 @@ import SysLocation from '../components/SystemInfo/SysLocation';
 import SelectTargetModal from '../components/SelectTargetModal';
 import WhatsUpModal from '../components/WhatsUpModal/WhatsUpModal';
 import BackendMonitor from '../components/SystemInfo/BackendMonitor/BackendMonitor'
+import Grid from '@mui/material/Grid';
+
 
 const SectionTitle = styled.div`
   font-size: x-large;
@@ -36,7 +38,7 @@ const Index: React.FC = () => {
     // Encounter state
     const [radioEncounter, setRe] = useState<n2yo_radio_passes>(default_radio_passes);
     const [visualEncounter, setVe] = useState<n2yo_visual_passes>(default_visual_passes);
-    
+
     // What's up state
     const [whatsUpModal, setWhatsUpModal] = useState(false);
 
@@ -83,13 +85,13 @@ const Index: React.FC = () => {
 
     return (
 
-        <div style={{ display: 'flex', float: "left", height: "100%" }}>
+        <div style={{ display: 'flex', height: "100%", width: "1000px" }}>
             <Sidebar setWhatsUpModal={setWhatsUpModal} onFindId={findId}
                 setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
-            <Snackbar 
+            <Snackbar
                 open={!beConnected}
-                message="Warning: backend is not connected or n2yo not reachable. Cannot interface with API."/>
-            
+                message="Warning: backend is not connected or n2yo not reachable. Cannot interface with API." />
+
             {/* Location selector modal */}
             <Dialog
                 open={locModal && beConnected}
@@ -114,7 +116,7 @@ const Index: React.FC = () => {
 
             {/* What's up modal */}
             <Dialog
-                open={whatsUpModal  && beConnected}
+                open={whatsUpModal && beConnected}
                 onClose={() => setWhatsUpModal(false)}
                 maxWidth={'sm'}
                 fullWidth={true}
@@ -125,22 +127,22 @@ const Index: React.FC = () => {
                 </DialogContent>
             </Dialog>
 
-            <Stack direction="row">
-                <Stack>
+            <Grid container spacing={1} xs={10}>
+                <Grid item xs={4}>
                     <SectionTitle>
                         Target
                     </SectionTitle>
                     <TargetInfo sat={target} />
                     <EncounterInfo vp={visualEncounter} rp={radioEncounter} />
-                </Stack>
-                <Stack>
+                </Grid>
+                <Grid item xs={4}>
                     <SectionTitle>
                         System
                     </SectionTitle>
                     <SysLocation location={loc} setLocModal={setLocModal} />
-                    <BackendMonitor connected={beConnected} setConnected={setBeConnected}/>
-                </Stack>
-            </Stack>
+                    <BackendMonitor connected={beConnected} setConnected={setBeConnected} />
+                </Grid>
+            </Grid>
         </div>
     )
 }

@@ -3,9 +3,8 @@
 // 05/2022
 
 import React from 'react';
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material"
+import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material"
 import { gps_pos } from '../../types/hardwareTypes';
-import { Container } from '../Common';
 import Clock from './Clock';
 interface SysLocationProps {
     location: gps_pos;
@@ -16,7 +15,7 @@ const SysLocation: React.FC<SysLocationProps> = ({ location, setLocModal }) => {
 
 
     return (
-        <Container>
+        <Grid>
             <Card sx={{ minWidth: 240 }} variant="outlined">
                 <CardContent>
                     <Typography variant="h6" component="div">
@@ -42,7 +41,7 @@ const SysLocation: React.FC<SysLocationProps> = ({ location, setLocModal }) => {
                     </Button>
                 </CardActions>
             </Card>
-        </Container>
+        </Grid>
     )
 }
 
