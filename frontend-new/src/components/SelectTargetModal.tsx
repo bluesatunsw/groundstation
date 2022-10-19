@@ -9,7 +9,7 @@
 import { Button, TextField, Card, CardContent, Typography } from '@mui/material';
 import { gps_pos } from '../types/hardwareTypes';
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Stack from "@mui/material/Stack";
 import { Container, Body } from './Common';
 import { targetSat } from '../types/targetSat';

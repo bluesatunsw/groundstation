@@ -4,7 +4,7 @@
 
 
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { n2yo_above } from '../../types/n2yotypes';
 import SatChip from './SatChip';
 

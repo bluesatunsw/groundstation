@@ -8,7 +8,7 @@ import {
   Stack, Slider, Typography
 } from '@mui/material';
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import SatSelector from './SatSelector';
 import { categories } from './Category'
 import { n2yo_above } from '../../types/n2yotypes';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Sidebar from '../components/Sidebar';
 import Stack from "@mui/material/Stack"
 import { Dialog, DialogContent, Snackbar } from "@mui/material"
