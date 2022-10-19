@@ -20,7 +20,7 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
 
   return (
     <Grid>
-      <Card sx={{ minWidth: 240 }} variant="outlined">
+      <Card sx={{ minWidth: 1 }} variant="outlined">
         <CardContent>
           <Typography variant="h6" component="div">
             Encounter details

@@ -14,7 +14,7 @@ interface TargetInfoProps {
 const TargetInfo: React.FC<TargetInfoProps> = ({ sat }) => {
     return (
         <Grid>
-            <Card sx={{ minWidth: 240 }}>
+            <Card sx={{ minWidth: 150 }}>
                 <CardContent>
                     <Typography variant="h5" component="div">
                         {sat.name}

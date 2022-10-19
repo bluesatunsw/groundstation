@@ -15,6 +15,10 @@ import SelectTargetModal from '../components/SelectTargetModal';
 import WhatsUpModal from '../components/WhatsUpModal/WhatsUpModal';
 import BackendMonitor from '../components/SystemInfo/BackendMonitor/BackendMonitor'
 import Grid from '@mui/material/Grid';
+import EncounterSub from './EncounterSub';
+import MapSub from './MapSub';
+import MonitorSub from './MonitorSub';
+import LogSub from './LogSub';
 
 
 const SectionTitle = styled.div`
@@ -85,7 +89,7 @@ const Index: React.FC = () => {
 
     return (
 
-        <div style={{ display: 'flex', height: "100%", width: "1000px" }}>
+        <div style={{ display: 'flex', height: "700px", width: "1100px" }}>
             <Sidebar setWhatsUpModal={setWhatsUpModal} onFindId={findId}
                 setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
             <Snackbar
@@ -127,21 +131,24 @@ const Index: React.FC = () => {
                 </DialogContent>
             </Dialog>
 
-            <Grid container spacing={1} xs={10}>
-                <Grid item xs={4}>
-                    <SectionTitle>
-                        Target
-                    </SectionTitle>
+            {/* Dashboard layout */}
+            <Grid container spacing={1} xs={10} sx={{marginTop: "20px", width: "100%"}}>
+                <Grid item xs={6} sx={{height: "50%"}}>
+                    <EncounterSub sat={target} vp={visualEncounter} rp={radioEncounter}/>
+                </Grid>
+                <Grid item xs={6} sx={{height: "50%"}}>
+                    <MapSub sat={target}/>
+                </Grid>
+                <Grid item xs={6} sx={{height: "50%"}}>
+                    <MonitorSub/>
+                </Grid>
+                <Grid item xs={6} sx={{height: "50%"}}>
+                    {/* <LogSub/> */}
+                <BackendMonitor connected={beConnected} setConnected={setBeConnected} />
+                </Grid>
+                    {/* <SysLocation location={loc} setLocModal={setLocModal} />
                     <TargetInfo sat={target} />
-                    <EncounterInfo vp={visualEncounter} rp={radioEncounter} />
-                </Grid>
-                <Grid item xs={4}>
-                    <SectionTitle>
-                        System
-                    </SectionTitle>
-                    <SysLocation location={loc} setLocModal={setLocModal} />
-                    <BackendMonitor connected={beConnected} setConnected={setBeConnected} />
-                </Grid>
+                    <EncounterInfo vp={visualEncounter} rp={radioEncounter} /> */}
             </Grid>
         </div>
     )

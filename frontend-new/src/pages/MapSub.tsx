@@ -1,0 +1,30 @@
+// Encounter map dashboard section
+// Matt Rossouw (omeh-a)
+// 10/22
+
+import React, { ReactFragment } from 'react';
+import { Card, CardContent, Grid, Typography } from "@mui/material"
+import { targetSat } from '../types/targetSat';
+
+interface MapSubProps {
+    sat: targetSat,
+}
+
+const MapSub: React.FC<MapSubProps> = ({sat}) => {
+    return (
+        <Grid>
+            <Card sx={{ minWidth: 240, minHeight: 300}} variant="outlined">
+                <CardContent>
+                    <Typography variant="h6" component="div">
+                        MapSub
+                    </Typography>
+                    <div style={{display: 'flex', width: '100%', height: '100%'}}>
+                        <iframe height="250" width="400" src={`https://www.n2yo.com/widgets/widget-tracker.php?s=${sat.satid}&size=small&all=1&me=0&map=0&foot=0`}/>
+                    </div>
+                </CardContent>
+            </Card>
+        </Grid>
+    )
+}
+
+export default MapSub;
