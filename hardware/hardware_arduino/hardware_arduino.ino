@@ -13,8 +13,8 @@ Stepper stepper(200, 8, 9, 10, 11);
 // Servo motor
 Servo servo;
 #define servoPin 9
-#define CLOCK_SET_START 0xAA // Serial marker: binary 1010 1010
-#define CLOCK_SET_END 0x55   // Serial marker: binary 0101 0101
+#define CLOCK_SET_START 0xC2AA // Serial marker: binary 1010 1010
+#define CLOCK_SET_END 0x550A   // Serial marker: binary 0101 0101
 #define CLOCK_SET_LENGTH 18  // If there aren't 18 bytes, something has gone wrong.
 
 // Real time clock
@@ -23,8 +23,9 @@ DS3231 rtc;
 void setup()
 {
     servo.attach(servoPin);
-    Serial.begin(12800)
-        Wire.begin();
+    Serial.begin(19200);
+    Serial.println("Starting");
+    Wire.begin();
 
     // Wait until the time of date is set before continuing.
     // Server will deliver this over serial.
@@ -46,15 +47,20 @@ void setup()
         }
     }
 
+    for  (int i = 0; i < CLOCK_SET_LENGTH; i++) {
+      Serial.println(buffer[i], HEX);
+    }
     // Try set the time. Begin by checking the start and end markers.
-    if (buffer[0] != CLOCK_SET_START >> 8 || buffer[1] != CLOCK_SET_START & 0xFF)
+    if (buffer[0] != ((CLOCK_SET_START >> 8) & 0xFF) || buffer[1] != (CLOCK_SET_START & 0xFF))
     {
-        fatal("Invalid start marker.");
+        char msg[] = "Invalid start marker.";
+        fatal(msg);
         return;
     }
-    if (buffer[CLOCK_SET_LENGTH - 2] != CLOCK_SET_END >> 8 || buffer[CLOCK_SET_LENGTH - 1] != CLOCK_SET_END & 0xFF)
+    if (buffer[CLOCK_SET_LENGTH - 2] != ((CLOCK_SET_END >> 8) & 0xFF) || buffer[CLOCK_SET_LENGTH - 1] != (CLOCK_SET_END & 0xFF))
     {
-        fatal("Invalid end marker.");
+        char msg[] = "Invalid end marker.";
+        fatal(msg);
         return;
     }
     // Start clock
@@ -73,24 +79,28 @@ void setup()
 
     // Zero gantry. TODO: write this code once we add a limit switch, etc. for this.
     //              For now we assume the servo begins pointing at true north.
+    Serial.println("Ending setup");
 }
 
 void loop()
 {
+    bool century_bit;
+    bool h12;
+    bool pm_time;
     // Print current time to serial
     Serial.print(rtc.getYear());
     Serial.print("-");
-    Serial.print(rtc.getMonth());
+    Serial.print(rtc.getMonth(century_bit));
     Serial.print("-");
     Serial.print(rtc.getDate());
     Serial.print(" ");
-    Serial.print(rtc.getHour());
+    Serial.print(rtc.getHour(h12, pm_time));
     Serial.print(":");
     Serial.print(rtc.getMinute());
     Serial.print(":");
     Serial.print(rtc.getSecond());
     Serial.println();
-    sleep(1000);
+    delay(1000);
 }
 
 /**
@@ -98,7 +108,7 @@ void loop()
  * 
  * @param msg Output message literal.
  */
-void fatal(char *msg)
+void fatal(char msg[])
 {
     Serial.println(msg);
     while (1);
