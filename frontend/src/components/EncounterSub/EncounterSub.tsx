@@ -4,10 +4,10 @@
 
 import React from 'react';
 import { Card, CardContent, Divider, Grid, Stack } from "@mui/material"
-import { targetSat } from '../types/targetSat';
-import { n2yo_radio_passes, n2yo_visual_passes } from '../types/n2yotypes';
-import TargetInfo from '../components/TargetInfo/TargetInfo';
-import EncounterInfo from '../components/EncounterInfo/EncounterInfo';
+import { targetSat } from '../../types/targetSat';
+import { n2yo_radio_passes, n2yo_visual_passes } from '../../types/n2yotypes';
+import TargetInfo from './TargetInfo/TargetInfo';
+import EncounterInfo from './EncounterInfo/EncounterInfo';
 
 interface EncounterSubProps {
     sat: targetSat,

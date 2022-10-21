@@ -6,19 +6,21 @@ import React from 'react';
 import { Card, CardContent, Grid, Stack } from "@mui/material"
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import BackendMonitor from '../components/SystemInfo/BackendMonitor/BackendMonitor';
-import SysLocation from '../components/SystemInfo/SysLocation';
-import { gps_pos } from '../types/hardwareTypes';
+import BackendMonitor from './SystemInfo/BackendMonitor/BackendMonitor';
+import SysLocation from './SystemInfo/SysLocation';
+import { gps_pos } from '../../types/hardwareTypes';
 
 interface MonitorSubProps {
     location: gps_pos,
     setLocModal: (b: boolean) => void,
     connected: boolean,
     setConnected: (connected: boolean) => void,
+    tab: string,
+    setTab: (tab: string) => void
 }
 
-const MonitorSub: React.FC<MonitorSubProps> = ({location, setLocModal, connected, setConnected}) => {
-    const [tab, setTab] = React.useState('hardware')
+const MonitorSub: React.FC<MonitorSubProps> = ({tab, setTab, location, setLocModal, connected, setConnected}) => {
+    
     
     const handleChange = (
         event: React.MouseEvent<HTMLElement>,

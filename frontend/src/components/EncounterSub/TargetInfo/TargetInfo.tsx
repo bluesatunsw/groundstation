@@ -3,7 +3,7 @@
 // Matt
 
 import React from 'react';
-import type { targetSat } from '../../types/targetSat';
+import type { targetSat } from '../../../types/targetSat';
 import { Grid, Typography } from '@mui/material';
 
 

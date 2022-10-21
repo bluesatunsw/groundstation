@@ -5,6 +5,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 
 const Container = styled.div`
   width: 250px;
@@ -12,11 +13,6 @@ const Container = styled.div`
   height: 100%;
 `
 
-const SidebarTitle = styled.div`
-  font-size: x-large;
-  margin: 2rem;
-  font-weight: bold;
-`
 
 const ButtonFlex = styled.div`
   display: flex;
@@ -40,10 +36,9 @@ interface SideBarButtonProps {
 const SidebarButton = styled(Button) <SideBarButtonProps>`
   && {
     width: 160px;
-    /* variant: contained; */
     background-color: ${props => props.bgcolor};
     color: ${props => props.Color};
-    border-radius: 20px;
+    border-radius: 15px;
     text-transform: none;
   }
 `
@@ -59,21 +54,20 @@ interface SideBarProps {
 const SideBar: React.FC<SideBarProps> = ({ setWhatsUpModal, onFindId, onCalcEn, setTargetModal }) => {
   return (
     <Container>
-      <SidebarTitle>
+      <Typography variant="h5" margin="15px">
         Groundstation control
-      </SidebarTitle>
+      </Typography>
       <ButtonFlex>
         <ButtonGroup>
-
-          <SidebarButton bgcolor="#F88282" Color="#000000" onClick={(e) => {setWhatsUpModal(true)}}>
+          <SidebarButton variant="contained" bgcolor="#4b66a4" Color="#ffffff" onClick={(e) => {setWhatsUpModal(true)}}>
             What&apos;s up
           </SidebarButton>
-          <SidebarButton bgcolor="#F88282" Color="#000000" onClick={(e) => { setTargetModal(true) }}>
+          <SidebarButton variant="contained" bgcolor="#4b66a4" Color="#ffffff" onClick={(e) => { setTargetModal(true) }}>
             Find by ID
           </SidebarButton>
         </ButtonGroup>
         <ButtonGroup>
-          <SidebarButton bgcolor="#82A3F8" Color="#000000" onClick={onCalcEn}>
+          <SidebarButton variant="outlined" bgcolor="#06132f" Color="#ffffff" onClick={onCalcEn}>
             Calculate encounter
           </SidebarButton>
         </ButtonGroup>

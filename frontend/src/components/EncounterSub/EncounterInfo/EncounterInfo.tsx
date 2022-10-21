@@ -4,8 +4,8 @@
 
 import React from 'react';
 import { Grid, Typography } from "@mui/material"
-import { n2yo_radio_passes, n2yo_visual_passes } from '../../types/n2yotypes';
-import UTCtoD from '../../logic/utility';
+import { n2yo_radio_passes, n2yo_visual_passes } from '../../../types/n2yotypes';
+import UTCtoD from '../../../logic/utility';
 
 interface EncounterInfoProps {
   vp: n2yo_visual_passes,

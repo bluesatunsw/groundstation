@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
 import Sidebar from '../components/Sidebar';
 import { Dialog, DialogContent, Snackbar } from "@mui/material"
 import type { gps_pos } from '../types/hardwareTypes';
@@ -10,16 +9,19 @@ import { getRadioPasses, getVisualPasses } from '../logic/backend_req';
 import SelectTargetModal from '../components/SelectTargetModal';
 import WhatsUpModal from '../components/WhatsUpModal/WhatsUpModal';
 import Grid from '@mui/material/Grid';
-import EncounterSub from './EncounterSub';
-import MapSub from './MapSub';
-import MonitorSub from './MonitorSub';
-import LogSub from './LogSub';
+import EncounterSub from '../components/EncounterSub/EncounterSub';
+import MapSub from '../components/MapSub/MapSub';
+import MonitorSub from '../components/MonitorSub/MonitorSub';
+import LogSub from '../components/LogSub/LogSub';
 
 
 const Index: React.FC = () => {
     // Location state
     const [loc, setLoc] = useState<gps_pos>(default_pos);
     const [locModal, setLocModal] = useState(false);
+    
+    // Tab state - lives here so we can change tabs to draw user attention
+    const [monitorTab, setMonitorTab] = React.useState('hardware')
 
     // Backend connection state
     const [beConnected, setBeConnected] = useState<boolean>(false);
@@ -73,6 +75,9 @@ const Index: React.FC = () => {
             mag: ve.passes[0].mag,
             duration: ve.passes[0].duration,
         })
+
+        // Move monitor tab to show tracking info
+        setMonitorTab('tracking');
 
     }
 
@@ -129,7 +134,7 @@ const Index: React.FC = () => {
                     <MapSub sat={target}/>
                 </Grid>
                 <Grid item xs={6} sx={{height: "50%"}}>
-                    <MonitorSub connected={beConnected} setConnected={setBeConnected} location={loc} setLocModal={setLocModal}/>
+                    <MonitorSub tab={monitorTab} setTab={setMonitorTab} connected={beConnected} setConnected={setBeConnected} location={loc} setLocModal={setLocModal}/>
                 </Grid>
                 <Grid item xs={6} sx={{height: "50%"}}>
                     <LogSub/>

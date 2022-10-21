@@ -3,10 +3,9 @@
 // Matt Rossouw (omeh-a)
 // 05/2020
 
-import { Button, Card, CardContent, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
-import { Container } from '../../Common';
-import { backend_setPort } from '../../../logic/backend_req'
+import { backend_setPort } from '../../../../logic/backend_req'
 import BackendConnection from './BackendConnection';
 
 

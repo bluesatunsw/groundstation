@@ -2,7 +2,7 @@
 // Matt Rossouw (omeh-a)
 // 10/22
 
-import React, { ReactFragment } from 'react';
+import React from 'react';
 import { Card, CardContent, Grid, Typography } from "@mui/material"
 
 interface LoggingSubProps {
