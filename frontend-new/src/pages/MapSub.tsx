@@ -2,8 +2,8 @@
 // Matt Rossouw (omeh-a)
 // 10/22
 
-import React, { ReactFragment } from 'react';
-import { Card, CardContent, Grid, Typography } from "@mui/material"
+import React from 'react';
+import { Card, CardContent, Grid } from "@mui/material"
 import { targetSat } from '../types/targetSat';
 import Clock from '../components/SystemInfo/Clock';
 

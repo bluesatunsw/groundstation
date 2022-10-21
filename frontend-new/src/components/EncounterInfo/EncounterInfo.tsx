@@ -3,10 +3,9 @@
 // Matt
 
 import React from 'react';
-import { Card, CardContent, Grid, Typography } from "@mui/material"
+import { Grid, Typography } from "@mui/material"
 import { n2yo_radio_passes, n2yo_visual_passes } from '../../types/n2yotypes';
 import UTCtoD from '../../logic/utility';
-import { Container } from '../Common';
 
 interface EncounterInfoProps {
   vp: n2yo_visual_passes,
@@ -19,9 +18,19 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
   let rp_max: string = UTCtoD(rp.maxUTC);
 
   return (
-    <Grid>
-      {/* <Card sx={{ minWidth: 1 }} variant="outlined">
-        <CardContent> */}
+    <div>
+      {/* Check if encounter exists. A real one will never have these values */}
+      {rp.startAz == rp.endAz || vp.startAz == vp.endAz ?  
+      <Grid>
+        <Typography variant="h6" component="div">
+            Encounter details
+          </Typography>
+        <Typography variant="body2" textAlign="left">
+          No encounter data available. Please select a satellite and trigger an encounter
+          using the Calculate Encounter button.
+        </Typography>
+      </Grid> : 
+      <Grid>
           <Typography variant="h6" component="div">
             Encounter details
           </Typography>
@@ -50,9 +59,9 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
             Visible for {vp.duration} seconds at magnitude {vp.mag < 10000 ? vp.mag : '?'
             /* 10000 only if the world is ending or n2yo doesn't know*/} brightness
           </Typography>
-        {/* </CardContent>
-      </Card> */}
-    </Grid>
+      </Grid> 
+    }
+    </div>
   )
 }
 

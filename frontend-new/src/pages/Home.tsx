@@ -1,31 +1,20 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import Sidebar from '../components/Sidebar';
-import Stack from "@mui/material/Stack"
 import { Dialog, DialogContent, Snackbar } from "@mui/material"
 import type { gps_pos } from '../types/hardwareTypes';
 import type { targetSat } from '../types/targetSat';
-import TargetInfo from '../components/TargetInfo/TargetInfo';
 import LocationModal from '../components/LocationModal';
-import EncounterInfo from '../components/EncounterInfo/EncounterInfo';
 import { n2yo_visual_passes, n2yo_radio_passes } from '../types/n2yotypes';
 import { getRadioPasses, getVisualPasses } from '../logic/backend_req';
-import SysLocation from '../components/SystemInfo/SysLocation';
 import SelectTargetModal from '../components/SelectTargetModal';
 import WhatsUpModal from '../components/WhatsUpModal/WhatsUpModal';
-import BackendMonitor from '../components/SystemInfo/BackendMonitor/BackendMonitor'
 import Grid from '@mui/material/Grid';
 import EncounterSub from './EncounterSub';
 import MapSub from './MapSub';
 import MonitorSub from './MonitorSub';
 import LogSub from './LogSub';
 
-
-const SectionTitle = styled.div`
-  font-size: x-large;
-  margin: 2rem;
-  font-weight: bold;
-`
 
 const Index: React.FC = () => {
     // Location state
@@ -144,11 +133,7 @@ const Index: React.FC = () => {
                 </Grid>
                 <Grid item xs={6} sx={{height: "50%"}}>
                     <LogSub/>
-                {/* <BackendMonitor connected={beConnected} setConnected={setBeConnected} /> */}
                 </Grid>
-                    {/* <SysLocation location={loc} setLocModal={setLocModal} />
-                    <TargetInfo sat={target} />
-                    <EncounterInfo vp={visualEncounter} rp={radioEncounter} /> */}
             </Grid>
         </div>
     )
@@ -162,9 +147,9 @@ const default_pos: gps_pos = {
     valid: true
 }
 
-// Default to ISS Zarya
+
 const default_sat: targetSat = {
-    satid: 25544,
+    satid: 0,
     name: "No target",
     ra: 0,
     dec: 0,
