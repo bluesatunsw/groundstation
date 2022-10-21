@@ -3,7 +3,7 @@
 // Matt Rossouw (omeh-a)
 // 05/2020
 
-import { Button, Card, CardContent, Stack, TextField, Typography } from '@mui/material';
+import { Button, Card, CardContent, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { Container } from '../../Common';
 import { backend_setPort } from '../../../logic/backend_req'
@@ -22,9 +22,9 @@ const BackendMonitor: React.FC<Props> = ({ connected, setConnected }) => {
         backend_setPort(port)
     }
     return (
-        <Container>
-            <Card sx={{ minWidth: 240 }} variant="outlined">
-                <CardContent>
+        <Grid>
+            {/* <Card sx={{ minWidth: 240 }} variant="outlined">
+                <CardContent> */}
                     <Stack>
                         <Typography variant="h6" component="div">
                             Backend status
@@ -39,9 +39,9 @@ const BackendMonitor: React.FC<Props> = ({ connected, setConnected }) => {
                         </Button>
                         <BackendConnection connected={connected} setConnected={setConnected}/>
                     </Stack>
-                </CardContent>
-            </Card>
-        </Container>
+                {/* </CardContent>
+            </Card> */}
+        </Grid>
     )
 }
 

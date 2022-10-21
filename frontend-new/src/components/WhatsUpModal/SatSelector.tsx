@@ -29,17 +29,19 @@ const ScrollDiv = styled.div`
 const SatSelector: React.FC<SatSelectorProps> = ({ list, selected, setSelected }) => {
     
     return (
-        <ScrollDiv style={{width : "300px"}}>
-            {list.map((sat: n2yo_above) => {
-                return (
-                    <SatChip isSelected={sat === selected} sat={sat} key={sat.satid}
-                        setSelected={() => { setSelected(sat) }} />
-                )
-            })}
-        <p style={{padding:"10px"}}>
-            {list.length} satellites found
-        </p>
-        </ScrollDiv>
+        <div>
+            <p style={{paddingLeft:"10px"}}>
+                {list.length} satellites found
+            </p>
+            <ScrollDiv style={{width : "300px"}}>
+                {list.map((sat: n2yo_above) => {
+                    return (
+                        <SatChip isSelected={sat === selected} sat={sat} key={sat.satid}
+                            setSelected={() => { setSelected(sat) }} />
+                    )
+                })}
+            </ScrollDiv>    
+        </div>
     )
 }
 

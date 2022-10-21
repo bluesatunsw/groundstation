@@ -16,7 +16,7 @@ const SysLocation: React.FC<SysLocationProps> = ({ location, setLocModal }) => {
 
     return (
         <Grid>
-            <Card sx={{ minWidth: 240 }} variant="outlined">
+            <Card sx={{ minWidth: 240 }}>
                 <CardContent>
                     <Typography variant="h6" component="div">
                         System location
@@ -36,7 +36,7 @@ const SysLocation: React.FC<SysLocationProps> = ({ location, setLocModal }) => {
                     <Button size="small" onClick={(e) => { setLocModal(true) }}>
                         Set location
                     </Button>
-                    <Button size="small">
+                    <Button size="small" onClick={() => {alert("Not implemented yet!")}}>
                         Query GPS
                     </Button>
                 </CardActions>

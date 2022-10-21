@@ -13,9 +13,9 @@ interface TargetInfoProps {
 
 const TargetInfo: React.FC<TargetInfoProps> = ({ sat }) => {
     return (
-        <Grid>
-            <Card sx={{ minWidth: 150 }}>
-                <CardContent>
+        <Grid sx={{minWidth:150}}>
+            {/* <Card sx={{ minWidth: 150 }}>
+                <CardContent> */}
                     <Typography variant="h5" component="div">
                         {sat.name}
                     </Typography>
@@ -34,8 +34,8 @@ const TargetInfo: React.FC<TargetInfoProps> = ({ sat }) => {
                     <Typography variant="body2">
                         Latitudinal base: {sat.lat}°
                     </Typography>
-                </CardContent>
-            </Card>
+                {/* </CardContent>
+            </Card> */}
         </Grid>
     )
 }

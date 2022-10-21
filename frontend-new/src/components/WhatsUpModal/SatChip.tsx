@@ -24,21 +24,21 @@ const SatChip : React.FC<SatChipProps> = ({sat, setSelected, isSelected}) => {
     return (
         <Tooltip title = {sat.satid}>
             {sat.satname.includes("DEB") ? 
-            // Debris
-            <Chip 
-                label = {`${sat.satname} : ${sat.intDesignator}`}
-                avatar = {<Avatar sx={{ bgcolor: green[500] }}>{sat.satname.substring(0,1)}</Avatar>}
-                onClick = {() => {setSelected(sat)}}
-                color = {isSelected ? "primary" : "default"}
-                style = {{margin: "3px", width: "340px"}}/>:
             // Satellite
             <Chip
                 label = {`${sat.satname} : ${sat.intDesignator}`}
                 avatar = {<Avatar sx={{ bgcolor: deepOrange[500] }}>!</Avatar>}
                 onClick = {() => {setSelected(sat)}}
                 color = {isSelected ? "primary" : "default"}
-                style = {{margin: "3px", width: "340px"}}
-            />}
+                style = {{margin: "3px", width: "340px", justifyContent: "left"}}
+            /> : 
+            // Debris
+            <Chip 
+                label = {`${sat.satname} : ${sat.intDesignator}`}
+                avatar = {<Avatar sx={{ bgcolor: green[500] }}>{sat.satname.substring(0,1)}</Avatar>}
+                onClick = {() => {setSelected(sat)}}
+                color = {isSelected ? "primary" : "default"}
+                style = {{margin: "3px", width: "340px", justifyContent: "left"}}/>}
         </Tooltip>
     )
 }

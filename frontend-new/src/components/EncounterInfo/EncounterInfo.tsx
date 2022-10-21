@@ -20,8 +20,8 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
 
   return (
     <Grid>
-      <Card sx={{ minWidth: 1 }} variant="outlined">
-        <CardContent>
+      {/* <Card sx={{ minWidth: 1 }} variant="outlined">
+        <CardContent> */}
           <Typography variant="h6" component="div">
             Encounter details
           </Typography>
@@ -50,8 +50,8 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
             Visible for {vp.duration} seconds at magnitude {vp.mag < 10000 ? vp.mag : '?'
             /* 10000 only if the world is ending or n2yo doesn't know*/} brightness
           </Typography>
-        </CardContent>
-      </Card>
+        {/* </CardContent>
+      </Card> */}
     </Grid>
   )
 }

@@ -140,7 +140,7 @@ const Index: React.FC = () => {
                     <MapSub sat={target}/>
                 </Grid>
                 <Grid item xs={6} sx={{height: "50%"}}>
-                    <MonitorSub/>
+                    <MonitorSub connected={beConnected} setConnected={setBeConnected} location={loc} setLocModal={setLocModal}/>
                 </Grid>
                 <Grid item xs={6} sx={{height: "50%"}}>
                     <LogSub/>

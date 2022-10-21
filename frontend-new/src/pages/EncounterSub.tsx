@@ -3,7 +3,7 @@
 // 10/22
 
 import React, { ReactFragment } from 'react';
-import { Card, CardContent, Grid, Stack, Typography } from "@mui/material"
+import { Card, CardContent, Divider, Grid, Stack, Typography } from "@mui/material"
 import { targetSat } from '../types/targetSat';
 import { n2yo_radio_passes, n2yo_visual_passes } from '../types/n2yotypes';
 import TargetInfo from '../components/TargetInfo/TargetInfo';
@@ -17,14 +17,12 @@ interface EncounterSubProps {
 
 const EncounterSub: React.FC<EncounterSubProps> = ({sat, vp, rp}) => {
     return (
-        <Grid>
-            <Card sx={{ minWidth: 240 }} variant="outlined">
+        <Grid sx={{height:"100%"}}>
+            <Card sx={{ minWidth: 240, minHeight: 325 }} variant="outlined">
                 <CardContent>
-                    {/* <Typography variant="h6" component="div">
-                        Encounter
-                    </Typography> */}
                     <Stack direction="row" spacing={2}>
                         <TargetInfo sat={sat} />
+                        <Divider flexItem component="div" role="presentation" orientation="vertical"/>
                         <EncounterInfo vp={vp} rp={rp} />
                     </Stack>
                 </CardContent>
