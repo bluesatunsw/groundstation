@@ -23,7 +23,7 @@ const MapSub: React.FC<MapSubProps> = ({sat}) => {
                     <div style={{display: 'flex', width: '100%', height: '100%'}}>
                      {/* Using scrolling=no is deprecated. Should replace this map with one of our own design one day. */}
                      {/* eslint-disable */}
-                        <iframe height="250" width="400" title="map" style={{overflowY: "hidden"}} src={`https://www.n2yo.com/widgets/widget-tracker.php?s=${sat.satid}&size=small&all=1&me=0&map=0&foot=0`}/>
+                        <iframe height="250" width="400" title="map" scrolling="no" style={{overflowY: "hidden"}} src={`https://www.n2yo.com/widgets/widget-tracker.php?s=${sat.satid}&size=small&all=1&me=0&map=0&foot=0`}/>
                     </div>
                 </CardContent>
             </Card>

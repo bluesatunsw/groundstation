@@ -9,6 +9,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import BackendMonitor from './SystemInfo/BackendMonitor/BackendMonitor';
 import SysLocation from './SystemInfo/SysLocation';
 import { gps_pos } from '../../types/hardwareTypes';
+import Tracking from './Tracking/Tracking';
 
 interface MonitorSubProps {
     location: gps_pos,
@@ -54,6 +55,7 @@ const MonitorSub: React.FC<MonitorSubProps> = ({tab, setTab, location, setLocMod
                     </Stack>
                     {tab === 'hardware' && <BackendMonitor connected={connected} setConnected={setConnected}/>}
                     {/* {tab === 'radio' && <RadioMonitor />} */}
+                    {tab === 'tracking' && <Tracking/>}
                     {tab === 'location' && <SysLocation location={location} setLocModal={setLocModal}/>}
                     
                 </CardContent>

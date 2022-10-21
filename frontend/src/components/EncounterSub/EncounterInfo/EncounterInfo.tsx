@@ -20,7 +20,7 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
   return (
     <div>
       {/* Check if encounter exists. A real one will never have these values */}
-      {rp.startAz == rp.endAz || vp.startAz == vp.endAz ?  
+      {rp.startAz === rp.endAz || vp.startAz === vp.endAz ?  
       <Grid>
         <Typography variant="h6" component="div">
             Encounter details
