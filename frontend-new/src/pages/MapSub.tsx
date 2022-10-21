@@ -16,7 +16,7 @@ const MapSub: React.FC<MapSubProps> = ({sat}) => {
             <Card sx={{ minWidth: 240, minHeight: 300}} variant="outlined">
                 <CardContent>
                     <Typography variant="h6" component="div">
-                        MapSub
+                        Map
                     </Typography>
                     <div style={{display: 'flex', width: '100%', height: '100%'}}>
                         <iframe height="250" width="400" src={`https://www.n2yo.com/widgets/widget-tracker.php?s=${sat.satid}&size=small&all=1&me=0&map=0&foot=0`}/>

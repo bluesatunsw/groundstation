@@ -8,7 +8,7 @@
 import { Avatar, Chip, Tooltip } from '@mui/material';
 import React from 'react';
 import { n2yo_above } from '../../types/n2yotypes';
-
+import { deepOrange, green } from '@mui/material/colors';
 
 interface SatChipProps {
     sat : n2yo_above,
@@ -23,13 +23,22 @@ interface SatChipProps {
 const SatChip : React.FC<SatChipProps> = ({sat, setSelected, isSelected}) => {
     return (
         <Tooltip title = {sat.satid}>
+            {sat.satname.includes("DEB") ? 
+            // Debris
+            <Chip 
+                label = {`${sat.satname} : ${sat.intDesignator}`}
+                avatar = {<Avatar sx={{ bgcolor: green[500] }}>{sat.satname.substring(0,1)}</Avatar>}
+                onClick = {() => {setSelected(sat)}}
+                color = {isSelected ? "primary" : "default"}
+                style = {{margin: "3px", width: "340px"}}/>:
+            // Satellite
             <Chip
                 label = {`${sat.satname} : ${sat.intDesignator}`}
-                avatar = {<Avatar>{sat.satname.substring(0,1)}</Avatar>}
+                avatar = {<Avatar sx={{ bgcolor: deepOrange[500] }}>!</Avatar>}
                 onClick = {() => {setSelected(sat)}}
                 color = {isSelected ? "primary" : "default"}
                 style = {{margin: "3px", width: "340px"}}
-            />
+            />}
         </Tooltip>
     )
 }

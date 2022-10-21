@@ -20,9 +20,9 @@ const EncounterSub: React.FC<EncounterSubProps> = ({sat, vp, rp}) => {
         <Grid>
             <Card sx={{ minWidth: 240 }} variant="outlined">
                 <CardContent>
-                    <Typography variant="h6" component="div">
-                        EncounterSub
-                    </Typography>
+                    {/* <Typography variant="h6" component="div">
+                        Encounter
+                    </Typography> */}
                     <Stack direction="row" spacing={2}>
                         <TargetInfo sat={sat} />
                         <EncounterInfo vp={vp} rp={rp} />

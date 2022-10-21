@@ -15,7 +15,7 @@ const MonitorSub: React.FC<MonitorSubProps> = () => {
             <Card sx={{ minWidth: 240 }} variant="outlined">
                 <CardContent>
                     <Typography variant="h6" component="div">
-                        MonitorSub
+                        Monitor
                     </Typography>
                     
                 </CardContent>

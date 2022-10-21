@@ -15,7 +15,7 @@ const LoggingSub: React.FC<LoggingSubProps> = () => {
             <Card sx={{ minWidth: 240 }} variant="outlined">
                 <CardContent>
                     <Typography variant="h6" component="div">
-                        LoggingSub
+                        Logging
                     </Typography>
                     
                 </CardContent>

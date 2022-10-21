@@ -89,7 +89,7 @@ const Index: React.FC = () => {
 
     return (
 
-        <div style={{ display: 'flex', height: "700px", width: "1100px" }}>
+        <div style={{ display: 'flex', height: "700px", width: "1200px" }}>
             <Sidebar setWhatsUpModal={setWhatsUpModal} onFindId={findId}
                 setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
             <Snackbar
@@ -143,8 +143,8 @@ const Index: React.FC = () => {
                     <MonitorSub/>
                 </Grid>
                 <Grid item xs={6} sx={{height: "50%"}}>
-                    {/* <LogSub/> */}
-                <BackendMonitor connected={beConnected} setConnected={setBeConnected} />
+                    <LogSub/>
+                {/* <BackendMonitor connected={beConnected} setConnected={setBeConnected} /> */}
                 </Grid>
                     {/* <SysLocation location={loc} setLocModal={setLocModal} />
                     <TargetInfo sat={target} />
