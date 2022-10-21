@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import { Dialog, DialogContent, Snackbar } from "@mui/material"
+import { Dialog, DialogContent, Divider, Snackbar } from "@mui/material"
 import type { gps_pos } from '../types/hardwareTypes';
 import type { targetSat } from '../types/targetSat';
 import LocationModal from '../components/LocationModal';
@@ -84,8 +84,6 @@ const Index: React.FC = () => {
     return (
 
         <div style={{ display: 'flex', height: "700px", width: "1200px" }}>
-            <Sidebar setWhatsUpModal={setWhatsUpModal} onFindId={findId}
-                setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
             <Snackbar
                 open={!beConnected}
                 message="Warning: backend is not connected or n2yo not reachable. Cannot interface with API." />
@@ -125,18 +123,25 @@ const Index: React.FC = () => {
                 </DialogContent>
             </Dialog>
 
+            
+
             {/* Dashboard layout */}
-            <Grid container spacing={1} xs={10} sx={{marginTop: "20px", width: "100%"}}>
-                <Grid item xs={6} sx={{height: "50%"}}>
+            <Grid container spacing={1} xs={12} sx={{margin: "20px", width: "100%"}}>
+                <Grid item xs={12}>
+                    <Sidebar setWhatsUpModal={setWhatsUpModal} onFindId={findId}
+                    setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
+                    <Divider sx={{margin: "10px"}}/>
+                </Grid>
+                <Grid item xs={8} sx={{height: "50%"}}>
                     <EncounterSub sat={target} vp={visualEncounter} rp={radioEncounter}/>
                 </Grid>
-                <Grid item xs={6} sx={{height: "50%"}}>
+                <Grid item xs={4} sx={{height: "50%"}}>
                     <MapSub sat={target}/>
                 </Grid>
-                <Grid item xs={6} sx={{height: "50%"}}>
+                <Grid item xs={8} sx={{height: "50%"}}>
                     <MonitorSub tab={monitorTab} setTab={setMonitorTab} connected={beConnected} setConnected={setBeConnected} location={loc} setLocModal={setLocModal}/>
                 </Grid>
-                <Grid item xs={6} sx={{height: "50%"}}>
+                <Grid item xs={4} sx={{height: "50%"}}>
                     <LogSub/>
                 </Grid>
             </Grid>
