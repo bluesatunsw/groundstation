@@ -56,13 +56,14 @@ const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location, set
   // Convert satellite selected from above into target satellite format.
   const aboveToTarget = async () => {
     let response = await getPositions(selected.satid, location, 1)
-    let n = {
+    let n : targetSat = {
       satid: response.info.satid,
       name: response.info.satname,
       ra: response.positions[0].ra,
       dec: response.positions[0].dec,
       lat: response.positions[0].satlatitude,
       lon: response.positions[0].satlongitude,
+      intDesignator: selected.intDesignator,
     };
     setTarget(n)
     setModalOpen(false)

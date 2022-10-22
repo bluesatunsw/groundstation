@@ -5,7 +5,12 @@
 import React from 'react';
 import type { targetSat } from '../../../types/targetSat';
 import { Grid, Typography } from '@mui/material';
-
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 
 interface TargetInfoProps {
     sat: targetSat
@@ -13,29 +18,64 @@ interface TargetInfoProps {
 
 const TargetInfo: React.FC<TargetInfoProps> = ({ sat }) => {
     return (
-        <Grid sx={{ minWidth: 150 }}>
-            {/* <Card sx={{ minWidth: 150 }}>
-                <CardContent> */}
-            <Typography variant="h5" component="div">
+        <Grid sx={{ minWidth: 270 }}>
+            <Typography variant="h6" component="div">
                 {sat.name}
             </Typography>
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                NORAD ID {sat.satid}
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                Right ascention {sat.ra}°
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                Declination {sat.dec}°
-            </Typography>
-            <Typography variant="body2">
-                Longitudinal base: {sat.lon}°
-            </Typography>
-            <Typography variant="body2">
-                Latitudinal base: {sat.lat}°
-            </Typography>
-            {/* </CardContent>
-            </Card> */}
+            <TableContainer>
+                <Table size="small">
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>
+                                <b>
+                                    NORAD ID
+                                </b>
+                            </TableCell>
+                            <TableCell align="right">{sat.satid}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <b>
+                                    Intl. designator
+                                </b>
+                            </TableCell>
+                            <TableCell align="right">{sat.intDesignator}</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <b>
+                                    Right ascention
+                                </b>
+                            </TableCell>
+                            <TableCell align="right">{sat.ra}°</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <b>
+                                    Declination
+                                </b>
+                            </TableCell>
+                            <TableCell align="right">{sat.dec}°</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <b>
+                                    Longitudinal base
+                                </b>
+                            </TableCell>
+                            <TableCell align="right">{sat.lon}°</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <b>
+                                    Latitudinal base
+                                </b>
+                            </TableCell>
+                            <TableCell align="right">{sat.lat}°</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Grid>
     )
 }

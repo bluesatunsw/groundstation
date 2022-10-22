@@ -83,7 +83,7 @@ const Index: React.FC = () => {
 
     return (
 
-        <div style={{ display: 'flex', height: "700px", width: "1200px" }}>
+        <div style={{ display: 'flex', height: "650px", width: "1200px" }}>
             <Snackbar
                 open={!beConnected}
                 message="Warning: backend is not connected or n2yo not reachable. Cannot interface with API." />
@@ -165,6 +165,7 @@ const default_sat: targetSat = {
     dec: 0,
     lat: 0,
     lon: 0,
+    intDesignator: "",
 }
 
 const default_visual_passes: n2yo_visual_passes = {

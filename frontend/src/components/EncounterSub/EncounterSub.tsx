@@ -18,9 +18,9 @@ interface EncounterSubProps {
 const EncounterSub: React.FC<EncounterSubProps> = ({sat, vp, rp}) => {
     return (
         <Grid sx={{height:"100%"}}>
-            <Card sx={{ minWidth: 240, minHeight: 325 }} variant="outlined">
+            <Card sx={{ minWidth: 250, minHeight: 325 }} variant="outlined">
                 <CardContent>
-                    <Stack direction="row" spacing={2}>
+                    <Stack direction="row" spacing={1}>
                         <TargetInfo sat={sat} />
                         <Divider flexItem component="div" role="presentation" orientation="vertical"/>
                         <EncounterInfo vp={vp} rp={rp} />

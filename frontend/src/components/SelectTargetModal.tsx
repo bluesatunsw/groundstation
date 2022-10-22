@@ -42,6 +42,7 @@ const SelectTargetModal: React.FC<SelectTargProps> = ({ onSetTarget, cursat, pos
             dec : response.positions[0].dec,
             lat : response.positions[0].satlatitude,
             lon : response.positions[0].satlongitude,
+            intDesignator: "",
         };
         setSelected(n)
     }
