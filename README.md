@@ -62,7 +62,7 @@ For C and C++ we will be using GCC and the rest of the GNU C toolchain because i
 
 #### Microcontrollers
 
-For all of our microcontrollers (Arduino or otherwise) we will try and use C++ where possible. Bear in mind that you usually can't use the standard library which effectively transforms C++ into C with classes. Rust is more efficient but embedded support is not nearly as sophisticated just yet - it is *significantly* faster and more expressive than C/C++ however so it is superior.
+For all of our microcontrollers (Arduino or otherwise) we will try and use C++ where possible. Bear in mind that you usually can't use the standard library which effectively transforms C++ into C with classes. Rust is more efficient but embedded support is not nearly as sophisticated just yet.
 
 #### PC / Mac / Linux
 
