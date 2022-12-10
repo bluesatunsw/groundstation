@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import { Dialog, DialogContent, Divider, Snackbar } from "@mui/material"
+import { Alert, Dialog, DialogContent, Divider, Snackbar } from "@mui/material"
 import type { gps_pos } from '../types/hardwareTypes';
 import type { targetSat } from '../types/targetSat';
 import LocationModal from '../components/LocationModal';
-import { n2yo_visual_passes, n2yo_radio_passes } from '../types/n2yotypes';
+import { n2yo_visual_passes, n2yo_radio_passes,
+     n2yo_get_visual_passes, n2yo_get_radio_passes } from '../types/n2yotypes';
 import { getRadioPasses, getVisualPasses } from '../logic/backend_req';
 import SelectTargetModal from '../components/SelectTargetModal';
 import WhatsUpModal from '../components/WhatsUpModal/WhatsUpModal';
@@ -41,11 +42,11 @@ const Index: React.FC = () => {
 
     /// Get the radio and visual passes from backend and set props
     const calcEncounter = async () => {
-        let re = await getRadioPasses(target.satid, parseFloat(loc.latitude),
+        let re : n2yo_get_radio_passes = await getRadioPasses(target.satid, parseFloat(loc.latitude),
             parseFloat(loc.longitude), parseFloat(loc.altitude));
-        let ve = await getVisualPasses(target.satid, parseFloat(loc.latitude),
+        let ve : n2yo_get_visual_passes = await getVisualPasses(target.satid, parseFloat(loc.latitude),
             parseFloat(loc.longitude), parseFloat(loc.altitude));
-
+        console.log(ve)
         setRe({
             startAz: re.passes[0].startAz,
             startAzCompass: re.passes[0].startAzCompass,
@@ -59,22 +60,27 @@ const Index: React.FC = () => {
             endUTC: re.passes[0].endUTC,
         })
 
-        setVe({
-            startAz: ve.passes[0].startAz,
-            startAzCompass: ve.passes[0].startAzCompass,
-            startEl: ve.passes[0].startEl,
-            startUTC: ve.passes[0].startUTC,
-            maxAz: ve.passes[0].maxAz,
-            maxAzCompass: ve.passes[0].maxAzCompass,
-            maxEl: ve.passes[0].maxEl,
-            maxUTC: ve.passes[0].maxUTC,
-            endAz: ve.passes[0].endAz,
-            endAzCompass: ve.passes[0].endAzCompass,
-            endEl: ve.passes[0].endEl,
-            endUTC: ve.passes[0].endUTC,
-            mag: ve.passes[0].mag,
-            duration: ve.passes[0].duration,
-        })
+        if (ve.passes === undefined) {
+            setVe(default_visual_passes);
+            alert("No visual passes found.")
+        } else {
+            setVe({
+                startAz: ve.passes[0].startAz,
+                startAzCompass: ve.passes[0].startAzCompass,
+                startEl: ve.passes[0].startEl,
+                startUTC: ve.passes[0].startUTC,
+                maxAz: ve.passes[0].maxAz,
+                maxAzCompass: ve.passes[0].maxAzCompass,
+                maxEl: ve.passes[0].maxEl,
+                maxUTC: ve.passes[0].maxUTC,
+                endAz: ve.passes[0].endAz,
+                endAzCompass: ve.passes[0].endAzCompass,
+                endEl: ve.passes[0].endEl,
+                endUTC: ve.passes[0].endUTC,
+                mag: ve.passes[0].mag,
+                duration: ve.passes[0].duration,
+            })
+        }
 
         // Move monitor tab to show tracking info
         setMonitorTab('tracking');
