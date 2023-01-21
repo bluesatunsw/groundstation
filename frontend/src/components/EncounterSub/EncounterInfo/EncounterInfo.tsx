@@ -3,7 +3,7 @@
 // Matt
 
 import React from 'react';
-import { Grid, Typography } from "@mui/material"
+import { Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material"
 import { n2yo_radio_passes, n2yo_visual_passes } from '../../../types/n2yotypes';
 import UTCtoD from '../../../logic/utility';
 
@@ -32,42 +32,57 @@ const EncounterInfo: React.FC<EncounterInfoProps> = ({ vp, rp }) => {
       </Grid> : 
       <Grid>
           <Typography variant="h6" component="div">
-            Encounter details
+                Encounter details
           </Typography>
-          <Typography variant="body2">
-            Encounter begins at {rp_start}, ends at {rp_end}
-          </Typography>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" style={{ margin: "5px" }}>
-            Radio Encounter
-          </Typography>
-          <Typography variant="body2">
-            Az: {rp.startAz}° - {rp.endAz}°
-          </Typography>
-          <Typography variant="body2">
-            Max Elevation {rp.maxEl}° at {rp_max}
-          </Typography>
-          {vp.startAz === vp.endAz ? 
-            <div>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" style={{ margin: "5px" }}>
-                No visual encounters from current location.
-              </Typography>
-            </div>          
-            :<div>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" style={{ margin: "5px" }}>
-                Visual Encounter
-              </Typography>
-              <Typography variant="body2">
-                From (Az {vp.startAz}°, El {vp.startEl}°)
-              </Typography>
-              <Typography variant="body2">
-                To (Az {vp.endAz}°, El {vp.endEl}°)
-              </Typography>
-              <Typography variant="body2">
-                Visible for {vp.duration} seconds at magnitude {vp.mag < 10000 ? vp.mag : '?'
-                /* 10000 only if the world is ending or n2yo doesn't know*/} brightness
-              </Typography>
-            </div>
-        }
+          <TableContainer>
+                <Table size="small">
+                    <TableBody>
+                        <TableRow>
+                            <TableCell>
+                                <b>
+                                    Time window
+                                </b>
+                            </TableCell>
+                            <TableCell >
+                              {rp_start} ➜ {rp_end}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell sx={{width: "50%"}}>
+                                <b>
+                                    Radio encounter azimuth range
+                                </b>
+                            </TableCell>
+                            <TableCell >
+                              ({rp.startAz})° ➜ ({rp.endAz})°
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <b>
+                                    Zenith
+                                </b>
+                            </TableCell>
+                            <TableCell >
+                              {rp.maxEl}° @ {rp_max}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell>
+                                <b>
+                                    Visual encounter
+                                </b>
+                            </TableCell>
+                            {vp.startAz === vp.endAz ? <div>
+                              <TableCell >No visual</TableCell>
+                            </div> : <div>
+                              <TableCell >({vp.startAz}, {vp.startEl})°➜({vp.endAz}, {vp.endEl})°</TableCell>
+                            </div>}
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+          
       </Grid> 
     }
     </div>

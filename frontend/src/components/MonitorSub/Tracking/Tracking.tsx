@@ -46,7 +46,7 @@ const BackendMonitor: React.FC<Props> = () => {
                 <Typography variant="body2">
                     Tracking progress
                 </Typography>
-                <LinearProgress sx={{margin: "5px"}} variant="buffer" value={progress} valueBuffer={buffer} />
+                {/* <LinearProgress sx={{margin: "5px"}} variant="buffer" value={progress} valueBuffer={buffer} /> */}
             </Box>
             <Box sx={{margin: "15px"}}>
                 <Stack direction="row" spacing={1}>
@@ -67,7 +67,9 @@ const BackendMonitor: React.FC<Props> = () => {
                     </Typography>
                 </Stack>
                 <Stack direction="row" sx={{margin: "15px"}}>
-                    <Button variant="contained" color="success">Start track</Button>
+                    <Button variant="contained" color="success">
+                        Start track
+                    </Button>
                     <Button variant="contained" color="error">HALT</Button>
                     <Button variant="contained">Trim</Button>
                 </Stack>
