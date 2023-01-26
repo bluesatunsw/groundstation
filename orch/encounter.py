@@ -1,5 +1,6 @@
 """
-Subsystem for generating encounters and transferring them to hardware.
+encounter.py
+    Subsystem for generating encounters and transferring them to hardware.
 Matt Rossouw (omeh-a)
 05/2022
 """
@@ -8,7 +9,7 @@ import json
 import time
 import serial
 import serial.tools.list_ports
-import api
+import n2yo
 
 
 BAUDRATE = 115200
@@ -69,7 +70,7 @@ def build_encounter(norad_id, lat, lng, alt):
     ser = serial.Serial(port, BAUDRATE)
 
     # Get radio passes from API
-    radio_pass = json.dumps(api.get_radiopasses(
+    radio_pass = json.dumps(n2yo.get_radiopasses(
         norad_id, lat, lng, alt))['passes'][0]
 
     # Update total seconds left
@@ -85,7 +86,7 @@ def build_encounter(norad_id, lat, lng, alt):
     while time_to_generate > 0:
         # Get next 300 (or however much is left) seconds of positions
         secs = time_to_generate if time_to_generate < 300 else 300
-        new_steps = api.get_positions(
+        new_steps = n2yo.get_positions(
             radio_pass['sat'], radio_pass['start'] + secs)
 
         new_final = None
