@@ -5,6 +5,8 @@ TargetingState.py
 Matt Rossouw (omeh-a)
 01/2023
 """
+from ..orch.n2yo import get_positions
+from .SystemState import SystemState
 
 class _TargetingState(object):
     """
@@ -25,5 +27,11 @@ class _TargetingState(object):
         """
         Get new target details from NORAD id.
         """
+        loc = SystemState.get_location()
+        res = get_positions(id, loc[0], loc[1], loc[2], 1)
+
+        # work out if response was valid. if not, raise exception
+
+
 
 TargetingState = _TargetingState()
