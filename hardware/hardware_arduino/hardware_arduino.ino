@@ -7,9 +7,11 @@
 // skeleton of serial communication with orchestration backend
 // jenn-ylk, 01/23
 
+#include <Arduino.h>
 #include <Stepper.h>
 #include <Servo.h>
 #include <DS3231.h>
+#include <stdlib.h>
 
 // To match orch - BAUDRATE = 115200
 // orchestration encodes as UTF-8, 16 bytes per instruction (Though we'll likely wa)
@@ -32,20 +34,23 @@ class InstructionScheduler {
 
 struct InstructionList
 {
-    struct Instruction *next;
-    struct Instruciton *last;
-}
+    unsigned long start;
+    Instruction *first;
+    Instruction *last;
+};
 
 struct Instruction
 {
-    double az;
-    double el;
-    struct Instruction *next;
+    float az;
+    float el;
+    Instruction *next;
 };
 
-void read_instructions(struct InstructionList *instr_buf)
+InstructionList *new_instruction_list(InstructionList *list, unsigned long start); 
+InstructionList * read_instructions(InstructionList *instr_buf);
 Instruction interpret_instruction(byte instr[INSTR_SIZE]);
-unsigned long execute_instruction(struct InstructionList *instr_buf);
+unsigned long execute_instruction(InstructionList *instr_buf);
+void print_instructions(InstructionList *instr_buf);
 
 // Stepper motor
 const int revolutionSize = 200; // Number of steps for a complete revolution
@@ -54,21 +59,17 @@ Stepper stepper(revolutionSize, 8, 9, 10, 11);
 // Servo motor
 Servo servo;
 #define servoPin 9
-
-// positioning and instruction buffer (circular buffer)
-char read_buf[READ_BUF_LEN] = {0};
-int buf_start = 0;
-int buf_end = 0;
-float current_az = 0;
-float current_el = 0
-
 // Real time clock
 #define CLOCK_SET_START 0xC2AA // Serial marker: binary 1010 1010
 #define CLOCK_SET_END 0x550A   // Serial marker: binary 0101 0101
 #define CLOCK_SET_LENGTH 18    // If there aren't 18 bytes, something has gone wrong.
     // #define CLOCK_SET_LENGTH 12  // If there aren't 12 bytes, something has gone wrong.
 
-    DS3231 rtc;
+InstructionList * instr_buf = NULL;
+float current_az = 0;
+float current_el = 0;
+
+DS3231 rtc;
 bool century_bit;
 bool h12;
 bool pm_time;
@@ -173,7 +174,7 @@ void loop()
     // TODO: retrieve instructions periodically
     // presumably, backend sends up to 300 instructions at once
     // these just go to the serial buffer, and don't have to go to read_buf immediately
-    read_instructions(instr_buf);
+    instr_buf = read_instructions(instr_buf);
 
     unsigned long now = millis();
     if (now - last_exec >= 1000)
@@ -182,27 +183,61 @@ void loop()
     }
 }
 
-void read_instructions(struct InstructionList *instr_buf)
+// TODO:
+InstructionList *new_instruction_list(InstructionList *list, unsigned long start) {
+    InstructionList *new_list = (InstructionList *) malloc(sizeof(InstructionList));
+    new_list->start = start;
+    new_list->first = NULL;
+    new_list->last = NULL;
+
+    return new_list;
+}
+
+InstructionList *read_instructions(InstructionList *instr_buf)
 {
+    char read_buf[READ_BUF_LEN] = {0};
     int num_bytes = Serial.readBytes(read_buf, READ_BUF_LEN);
-    for (i = 0; i < num_bytes; i++)
+    for (int i = 0; i < num_bytes; i++)
     {
+        // TODO: interpret actual bytes for instructions
+        float az = 0;
+        float el = 0;
         add_instruction(instr_buf, az, el);
         read_buf[i * INSTR_SIZE];
     }
 }
 
-Instruction interpret_instruction(byte instr[INSTR_SIZE])
+void add_instruction(InstructionList *instr_buf, float az, float el) 
 {
-    // TODO: (allocate with mmap and add to the list)
-    Instruction new_instr = {0, 0, nullptr};
-    return new_instr;
+    Instruction *new_instr = (Instruction *) malloc(sizeof(Instruction));
+    if (new_instr == NULL) fatal("Could not allocate memory for new instruction\n");
+    new_instr->az = az;
+    new_instr->el = el;
+    new_instr->next = NULL;
+    if (instr_buf->first != NULL) 
+    {
+        instr_buf->last->next =  new_instr;
+        instr_buf->last = new_instr;
+    } else 
+    {
+        instr_buf->first = new_instr;
+        instr_buf->last = new_instr;
+    }
 }
 
+
 // TODO: ideally we want an interrupt driven once per second execution
-void execute_instruction(struct InstructionList *instr_buf)
+unsigned long execute_instruction(InstructionList *instr_buf)
 {
+    Instruction *executed = instr_buf->first;
+    instr_buf->first = executed->next;
+    // TODO: execute instruction with servo
     // servo.
+    free(executed);
+}
+
+void print_instructions(InstructionList *instr_buf) {
+    // TODO:
 }
 
 /**
@@ -213,6 +248,5 @@ void execute_instruction(struct InstructionList *instr_buf)
 void fatal(char msg[])
 {
     Serial.println(msg);
-    while (1)
-        ;
+    while (1);
 }
