@@ -1,6 +1,11 @@
 """
-Functions to interface with the N2YO API.
+n2yo.py
+   Functions for interfacing with n2yo API.
+Luke Prior (LukePrior), Robbie Seymour (robbie-seymour), Matt Rossouw (omeh-a)
+01/2023
 """
+# 08/2022
+
 import json
 import requests
 
