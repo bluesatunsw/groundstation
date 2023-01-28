@@ -5,7 +5,7 @@ import logging
 import threading
 import time
 from json import dumps
-import orch.n2yo as apis
+import n2yo as apis
 import geolocation
 from flask_cors import CORS
 from flask import Flask, request, jsonify, Response

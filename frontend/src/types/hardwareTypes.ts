@@ -11,4 +11,10 @@ interface backend_status {
     hardware_rdy: boolean
 }
 
-export type {gps_pos, backend_status};
+// TEMPORARY.
+interface track_status {
+    status: string
+
+}
+
+export type {gps_pos, backend_status, track_status};
