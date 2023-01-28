@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import { Dialog, DialogContent, Divider, Snackbar } from "@mui/material"
+import { Alert, Dialog, DialogContent, Divider, Snackbar } from "@mui/material"
 import type { gps_pos } from '../types/hardwareTypes';
 import type { targetSat } from '../types/targetSat';
 import LocationModal from '../components/LocationModal';
-import {
-    n2yo_visual_passes, n2yo_radio_passes,
-    n2yo_get_visual_passes, n2yo_get_radio_passes
-} from '../types/n2yotypes';
+import { n2yo_visual_passes, n2yo_radio_passes,
+     n2yo_get_visual_passes, n2yo_get_radio_passes } from '../types/n2yotypes';
 import { getRadioPasses, getVisualPasses } from '../logic/backend_req';
 import SelectTargetModal from '../components/SelectTargetModal';
 import WhatsUpModal from '../components/WhatsUpModal/WhatsUpModal';
@@ -22,7 +20,7 @@ const Index: React.FC = () => {
     // Location state
     const [loc, setLoc] = useState<gps_pos>(default_pos);
     const [locModal, setLocModal] = useState(false);
-
+    
     // Tab state - lives here so we can change tabs to draw user attention
     const [monitorTab, setMonitorTab] = React.useState('hardware')
 
@@ -44,9 +42,9 @@ const Index: React.FC = () => {
 
     /// Get the radio and visual passes from backend and set props
     const calcEncounter = async () => {
-        let re: n2yo_get_radio_passes = await getRadioPasses(target.satid, parseFloat(loc.latitude),
+        let re : n2yo_get_radio_passes = await getRadioPasses(target.satid, parseFloat(loc.latitude),
             parseFloat(loc.longitude), parseFloat(loc.altitude));
-        let ve: n2yo_get_visual_passes = await getVisualPasses(target.satid, parseFloat(loc.latitude),
+        let ve : n2yo_get_visual_passes = await getVisualPasses(target.satid, parseFloat(loc.latitude),
             parseFloat(loc.longitude), parseFloat(loc.altitude));
         console.log(ve)
         setRe({
@@ -131,26 +129,26 @@ const Index: React.FC = () => {
                 </DialogContent>
             </Dialog>
 
-
+            
 
             {/* Dashboard layout */}
-            <Grid container spacing={1} xs={12} sx={{ margin: "20px", width: "100%" }}>
+            <Grid container spacing={1} xs={12} sx={{margin: "20px", width: "100%"}}>
                 <Grid item xs={12}>
                     <Sidebar setWhatsUpModal={setWhatsUpModal} onFindId={findId}
-                        setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
-                    <Divider sx={{ margin: "10px" }} />
+                    setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
+                    <Divider sx={{margin: "10px"}}/>
                 </Grid>
-                <Grid item xs={8} sx={{ height: "50%" }}>
-                    <EncounterSub sat={target} vp={visualEncounter} rp={radioEncounter} />
+                <Grid item xs={8} sx={{height: "50%"}}>
+                    <EncounterSub sat={target} vp={visualEncounter} rp={radioEncounter}/>
                 </Grid>
-                <Grid item xs={4} sx={{ height: "50%" }}>
-                    <MapSub sat={target} />
+                <Grid item xs={4} sx={{height: "50%"}}>
+                    <MapSub sat={target}/>
                 </Grid>
-                <Grid item xs={8} sx={{ height: "50%" }}>
-                    <MonitorSub tab={monitorTab} setTab={setMonitorTab} connected={beConnected} setConnected={setBeConnected} location={loc} setLocModal={setLocModal} />
+                <Grid item xs={8} sx={{height: "50%"}}>
+                    <MonitorSub tab={monitorTab} setTab={setMonitorTab} connected={beConnected} setConnected={setBeConnected} location={loc} setLocModal={setLocModal}/>
                 </Grid>
-                <Grid item xs={4} sx={{ height: "50%" }}>
-                    <LogSub />
+                <Grid item xs={4} sx={{height: "50%"}}>
+                    <LogSub/>
                 </Grid>
             </Grid>
         </div>
