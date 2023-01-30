@@ -23,6 +23,7 @@
 // Instruction scheduling
 #define TIME_BYTES 14
 #define END_BYTE '~' // TODO: change later
+#define MARK_BYTES 0xC2AA
 
 struct Instruction
 {
@@ -70,8 +71,7 @@ Servo servo;
 // Real time clock
 #define CLOCK_SET_START 0xC2AA // Serial marker: binary 1010 1010
 #define CLOCK_SET_END 0xC2AA // 1011 1011 // 0x550A   // Serial marker: binary 0101 0101
-#define CLOCK_SET_LENGTH 18    // If there aren't 18 bytes, something has gone wrong.
-    // #define CLOCK_SET_LENGTH 12  // If there aren't 12 bytes, something has gone wrong.
+#define CLOCK_SET_LENGTH 20    // If there aren't 20 bytes, something has gone wrong.
 
 ExecutionQueue *instr_queue = NULL;
 float current_az = 0;
@@ -111,14 +111,8 @@ void setup()
                 buf_offset = 0;
             }
         }
-        Serial.println(buf_offset);
-        // Serial.println(buffer[buf_offset]);
     }
 
-    for (int i = 0; i < CLOCK_SET_LENGTH; i++)
-    {
-        Serial.println(buffer[i], HEX);
-    }
     // Try set the time. Begin by checking the start and end markers.
     if (buffer[0] != ((CLOCK_SET_START >> 8) & 0xFF) || buffer[1] != (CLOCK_SET_START & 0xFF))
     {
@@ -126,7 +120,8 @@ void setup()
         fatal(msg);
         return;
     }
-    if (buffer[CLOCK_SET_LENGTH - 2] != ((CLOCK_SET_END >> 8) & 0xFF) || buffer[CLOCK_SET_LENGTH - 1] != (CLOCK_SET_END & 0xFF))
+    if (buffer[CLOCK_SET_LENGTH - 4] != ((CLOCK_SET_END >> 8) & 0xFF) || buffer[CLOCK_SET_LENGTH - 3] != (CLOCK_SET_END & 0xFF) ||
+        buffer[CLOCK_SET_LENGTH - 2] != ((CLOCK_SET_END >> 8) & 0xFF) || buffer[CLOCK_SET_LENGTH - 1] != (CLOCK_SET_END & 0xFF))
     {
         char msg[] = "Invalid end marker.";
         fatal(msg);
@@ -136,18 +131,6 @@ void setup()
     rtc.setClockMode(false); // 24 hour mode
 
     // Set RTC fields
-
-    // basic, just to check loop (2022, Wed 2nd November, 12:05)
-    /*
-    rtc.setYear(22);
-    rtc.setMonth(11);
-    rtc.setDate(2);
-    rtc.setDoW(4);
-    rtc.setHour(12);
-    rtc.setMinute(5);
-    rtc.setSecond(0);
-    */
-
     // using bcd for everything
     rtc.setYear(10 * (buffer[2] - '0') + (buffer[3] - '0'));
     rtc.setMonth(10 * (buffer[4] - '0') + (buffer[5] - '0'));
@@ -186,9 +169,7 @@ void loop()
     */
     // delay(1000);
 
-    // TODO: retrieve instructions periodically
-    // presumably, backend sends up to 300 instructions at once
-    // these just go to the serial buffer, and don't have to go to read_buf immediately
+    // Backend sends up to 300 instructions at once
     read_instructions(instr_queue);
 
     unsigned long now = millis();
@@ -208,45 +189,59 @@ void add_instruction_list(ExecutionQueue *queue) {
     new_list->first = NULL;
     new_list->last = NULL;
     new_list->next = NULL;
-    if (queue->new_list) insert_new_list(queue);
-    queue->list = new_list;
+    for (int i = 0; i < TIME_BYTES; i++) new_list->start[i] = 0;
     queue->new_list = new_list;
 }
 
 void insert_new_list(ExecutionQueue *queue) {
     // TODO: place the list in the right place according to the start time of the encounter
     if (queue->new_list == NULL) return;
-    queue->new_list->next = queue->list;
-    queue->list = queue->new_list;
+
+    if (queue->list == NULL) {
+        queue->list = queue->new_list;
+    } else {
+        InstructionList *end = queue->list;
+        for (; end->next != NULL; end = end->next);
+        end->next = queue->new_list;
+    }
+    queue->new_list = NULL;
 }
 
 // Bytes as follows:
 // yymmddwwhhmmss[0x0000]AAEE...[0xFFFFFFFF] (4 bytes per instruction) = 16 + 4 * n_instr + 4 bytes
-// yymmddwwhhmmss~~AAEE...~~~~ (4 bytes per instruction) = 16 + 4 * n_instr + 4 bytes
-// 00000000000000~~34152308~~~~
+// ~~yymmddwwhhmmssAAEE...~~~~ (4 bytes per instruction) = 16 + 4 * n_instr + 4 bytes (~~ is replaced with 0xC2AA)
+// ~~0000000000000034152308~~~~
+// ~~0000000000000066941234~~~~
 // -> everything will be aligned on 4 byte boundaries, all the time, important for the asimuth and elevation, the marker at the end allows to insert the item
 // if there's no "newly created" queue, we know that we're in the process of making one, azimuth and elevation will always be aligned on 4 bytes, importantly, making it simple to work with
 void read_instructions(ExecutionQueue *queue)
 {
-    // TODO: only create a new list when the serial input calls for it (timestamp), handle correct insertion in the list
     char read_buf[READ_BUF_LEN] = {0};
     int num_bytes = Serial.readBytes(read_buf, READ_BUF_LEN);
     // all instructions are 4-byte aligned for ease of use
     for (int buf_pos = 0; buf_pos < num_bytes;)
-    {   
-        if (queue->new_list == NULL) add_instruction_list(queue);
-        
-        InstructionList *list = queue->new_list;
-        if (read_buf[buf_pos] == END_BYTE && read_buf[buf_pos + 1] == END_BYTE && 
-            read_buf[buf_pos + 2] == END_BYTE && read_buf[buf_pos + 3] == END_BYTE) {
+    {           
+        if ((read_buf[buf_pos] & 0xFF) == ((MARK_BYTES >> 8) & 0xFF) && (read_buf[buf_pos + 1] & 0xFF) == (MARK_BYTES & 0xFF) &&
+            (read_buf[buf_pos + 2] & 0xFF) == ((MARK_BYTES >> 8) & 0xFF) && (read_buf[buf_pos + 3] & 0xFF) == (MARK_BYTES & 0xFF)) {
             insert_new_list(queue);
             buf_pos += 4;
-        } else if (list->first == NULL && list->start[TIME_BYTES - 1] != 0) {
+            continue;
+        } else if ((read_buf[buf_pos] & 0xFF) == ((MARK_BYTES >> 8) & 0xFF) && (read_buf[buf_pos + 1] & 0xFF) == (MARK_BYTES & 0xFF)) {
+            add_instruction_list(queue);
+            buf_pos += 2;
+            continue;
+        }
+
+        if (queue->new_list == NULL) return; // TODO: error message this
+        InstructionList *list = queue->new_list;
+        if (list->first == NULL && list->start[TIME_BYTES - 1] == 0) {
             // find how much of the time has been filled in/where to start from
             int i = 0;
             bool byte_err = false;
             for (; i < TIME_BYTES && buf_pos < num_bytes; i++, buf_pos++) {
-                if (read_buf[buf_pos] == END_BYTE || read_buf[buf_pos] < '0' || read_buf[buf_pos] > '9') {
+                if (read_buf[buf_pos] == ((MARK_BYTES >> 8) & 0xFF) || read_buf[buf_pos] == (MARK_BYTES & 0xFF) 
+                    || read_buf[buf_pos] < '0' || read_buf[buf_pos] > '9'
+                ) {
                     byte_err = true;
                     break;
                 } else if (list->start[i] == 0) {
@@ -254,8 +249,9 @@ void read_instructions(ExecutionQueue *queue)
                 }
             }
 
-            if (byte_err ||
-                (buf_pos < num_bytes && (read_buf[buf_pos] != END_BYTE || read_buf[buf_pos + 1] != END_BYTE))) {
+            if (byte_err) {
+                Serial.println("Error in received bytes: ");
+                for(int k = 0; k < num_bytes; k++) Serial.print(read_buf[k]);
                 // TODO: - we need an orch messaging protocol to resend the bytes, when we had to drop the instructions
                 // message orch to say the new instruction set was dropped
                 free_instruction_list(list);
@@ -265,11 +261,20 @@ void read_instructions(ExecutionQueue *queue)
             }
             // set this on the 4 byte boundary as needed
             buf_pos += (4 - (buf_pos % 4)) % 4;
-        } else {
-            float az = ((read_buf[buf_pos] << 8) + read_buf[buf_pos + 1]) / 100;
-            float el = ((read_buf[buf_pos + 2] << 8) + read_buf[buf_pos + 3]) / 100;
+        } else if (buf_pos % 4 == 0) {
+            float az = (float)((read_buf[buf_pos] << 8) + read_buf[buf_pos + 1]) / 100.0;
+            float el = (float)((read_buf[buf_pos + 2] << 8) + read_buf[buf_pos + 3]) / 100.0;
             add_instruction(list, az, el);
             buf_pos += 4;
+        } else {
+            Serial.println("Error in word alignment");
+            for(int k = 0; k < num_bytes; k++) Serial.print(read_buf[k]);
+            // TODO: - we need an orch messaging protocol to resend the bytes, when we had to drop the instructions
+            // message orch to say the new instruction set was dropped
+            free_instruction_list(list);
+            queue->new_list = NULL;
+            // quit reading and wait for the buffer to be flushed
+            return;
         }
     }
 }
@@ -315,13 +320,13 @@ void execute_instruction(ExecutionQueue *queue)
     // free the list if all instructions have executed
     if (instr_buf->first == NULL) {
         queue->list = instr_buf->next;
-        if (queue->new_list == instr_buf) queue->new_list = instr_buf->next;
 
-        free(instr_buf);
+        free_instruction_list(instr_buf);
     }
 }
 
 void print_instr_queue(ExecutionQueue *queue) {
+    Serial.println("=== QUEUE ===");
     if (queue == NULL || queue->list == NULL) 
     {
         Serial.println("No instruction lists given");
@@ -329,8 +334,10 @@ void print_instr_queue(ExecutionQueue *queue) {
     }
 
 
-    for (InstructionList *list = queue->list; list != NULL; list = list->next) 
-    print_instr_list(list);
+    for (InstructionList *list = queue->list; list != NULL; list = list->next) {
+        Serial.println("Instruction List:");
+        print_instr_list(list);
+    }
 }
 
 void print_instr_list(InstructionList *list) {
@@ -339,7 +346,10 @@ void print_instr_list(InstructionList *list) {
         return;
     }
 
-    for (Instruction *instr = list->first; instr != NULL; instr = instr->next) print_instr(instr);
+    for (Instruction *instr = list->first; instr != NULL; instr = instr->next) {
+        Serial.print("  - ");
+        print_instr(instr);
+    }
 }
 
 void print_instr(Instruction *instr) {
