@@ -33,9 +33,15 @@ For the below formats, symbols represent:
 ```
 ~~yymmddwwhhmmss~~~~
 ```
+```
+ªyymmddwwhhmmssªª
+```
 
 ### Encounter Instructions
 - Multiple instructions can be added up until the end of the instruction set, the datetime beforehand marks the starting time of the encounter for scheduling
 ```
-~~yymmddwwhhmmssAAEE...~~~~
+~~yymmddwwhhmmssAAEE....~~~~
+```
+```
+ªyymmddwwhhmmssAAEE....ªª
 ```

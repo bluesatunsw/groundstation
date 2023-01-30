@@ -46,6 +46,8 @@ struct ExecutionQueue
     InstructionList *new_list;
 };
 
+void print_time();
+
 ExecutionQueue *new_execution_queue();
 void add_instruction_list(ExecutionQueue *queue);
 void insert_new_list(ExecutionQueue *queue);
@@ -116,14 +118,14 @@ void setup()
     // Try set the time. Begin by checking the start and end markers.
     if (buffer[0] != ((CLOCK_SET_START >> 8) & 0xFF) || buffer[1] != (CLOCK_SET_START & 0xFF))
     {
-        char msg[] = "Invalid start marker.";
+        char *msg = "Invalid start marker.";
         fatal(msg);
         return;
     }
     if (buffer[CLOCK_SET_LENGTH - 4] != ((CLOCK_SET_END >> 8) & 0xFF) || buffer[CLOCK_SET_LENGTH - 3] != (CLOCK_SET_END & 0xFF) ||
         buffer[CLOCK_SET_LENGTH - 2] != ((CLOCK_SET_END >> 8) & 0xFF) || buffer[CLOCK_SET_LENGTH - 1] != (CLOCK_SET_END & 0xFF))
     {
-        char msg[] = "Invalid end marker.";
+        char *msg = "Invalid end marker.";
         fatal(msg);
         return;
     }
@@ -152,8 +154,23 @@ void setup()
 
 void loop()
 {
-    // Print current time to serial
-    /*
+    // print_time();
+
+    // Backend sends up to 300 instructions at once
+    read_instructions(instr_queue);
+
+    // This will be changed to use an interrupt in future
+    // Every time 1000 milliseconds (1s) has passed, take the next instruction of 
+    // the current encounter and execute it - if there's a current encounter, 
+    // also to be implemented with an RTC alarm
+    unsigned long now = millis();
+    // The queue is a linked list of encounters in time order, which themselves 
+    // contain a starting time and then a linked list of instructions (az and el)
+    if (now - last_exec >= 1000) execute_instruction(instr_queue);
+}
+
+
+void print_time() {
     Serial.print(rtc.getYear(), DEC);
     Serial.print("-");
     Serial.print(rtc.getMonth(century_bit), DEC);
@@ -166,16 +183,7 @@ void loop()
     Serial.print(":");
     Serial.print(rtc.getSecond(), DEC);
     Serial.println();
-    */
-    // delay(1000);
-
-    // Backend sends up to 300 instructions at once
-    read_instructions(instr_queue);
-
-    unsigned long now = millis();
-    if (now - last_exec >= 1000) execute_instruction(instr_queue);
 }
-
 
 ExecutionQueue *new_execution_queue() {
     ExecutionQueue *new_queue = (ExecutionQueue *) malloc(sizeof(ExecutionQueue));
@@ -284,7 +292,7 @@ void add_instruction(InstructionList *instr_buf, float az, float el)
     Instruction *new_instr = (Instruction *) malloc(sizeof(Instruction));
     if (new_instr == NULL) 
     {
-        char msg[] = "Could not allocate memory for new instruction";
+        char *msg = "Could not allocate memory for new instruction";
         fatal(msg);
     }
     new_instr->az = az;
@@ -386,7 +394,7 @@ void free_instruction_list(InstructionList *list)
  *
  * @param msg Output message literal.
  */
-void fatal(char msg[])
+void fatal(char *msg)
 {
     Serial.println(msg);
     while (1);
