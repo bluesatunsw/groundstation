@@ -8,7 +8,7 @@ import {
   Stack, Slider, Typography
 } from '@mui/material';
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import SatSelector from './SatSelector';
 import { categories } from './Category'
 import { n2yo_above } from '../../types/n2yotypes';
@@ -56,13 +56,14 @@ const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location, set
   // Convert satellite selected from above into target satellite format.
   const aboveToTarget = async () => {
     let response = await getPositions(selected.satid, location, 1)
-    let n = {
+    let n : targetSat = {
       satid: response.info.satid,
       name: response.info.satname,
       ra: response.positions[0].ra,
       dec: response.positions[0].dec,
       lat: response.positions[0].satlatitude,
       lon: response.positions[0].satlongitude,
+      intDesignator: selected.intDesignator,
     };
     setTarget(n)
     setModalOpen(false)
@@ -115,13 +116,19 @@ const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location, set
             onChange={handleSliderChange}
             sx={{ width: '150px' }}
           />
-          <p>
-            Warning: Setting search radius above 40 will cause significant slowdown without a category
-          </p>
+          <Typography variant="caption">
+            Warning: If radius is above 40, expect significant slowdown without a category
+          </Typography>
           <Button variant="outlined" color="secondary" onClick={() => {
             queryWhatsUp();
           }}>
             Search
+          </Button>
+          <Button variant="outlined" color="secondary" onClick={() => {
+            // open https://www.n2yo.com/satellite/?s=satid in a new window
+            window.open(`https://www.n2yo.com/satellite/?s=${selected.satid}`, '_blank')
+          }}>
+            Show on N2YO
           </Button>
           <Button variant="outlined" style={{ marginTop: "5px" }} onClick={() => {
             aboveToTarget();

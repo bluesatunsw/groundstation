@@ -4,7 +4,8 @@ interface targetSat {
     ra : number,
     dec : number,
     lat : number,
-    lon : number
+    lon : number,
+    intDesignator: string,
 }
 
 export type {targetSat};

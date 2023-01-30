@@ -51,22 +51,22 @@ def build_encounter(norad_id, lat, lng, alt):
     # Store our list steps in a single array. Each entry contains the time, elevation, and azimuth.
     # {"time" : time, "el" : el, "az" : az}
     steps = []
-    found = None
-    # Find the COM port for the motor controller. For now just take
-    # the first one found.
-    for ports in serial.tools.list_ports.comports():
-        try:
-            found = serial.Serial(ports.device, baudrate=BAUDRATE)
+    # found = None
+    # # Find the COM port for the motor controller. For now just take
+    # # the first one found.
+    # for ports in serial.tools.list_ports.comports():
+    #     try:
+    #         found = serial.Serial(ports.device, baudrate=BAUDRATE)
 
-        except OSError:
-            continue
+    #     except OSError:
+    #         continue
 
-    if found is None:
-        raise OSError("Microcontroller not detected.")
-    port = found
+    # if found is None:
+    #     raise OSError("Microcontroller not detected.")
+    # port = found
 
-    # Open serial port
-    ser = serial.Serial(port, BAUDRATE)
+    # # Open serial port
+    # ser = serial.Serial(port, BAUDRATE)
 
     # Get radio passes from API
     radio_pass = json.dumps(api.get_radiopasses(
@@ -108,8 +108,8 @@ def build_encounter(norad_id, lat, lng, alt):
         time_to_generate -= secs
 
         # Asynchronously transfer steps to hardware
-        transfer_steps(steps, port, ser)
-
+        # transfer_steps(steps, port, ser)
+        print(f"STEPS: \n{steps}")
 
 async def transfer_steps(steps, port, ser):
     """

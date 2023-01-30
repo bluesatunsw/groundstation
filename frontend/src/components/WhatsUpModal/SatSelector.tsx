@@ -4,7 +4,7 @@
 
 
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { n2yo_above } from '../../types/n2yotypes';
 import SatChip from './SatChip';
 
@@ -29,17 +29,19 @@ const ScrollDiv = styled.div`
 const SatSelector: React.FC<SatSelectorProps> = ({ list, selected, setSelected }) => {
     
     return (
-        <ScrollDiv style={{width : "300px"}}>
-            {list.map((sat: n2yo_above) => {
-                return (
-                    <SatChip isSelected={sat === selected} sat={sat} key={sat.satid}
-                        setSelected={() => { setSelected(sat) }} />
-                )
-            })}
-        <p style={{padding:"10px"}}>
-            {list.length} satellites found
-        </p>
-        </ScrollDiv>
+        <div>
+            <p style={{paddingLeft:"10px"}}>
+                {list.length} satellites found
+            </p>
+            <ScrollDiv style={{width : "300px"}}>
+                {list.map((sat: n2yo_above) => {
+                    return (
+                        <SatChip isSelected={sat === selected} sat={sat} key={sat.satid}
+                            setSelected={() => { setSelected(sat) }} />
+                    )
+                })}
+            </ScrollDiv>    
+        </div>
     )
 }
 
