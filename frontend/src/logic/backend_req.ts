@@ -84,3 +84,8 @@ export async function startEncounter(target: number) : Promise<track_status> {
         .then(rest => rest.json())
         .then(res => {return res as track_status})
 }
+
+// Get encounter info
+export function updateEncounter() : Promise<Response> {
+    return fetch(`http://127.0.0.1:${port}/updateEncounter`)
+}

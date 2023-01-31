@@ -115,26 +115,34 @@ def getstatus():
         return Response(str(err), status=404, mimetype='application/json')
 
 
-@APP.route('/start_encounter')
+@APP.route('/startEncounter', methods = ['POST'])
 def start_encounter():
     """
     Endpoint to start an encounter and move data to the encounter thread.
     If the encounter and timer thread are running already, terminate and restart
     """
+    print("startencounter")
     format = "%(asctime)s: %(message)s"
 
     logging.basicConfig(format=format, level=logging.INFO, datefmt="%H:%M:%S")
-    while True:
-        if encounter_thread is None:
-            logging.info("Starting encounter thread")
-            # We set daemon=True to force this thread to exit when the main thread exits.
-            encounter_thread = threading.Thread(
-                target=build_encounter, args=(), daemon=True)
-            encounter_thread.start()
-            break
-        else:
-            encounter_thread.end()
-
+    # while True:
+    #     if encounter_thread is None:
+    #         logging.info("Starting encounter thread")
+    #         # We set daemon=True to force this thread to exit when the main thread exits.
+    #         encounter_thread = threading.Thread(
+    #             target=build_encounter, args=(), daemon=True)
+    #         encounter_thread.start()
+    #         break
+    #     else:
+    #         encounter_thread.end()
+    
+    init_status = {
+        "status" : "Waiting for track to begin",
+        "curr_step" : 0,
+        "az" : 0,
+        "el" : 0,
+    }
+    return return_handler(init_status)
 
 def return_handler(api_result):
     """

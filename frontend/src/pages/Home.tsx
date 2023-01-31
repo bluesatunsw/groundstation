@@ -145,7 +145,8 @@ const Index: React.FC = () => {
                     <MapSub sat={target}/>
                 </Grid>
                 <Grid item xs={8} sx={{height: "50%"}}>
-                    <MonitorSub tab={monitorTab} setTab={setMonitorTab} connected={beConnected} setConnected={setBeConnected} location={loc} setLocModal={setLocModal}/>
+                    <MonitorSub tab={monitorTab} setTab={setMonitorTab} connected={beConnected} setConnected={setBeConnected} location={loc} setLocModal={setLocModal}
+                    re={radioEncounter} target={target}/>
                 </Grid>
                 <Grid item xs={4} sx={{height: "50%"}}>
                     <LogSub/>
@@ -205,3 +206,4 @@ const default_radio_passes: n2yo_radio_passes = {
 }
 
 export default Index;
+export {default_sat, default_radio_passes}
