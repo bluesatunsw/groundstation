@@ -3,10 +3,9 @@
 // 05/2022
 
 import React from 'react';
-import { Button, Card, CardActions, CardContent, Typography } from "@mui/material"
-import { gps_pos } from '../../types/hardwareTypes';
-import { Container } from '../Common';
-import Clock from './Clock';
+import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material"
+import { gps_pos } from '../../../types/hardwareTypes';
+import Clock from '../../Common/Clock';
 interface SysLocationProps {
     location: gps_pos;
     setLocModal: (b: boolean) => void;
@@ -16,8 +15,8 @@ const SysLocation: React.FC<SysLocationProps> = ({ location, setLocModal }) => {
 
 
     return (
-        <Container>
-            <Card sx={{ minWidth: 240 }} variant="outlined">
+        <Grid>
+            <Card sx={{ minWidth: 240 }}>
                 <CardContent>
                     <Typography variant="h6" component="div">
                         System location
@@ -37,12 +36,12 @@ const SysLocation: React.FC<SysLocationProps> = ({ location, setLocModal }) => {
                     <Button size="small" onClick={(e) => { setLocModal(true) }}>
                         Set location
                     </Button>
-                    <Button size="small">
+                    <Button size="small" onClick={() => {alert("Not implemented yet!")}}>
                         Query GPS
                     </Button>
                 </CardActions>
             </Card>
-        </Container>
+        </Grid>
     )
 }
 

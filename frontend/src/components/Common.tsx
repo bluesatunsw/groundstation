@@ -2,7 +2,7 @@
 // Matt Rossouw (omeh-a)
 // 05/2022
 
-import styled from "styled-components"
+import styled from '@emotion/styled'
 
 export const Container = styled.div`
 width: 250px;

@@ -9,7 +9,7 @@
 import { Button, TextField, Card, CardContent, Typography } from '@mui/material';
 import { gps_pos } from '../types/hardwareTypes';
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import Stack from "@mui/material/Stack";
 import { Container, Body } from './Common';
 import { targetSat } from '../types/targetSat';
@@ -42,6 +42,7 @@ const SelectTargetModal: React.FC<SelectTargProps> = ({ onSetTarget, cursat, pos
             dec : response.positions[0].dec,
             lat : response.positions[0].satlatitude,
             lon : response.positions[0].satlongitude,
+            intDesignator: "",
         };
         setSelected(n)
     }
