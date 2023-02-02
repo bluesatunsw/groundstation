@@ -28,3 +28,6 @@ frontend/yarn-error.log*
 # secrets
 secrets.json
 node_modules
+
+# oth
+.vscode/*
