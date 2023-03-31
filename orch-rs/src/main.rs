@@ -6,6 +6,7 @@ use axum::{
     routing, Router,
 };
 
+mod state;
 mod websocket;
 
 use crate::websocket::{handle_socket, WsState};
