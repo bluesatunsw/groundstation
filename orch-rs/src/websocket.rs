@@ -9,23 +9,21 @@ use tokio::sync::Mutex;
 
 use crate::state::{Action, State};
 
-pub struct WsState {
-    st: Mutex<Vec<String>>, // TODO: get rid of this
+pub struct WsState<'a> {
     txs: Mutex<Vec<SplitSink<WebSocket, Message>>>,
-    state: Mutex<State>,
+    state: Mutex<State<'a>>,
 }
 
 #[derive(Serialize, Debug)]
 #[serde(tag = "type")]
 enum ServerMessage<'a> {
     Patch { ops: Vec<PatchOperation> },
-    Full { state: &'a State },
+    Full { state: &'a State<'a> },
 }
 
-impl WsState {
+impl WsState<'_> {
     pub(crate) fn new() -> Self {
         Self {
-            st: Mutex::new(vec!["hello world!".to_string()]),
             txs: Mutex::new(Vec::default()),
             state: Mutex::new(State::default()),
         }
@@ -87,7 +85,7 @@ impl WsState {
     }
 }
 
-pub async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
+pub async fn handle_socket(socket: WebSocket, state: Arc<WsState<'_>>) {
     let (tx, mut rx) = socket.split();
 
     // keep session for later broadcast
@@ -99,7 +97,6 @@ pub async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
             println!("{text}");
             state.broadcast_all(text.clone()).await;
             // add the message to the current state
-            state.st.lock().await.push(text);
         }
     }
 }

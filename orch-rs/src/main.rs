@@ -8,6 +8,7 @@ use axum::{
 
 mod state;
 mod websocket;
+mod groundstation;
 
 use crate::websocket::{handle_socket, WsState};
 
@@ -33,7 +34,7 @@ async fn main() {
 
 async fn ws_handler(
     ws: WebSocketUpgrade,
-    Extension(state): Extension<Arc<WsState>>,
+    Extension(state): Extension<Arc<WsState<'static>>>,
 ) -> impl IntoResponse {
     println!("new ws connection!");
     ws.on_upgrade(|socket| handle_socket(socket, state))
