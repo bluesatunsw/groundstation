@@ -1,11 +1,14 @@
+use std::collections::HashMap;
+
 use serde::{Deserialize, Serialize};
 
-use crate::groundstation::GroundStation;
+use crate::groundstation::GroundStationStatus;
 
-#[derive(Default, Debug)]
-pub struct State<'a> {
+#[derive(Default, Debug, Serialize)]
+pub struct State {
     // what goes in here?
-    stations: Vec<&'a dyn GroundStation>,
+    // stations: Vec<&'a dyn GroundStation>,
+    stations: HashMap<String, GroundStationStatus>,
     current_satellite: String,
     // main: &'a dyn GroundStation,
 }
@@ -14,26 +17,15 @@ pub struct State<'a> {
 #[serde(tag = "type")]
 pub enum Action {
     // some operations on the state
-    Update,
+    UpdateStation{name: String, status: GroundStationStatus},
 }
 
-impl<'a> State<'a> {
+impl State {
     pub fn apply(&mut self, action: Action) {
         match action {
-            Action::Update => {
-                self.stations.iter_mut()
-                    .map(|s| s.update())
-                    .collect();
+            Action::UpdateStation{name, status} => {
+                self.stations.insert(name, status);
             },
         }
-    }
-}
-
-impl Serialize for State<'_> {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer {
-        self.stations.iter()
-            .
     }
 }

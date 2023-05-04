@@ -9,19 +9,19 @@ use tokio::sync::Mutex;
 
 use crate::state::{Action, State};
 
-pub struct WsState<'a> {
+pub struct WsState {
     txs: Mutex<Vec<SplitSink<WebSocket, Message>>>,
-    state: Mutex<State<'a>>,
+    state: Mutex<State>,
 }
 
 #[derive(Serialize, Debug)]
 #[serde(tag = "type")]
 enum ServerMessage<'a> {
     Patch { ops: Vec<PatchOperation> },
-    Full { state: &'a State<'a> },
+    Full { state: &'a State },
 }
 
-impl WsState<'_> {
+impl WsState {
     pub(crate) fn new() -> Self {
         Self {
             txs: Mutex::new(Vec::default()),
@@ -66,7 +66,7 @@ impl WsState<'_> {
         }
     }
 
-    async fn apply(&self, action: Action) -> Result<(), Error> {
+    pub async fn apply(&self, action: Action) -> Result<(), Error> {
         let mut state = self.state.lock().await;
         let old_json = serde_json::to_value(&*state)?;
 
@@ -85,7 +85,7 @@ impl WsState<'_> {
     }
 }
 
-pub async fn handle_socket(socket: WebSocket, state: Arc<WsState<'_>>) {
+pub async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
     let (tx, mut rx) = socket.split();
 
     // keep session for later broadcast
