@@ -10,7 +10,6 @@ use tokio::sync::Mutex;
 use crate::state::{Action, State};
 
 pub struct WsState {
-    st: Mutex<Vec<String>>, // TODO: get rid of this
     txs: Mutex<Vec<SplitSink<WebSocket, Message>>>,
     state: Mutex<State>,
 }
@@ -25,7 +24,6 @@ enum ServerMessage<'a> {
 impl WsState {
     pub(crate) fn new() -> Self {
         Self {
-            st: Mutex::new(vec!["hello world!".to_string()]),
             txs: Mutex::new(Vec::default()),
             state: Mutex::new(State::default()),
         }
@@ -68,7 +66,7 @@ impl WsState {
         }
     }
 
-    async fn apply(&self, action: Action) -> Result<(), Error> {
+    pub async fn apply(&self, action: Action) -> Result<(), Error> {
         let mut state = self.state.lock().await;
         let old_json = serde_json::to_value(&*state)?;
 
@@ -99,7 +97,6 @@ pub async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
             println!("{text}");
             state.broadcast_all(text.clone()).await;
             // add the message to the current state
-            state.st.lock().await.push(text);
         }
     }
 }
