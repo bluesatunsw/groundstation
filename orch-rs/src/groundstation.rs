@@ -47,7 +47,9 @@ impl GroundStation for MockGroundStation {
     }
 
     fn update(&mut self) {
-        println!("doing an update on {}", self.name)
+        // println!("doing an update on {}", self.name);
+        self.orientation.1 += 0.1;
+        self.orientation.1 %= 360.0;
     }
 }
 
