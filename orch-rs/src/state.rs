@@ -17,15 +17,18 @@ pub struct State {
 #[serde(tag = "type")]
 pub enum Action {
     // some operations on the state
-    UpdateStation{name: String, status: GroundStationStatus},
+    UpdateStation {
+        name: String,
+        status: GroundStationStatus,
+    },
 }
 
 impl State {
     pub fn apply(&mut self, action: Action) {
         match action {
-            Action::UpdateStation{name, status} => {
+            Action::UpdateStation { name, status } => {
                 self.stations.insert(name, status);
-            },
+            }
         }
     }
 }

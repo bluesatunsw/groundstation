@@ -6,14 +6,14 @@ use axum::{
     routing, Router,
 };
 
+mod groundstation;
 mod state;
 mod websocket;
-mod groundstation;
 
-use websocket::{handle_socket, WsState};
 use groundstation::GroundStation;
+use websocket::{handle_socket, WsState};
 
-use crate::{state::Action, groundstation::MockGroundStation};
+use crate::{groundstation::MockGroundStation, state::Action};
 
 #[tokio::main]
 async fn main() {
@@ -23,6 +23,7 @@ async fn main() {
 
     let ws_state = Arc::new(WsState::new());
 
+    // it should probably generate groundstations from a config file
     tokio::spawn({
         let ws_state = ws_state.clone();
         async {
@@ -43,7 +44,6 @@ async fn main() {
         .serve(app.into_make_service())
         .await
         .unwrap();
-
 }
 
 async fn ws_handler(
@@ -64,9 +64,13 @@ async fn groundstation_handler(mut gs: impl GroundStation, ws_state: Arc<WsState
 
         let status = gs.get_status();
         let name = status.name.clone();
-        ws_state.apply(Action::UpdateStation { name: name.clone(), status })
+        ws_state
+            .apply(Action::UpdateStation {
+                name: name.clone(),
+                status,
+            })
             .await
-            .unwrap_or_else(|err|{
+            .unwrap_or_else(|err| {
                 println!("could not apply state from {}: {err}", name);
             });
     }

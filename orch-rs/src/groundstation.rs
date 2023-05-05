@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct GroundStationStatus {
@@ -6,7 +6,7 @@ pub struct GroundStationStatus {
     pub orientation: (f32, f32),
 }
 
-pub trait GroundStation{
+pub trait GroundStation {
     fn get_status(&self) -> GroundStationStatus;
     // fn get_name(&self) -> String;
     // fn get_location(&self) -> String;
@@ -14,9 +14,9 @@ pub trait GroundStation{
     // fn get_target(&self) -> String;
     // fn set_target(&mut self, String);
     fn update(&mut self); // should be async, currently only in nightly rust
-    // fn subsribers(&mut self)
-    // fn subscribe(&mut self, subsriber: &dyn Fn(GroundSationStatus));
-    // whatever else might be needed for this?
+                          // fn subsribers(&mut self)
+                          // fn subscribe(&mut self, subsriber: &dyn Fn(GroundSationStatus));
+                          // whatever else might be needed for this?
 }
 
 // this stuff will probably get moved out to some sorta test module later
@@ -30,13 +30,20 @@ pub struct MockGroundStation {
 
 impl MockGroundStation {
     pub fn new(name: String, location: String, orientation: (f32, f32)) -> Self {
-        Self{name, location, orientation,}
+        Self {
+            name,
+            location,
+            orientation,
+        }
     }
 }
 
 impl GroundStation for MockGroundStation {
     fn get_status(&self) -> GroundStationStatus {
-        GroundStationStatus { name: self.name.clone(), orientation: self.orientation, }
+        GroundStationStatus {
+            name: self.name.clone(),
+            orientation: self.orientation,
+        }
     }
 
     fn update(&mut self) {
@@ -44,9 +51,7 @@ impl GroundStation for MockGroundStation {
     }
 }
 
-pub struct MobileGroundStation {
-
-}
+pub struct MobileGroundStation {}
 
 impl GroundStation for MobileGroundStation {
     fn get_status(&self) -> GroundStationStatus {
@@ -58,9 +63,7 @@ impl GroundStation for MobileGroundStation {
     }
 }
 
-pub struct PhysicsGroundStation {
-
-}
+pub struct PhysicsGroundStation {}
 
 impl GroundStation for PhysicsGroundStation {
     fn get_status(&self) -> GroundStationStatus {
