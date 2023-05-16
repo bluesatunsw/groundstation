@@ -1,13 +1,12 @@
-use serde::{Deserialize, Serialize};
-
-#[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct GroundStationStatus {
-    pub name: String,
-    pub orientation: (f32, f32),
-}
+use crate::state;
+// #[derive(Debug, Serialize, Deserialize, Clone)]
+// pub struct GroundStationStatus {
+//     pub name: String,
+//     pub orientation: (f32, f32),
+// }
 
 pub trait GroundStation {
-    fn get_status(&self) -> GroundStationStatus;
+    fn get_status(&self) -> state::GroundStation;
     // fn get_name(&self) -> String;
     // fn get_location(&self) -> String;
     // fn get_heading(&self) -> (f32, f32);
@@ -39,11 +38,8 @@ impl MockGroundStation {
 }
 
 impl GroundStation for MockGroundStation {
-    fn get_status(&self) -> GroundStationStatus {
-        GroundStationStatus {
-            name: self.name.clone(),
-            orientation: self.orientation,
-        }
+    fn get_status(&self) -> state::GroundStation {
+        state::GroundStation::default()
     }
 
     fn update(&mut self) {
@@ -56,7 +52,7 @@ impl GroundStation for MockGroundStation {
 pub struct MobileGroundStation {}
 
 impl GroundStation for MobileGroundStation {
-    fn get_status(&self) -> GroundStationStatus {
+    fn get_status(&self) -> state::GroundStation {
         todo!()
     }
 
@@ -68,7 +64,7 @@ impl GroundStation for MobileGroundStation {
 pub struct PhysicsGroundStation {}
 
 impl GroundStation for PhysicsGroundStation {
-    fn get_status(&self) -> GroundStationStatus {
+    fn get_status(&self) -> state::GroundStation {
         todo!()
     }
 
