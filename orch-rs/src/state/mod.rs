@@ -2,6 +2,10 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
+mod point;
+
+pub use point::{CartesianPoint, PolarPoint};
+
 #[derive(Default, Debug, Serialize)]
 pub struct State {
     stations: HashMap<String, GroundStation>,
@@ -45,18 +49,6 @@ pub struct Satellite {
     pub name: String,
     pub norad_id: i32,
     pub ind_designator: String,
-}
-
-#[derive(Default, Debug, Serialize, Deserialize, Clone)]
-pub struct PolarPoint {
-    pub az: f32,
-    pub el: f32,
-}
-
-#[derive(Default, Debug, Serialize, Deserialize, Clone)]
-pub struct CartesianPoint {
-    pub x: f32,
-    pub y: f32,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
