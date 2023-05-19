@@ -1,5 +1,9 @@
 '''
-Serial communications to retrieve location from GPS
+geolocation.py
+    Serial communications to retrieve location from GPS
+    Work in progress.
+Matt Rossouw (omeh-a), Luke Prior (lukeprior)
+03/2022
 '''
 import serial
 import serial.tools.list_ports

@@ -2,4 +2,3 @@ flask
 flask_cors
 requests
 pyserial
-werkzeug==2.0.3

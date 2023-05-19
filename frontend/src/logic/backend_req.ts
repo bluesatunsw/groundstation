@@ -2,7 +2,8 @@
 // Matt Rossouw (omeh-a)
 // 05/2022
 
-import { gps_pos, backend_status } from "../types/hardwareTypes";
+import { json } from "stream/consumers";
+import { gps_pos, backend_status, track_status } from "../types/hardwareTypes";
 import { n2yo_get_radio_passes, n2yo_get_visual_passes, n2yo_positions, n2yo_whats_up } from "../types/n2yotypes";
 
 // Parameters set by frontend to communicate with backend
@@ -65,4 +66,26 @@ export async function getStatus() : Promise<backend_status> {
     return await fetch(`http://127.0.0.1:${port}/status`)
         .then(res => res.json())
         .then(res => {return res as backend_status})
+}
+
+// Start encounter
+export async function startEncounter(target: number) : Promise<track_status> {
+    let body: any = {
+        "target" : target
+    }
+    let options: any = {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    return await fetch(`http://127.0.0.1:${port}/startEncounter`, options)
+        .then(rest => rest.json())
+        .then(res => {return res as track_status})
+}
+
+// Get encounter info
+export function updateEncounter() : Promise<Response> {
+    return fetch(`http://127.0.0.1:${port}/updateEncounter`)
 }

@@ -10,6 +10,8 @@ import BackendMonitor from './SystemInfo/BackendMonitor/BackendMonitor';
 import SysLocation from './SystemInfo/SysLocation';
 import { gps_pos } from '../../types/hardwareTypes';
 import Tracking from './Tracking/Tracking';
+import { targetSat } from '../../types/targetSat';
+import { n2yo_radio_passes } from '../../types/n2yotypes';
 
 interface MonitorSubProps {
     location: gps_pos,
@@ -17,10 +19,12 @@ interface MonitorSubProps {
     connected: boolean,
     setConnected: (connected: boolean) => void,
     tab: string,
-    setTab: (tab: string) => void
+    setTab: (tab: string) => void,
+    target: targetSat,
+    re: n2yo_radio_passes
 }
 
-const MonitorSub: React.FC<MonitorSubProps> = ({tab, setTab, location, setLocModal, connected, setConnected}) => {
+const MonitorSub: React.FC<MonitorSubProps> = ({tab, setTab, location, setLocModal, connected, setConnected, target, re}) => {
     
     
     const handleChange = (
@@ -55,7 +59,7 @@ const MonitorSub: React.FC<MonitorSubProps> = ({tab, setTab, location, setLocMod
                     </Stack>
                     {tab === 'hardware' && <BackendMonitor connected={connected} setConnected={setConnected}/>}
                     {/* {tab === 'radio' && <RadioMonitor />} */}
-                    {tab === 'tracking' && <Tracking/>}
+                    {tab === 'tracking' && <Tracking target={target} re={re}/>}
                     {tab === 'location' && <SysLocation location={location} setLocModal={setLocModal}/>}
                     
                 </CardContent>

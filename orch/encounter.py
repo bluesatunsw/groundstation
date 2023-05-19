@@ -1,5 +1,6 @@
 """
-Subsystem for generating encounters and transferring them to hardware.
+encounter.py
+    Subsystem for generating encounters and transferring them to hardware.
 Matt Rossouw (omeh-a)
 05/2022
 """
@@ -8,7 +9,7 @@ import json
 import time
 import serial
 import serial.tools.list_ports
-import api
+import n2yo
 
 
 BAUDRATE = 115200
@@ -51,25 +52,25 @@ def build_encounter(norad_id, lat, lng, alt):
     # Store our list steps in a single array. Each entry contains the time, elevation, and azimuth.
     # {"time" : time, "el" : el, "az" : az}
     steps = []
-    # found = None
-    # # Find the COM port for the motor controller. For now just take
-    # # the first one found.
-    # for ports in serial.tools.list_ports.comports():
-    #     try:
-    #         found = serial.Serial(ports.device, baudrate=BAUDRATE)
+    found = None
+    # Find the COM port for the motor controller. For now just take
+    # the first one found.
+    for ports in serial.tools.list_ports.comports():
+        try:
+            found = serial.Serial(ports.device, baudrate=BAUDRATE)
 
-    #     except OSError:
-    #         continue
+        except OSError:
+            continue
 
-    # if found is None:
-    #     raise OSError("Microcontroller not detected.")
-    # port = found
+    if found is None:
+        raise OSError("Microcontroller not detected.")
+    port = found
 
-    # # Open serial port
-    # ser = serial.Serial(port, BAUDRATE)
+    # Open serial port
+    ser = serial.Serial(port, BAUDRATE)
 
     # Get radio passes from API
-    radio_pass = json.dumps(api.get_radiopasses(
+    radio_pass = json.dumps(n2yo.get_radiopasses(
         norad_id, lat, lng, alt))['passes'][0]
 
     # Update total seconds left
@@ -85,7 +86,7 @@ def build_encounter(norad_id, lat, lng, alt):
     while time_to_generate > 0:
         # Get next 300 (or however much is left) seconds of positions
         secs = time_to_generate if time_to_generate < 300 else 300
-        new_steps = api.get_positions(
+        new_steps = n2yo.get_positions(
             radio_pass['sat'], radio_pass['start'] + secs)
 
         new_final = None
@@ -108,8 +109,8 @@ def build_encounter(norad_id, lat, lng, alt):
         time_to_generate -= secs
 
         # Asynchronously transfer steps to hardware
-        # transfer_steps(steps, port, ser)
-        print(f"STEPS: \n{steps}")
+        transfer_steps(steps, port, ser)
+
 
 async def transfer_steps(steps, port, ser):
     """
