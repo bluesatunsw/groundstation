@@ -64,6 +64,7 @@ async fn groundstation_handler(mut gs: impl GroundStation, ws_state: Arc<WsState
 
         let status = gs.get_status();
         let name = status.name.clone();
+        println!("{:?}", status.clone());
         ws_state
             .apply(Action::UpdateStation {
                 name: name.clone(),
