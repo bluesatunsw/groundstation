@@ -73,7 +73,8 @@ const WhatsUpModal: React.FC<WhatsUpProps> = ({ target, setTarget, location, set
   const queryWhatsUp = async () => {
     let response = await getWhatsUp(location, radius, parseInt(cat))
     setList([] as n2yo_above[]) // Flush this to avoid issues with caching when switching categories
-    setList(response.above)
+    if (response !== null)
+      setList(response.above)
   }
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
