@@ -16,6 +16,7 @@ pub trait GroundStation {
                           // fn subsribers(&mut self)
                           // fn subscribe(&mut self, subsriber: &dyn Fn(GroundSationStatus));
                           // whatever else might be needed for this?
+    fn get_gps(&mut self);
 }
 
 // this stuff will probably get moved out to some sorta test module later
@@ -47,6 +48,9 @@ impl GroundStation for MockGroundStation {
         self.orientation.1 += 0.1;
         self.orientation.1 %= 360.0;
     }
+    fn get_gps(&mut self) {
+        todo!()
+    }
 }
 
 pub struct MobileGroundStation {}
@@ -57,6 +61,10 @@ impl GroundStation for MobileGroundStation {
     }
 
     fn update(&mut self) {
+        todo!()
+    }
+
+    fn get_gps(&mut self) {
         todo!()
     }
 }
@@ -71,4 +79,9 @@ impl GroundStation for PhysicsGroundStation {
     fn update(&mut self) {
         todo!()
     }
+
+    fn get_gps(&mut self) {
+        todo!()
+    }
+
 }

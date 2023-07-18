@@ -21,11 +21,11 @@ async fn main() {
 
     // TODO: setup logging
 
-    let ws_state = Arc::new(WsState::new());
+    let ws_state: Arc<WsState> = Arc::new(WsState::new());
 
     // it should probably generate groundstations from a config file
     tokio::spawn({
-        let ws_state = ws_state.clone();
+        let ws_state: Arc<WsState> = ws_state.clone();
         async {
             let gs = MockGroundStation::new("test".into(), "nowhere".into(), (0., 0.));
             groundstation_handler(gs, ws_state).await;
@@ -44,6 +44,8 @@ async fn main() {
         .serve(app.into_make_service())
         .await
         .unwrap();
+
+
 }
 
 async fn ws_handler(
