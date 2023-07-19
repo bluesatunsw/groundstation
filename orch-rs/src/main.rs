@@ -59,7 +59,7 @@ async fn ws_handler(
 async fn groundstation_handler(mut gs: impl GroundStation, ws_state: Arc<WsState>) -> ! {
     loop {
         use tokio::time::{sleep, Duration};
-        sleep(Duration::from_millis(100)).await;
+        sleep(Duration::from_millis(1000)).await;
         gs.update();
         // this could probably be reversed so that this function
         // awaits updates from ground station, rather than polling it.

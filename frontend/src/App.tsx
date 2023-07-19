@@ -12,9 +12,10 @@ const App: React.FC = () => {
   return (
     <div className="App">
       {/* <Home/> */}
+      <p>hello</p>
       {state === undefined && <p>yo</p>}
-      {state && <p>{`${state}`}</p>}
+      {state && <p>{`${JSON.stringify(state)}`}</p>}
     </div>
   );
 }
-export default App;
+export default App;   
