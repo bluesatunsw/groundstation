@@ -4,7 +4,10 @@ use crate::state;
 //     pub name: String,
 //     pub orientation: (f32, f32),
 // }
-
+use serial::{
+    SerialPortSettings,
+};
+use serialport;
 pub trait GroundStation {
     fn get_status(&self) -> state::GroundStation;
     // fn get_name(&self) -> String;
@@ -16,7 +19,7 @@ pub trait GroundStation {
                           // fn subsribers(&mut self)
                           // fn subscribe(&mut self, subsriber: &dyn Fn(GroundSationStatus));
                           // whatever else might be needed for this?
-    fn get_gps(&mut self);
+    fn get_gps(&self);
 }
 
 // this stuff will probably get moved out to some sorta test module later
@@ -48,8 +51,9 @@ impl GroundStation for MockGroundStation {
         self.orientation.1 += 0.1;
         self.orientation.1 %= 360.0;
     }
-    fn get_gps(&mut self) {
-        todo!()
+    fn get_gps(&self) {
+        let available_ports = serialport::available_ports();
+
     }
 }
 
@@ -64,7 +68,7 @@ impl GroundStation for MobileGroundStation {
         todo!()
     }
 
-    fn get_gps(&mut self) {
+    fn get_gps(&self) {
         todo!()
     }
 }
@@ -80,7 +84,7 @@ impl GroundStation for PhysicsGroundStation {
         todo!()
     }
 
-    fn get_gps(&mut self) {
+    fn get_gps(&self) {
         todo!()
     }
 
