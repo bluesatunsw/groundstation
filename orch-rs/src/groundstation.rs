@@ -1,4 +1,4 @@
-use crate::state;
+use crate::state::{self, PolarPoint};
 // #[derive(Debug, Serialize, Deserialize, Clone)]
 // pub struct GroundStationStatus {
 //     pub name: String,
@@ -7,6 +7,7 @@ use crate::state;
 use serial::{
     SerialPortSettings,
 };
+
 use serialport;
 pub trait GroundStation {
     fn get_status(&self) -> state::GroundStation;
@@ -43,7 +44,14 @@ impl MockGroundStation {
 
 impl GroundStation for MockGroundStation {
     fn get_status(&self) -> state::GroundStation {
-        state::GroundStation::default()
+        state::GroundStation {
+            orientation: PolarPoint {
+                az: self.orientation.0,
+                el: self.orientation.1,
+            },
+            ..state::GroundStation::default()
+        }
+        
     }
 
     fn update(&mut self) {
