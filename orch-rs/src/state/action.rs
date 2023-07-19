@@ -1,4 +1,6 @@
+use serde::Deserialize;
 
+use super::GroundStation;
 
 #[derive(Deserialize)]
 #[serde(tag = "type")]
