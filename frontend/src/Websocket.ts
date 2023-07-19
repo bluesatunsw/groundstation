@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {State} from "./State"
 import {applyPatch, Operation} from "fast-json-patch"
 interface Patch {
@@ -65,3 +66,22 @@ const setupWebsocket = (onStateUpdate: (state: State) => void) => {
     }
 };
 
+export const useWebsocket = () => {
+    let [state, updateState] = useState<State>();
+
+    useEffect(() => {
+        setupWebsocket((msg) => {
+            updateState(msg);
+        });
+
+        // the destructor needed by react apprently?
+        // Apparently only executed at program's end
+        return () => {
+            if (websocket) {
+                websocket.close(1000);
+            }
+        };
+    }, []);
+
+    return state;
+}

@@ -2,25 +2,17 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
+mod action;
 mod point;
 
 pub use point::{CartesianPoint, PolarPoint};
+pub use action::Action;
 
 #[derive(Default, Debug, Serialize)]
 pub struct State {
     stations: HashMap<String, GroundStation>,
     current_satellite: Satellite,
     backend_status: BackendStatus,
-}
-
-#[derive(Deserialize)]
-#[serde(tag = "type")]
-pub enum Action {
-    // some operations on the state
-    UpdateStation {
-        name: String,
-        status: GroundStation,
-    },
 }
 
 impl State {
