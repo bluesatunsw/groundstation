@@ -47,16 +47,21 @@ const setupWebsocket = (onStateUpdate: (state: State) => void) => {
 
         switch (msg.type) {
             case "Patch": {
-                if (todo !== undefined) {
-                    let {newDocument: newState} = applyPatch(todo, msg.ops, false, fals)
+                if (state !== undefined) {
+                    let {newDocument: newState} = applyPatch(state, msg.ops, false, false);
+
+                    onStateUpdate(newState);
+                    state = newState;
                 }
                 break;
             }
             
             case "Full" : {
-                
+                onStateUpdate(msg.state);
+                state = msg.state;
                 break;
             }
         }
     }
 };
+
