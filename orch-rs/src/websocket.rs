@@ -95,6 +95,7 @@ pub async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
     while let Some(Ok(msg)) = rx.next().await {
         if let Message::Text(text) = msg {
             println!("{text}");
+            // TODO: Action decoding
             state.broadcast_all(text.clone()).await;
             // add the message to the current state
         }

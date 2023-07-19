@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {State} from "./State"
+import {State, StateAction} from "./State"
 import {applyPatch, Operation} from "fast-json-patch"
 interface Patch {
     type: "Patch";
@@ -84,4 +84,10 @@ export const useWebsocket = () => {
     }, []);
 
     return state;
+}
+
+export const sendAction = (action: StateAction): void => {
+    if (websocket) {
+        websocket.send(JSON.stringify(action));
+    }
 }

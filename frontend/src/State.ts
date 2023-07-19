@@ -57,6 +57,10 @@ export interface State {
     az: number,
     el: number,
   }
-
-//export type StateAction = GPSPosition | GroundStation | AntennaType;
   
+  export interface UpdateStation {
+    name: String,
+    status: GroundStation,
+  }
+
+export type StateAction = UpdateStation
