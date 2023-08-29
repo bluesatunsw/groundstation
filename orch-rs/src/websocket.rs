@@ -7,7 +7,7 @@ use serde::Serialize;
 use serde_json::Error;
 use tokio::sync::Mutex;
 
-use crate::state::{Action, State};
+use crate::state::{Action, FrontendAction, State};
 
 pub struct WsState {
     txs: Mutex<Vec<SplitSink<WebSocket, Message>>>,
@@ -66,7 +66,7 @@ impl WsState {
         }
     }
 
-    pub async fn apply(&self, action: Action) -> Result<(), Error> {
+    pub async fn apply(&self, action: impl Action) -> Result<(), Error> {
         let mut state = self.state.lock().await;
         let old_json = serde_json::to_value(&*state)?;
 
@@ -112,7 +112,7 @@ pub async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
     while let Some(Ok(msg)) = rx.next().await {
         if let Message::Text(text) = msg {
             
-            if let Ok(action) = serde_json::from_str::<Action>(&text) {
+            if let Ok(action) = serde_json::from_str::<FrontendAction>(&text) {
                 if let Err(err) = state.apply(action).await {
                     println!("could not apply '{text}' to state due to {err}");
                 }

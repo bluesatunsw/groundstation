@@ -6,7 +6,7 @@ pub mod action;
 mod point;
 
 pub use point::{CartesianPoint, PolarPoint};
-pub use action::Action;
+pub use action::{Action, FrontendAction, BackendAction};
 
 #[derive(Default, Debug, Serialize)]
 pub struct State {

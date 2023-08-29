@@ -9,12 +9,14 @@ use axum::{
 mod groundstation;
 mod state;
 mod websocket;
+mod prop_test;
 
 use groundstation::GroundStation;
 use websocket::{handle_socket, WsState};
 
 use groundstation::MockGroundStation;
-// use state::{action::Action, Satellite};
+use state::{BackendAction, Satellite};
+// use prop_test;
 
 #[tokio::main]
 async fn main() {
@@ -23,6 +25,8 @@ async fn main() {
     //         &Action::SelectSatellite{satellite: Satellite::default()}
     //     ).unwrap()
     // );
+    //
+    prop_test::test();
 
     println!("Starting server");
 
@@ -34,8 +38,7 @@ async fn main() {
     tokio::spawn({
         let ws_state: Arc<WsState> = ws_state.clone();
         async {
-            let gs = MockGroundStation::new("test".into(), "nowhere".into(), (0., 0.));
-            groundstation_handler(gs, ws_state).await;
+            let gs = MockGroundStation::new("test".into(), "nowhere".into(), (0., 0.)); groundstation_handler(gs, ws_state).await;
         }
     });
 
@@ -74,7 +77,10 @@ async fn groundstation_handler(mut gs: impl GroundStation, ws_state: Arc<WsState
         let name = status.name.clone();
         println!("{:?}", status.clone());
         ws_state
-            .update()
+            .apply(BackendAction::UpdateStation{
+                name: name.clone(),
+                groundstation: status,
+            })
             .await
             .unwrap_or_else(|err| {
                 println!("could not update state from {}: {err}", name);
