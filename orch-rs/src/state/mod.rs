@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
-mod action;
+pub mod action;
 mod point;
 
 pub use point::{CartesianPoint, PolarPoint};
@@ -15,15 +15,6 @@ pub struct State {
     backend_status: BackendStatus,
 }
 
-impl State {
-    pub fn apply(&mut self, action: Action) {
-        match action {
-            Action::UpdateStation { name, status } => {
-                self.stations.insert(name, status);
-            }
-        }
-    }
-}
 
 #[derive(Default, Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]

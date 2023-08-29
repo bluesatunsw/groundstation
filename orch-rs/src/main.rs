@@ -13,10 +13,17 @@ mod websocket;
 use groundstation::GroundStation;
 use websocket::{handle_socket, WsState};
 
-use crate::{groundstation::MockGroundStation, state::Action};
+use groundstation::MockGroundStation;
+// use state::{action::Action, Satellite};
 
 #[tokio::main]
 async fn main() {
+    // println!("{}", 
+    //     serde_json::to_string(
+    //         &Action::SelectSatellite{satellite: Satellite::default()}
+    //     ).unwrap()
+    // );
+
     println!("Starting server");
 
     // TODO: setup logging
@@ -45,7 +52,6 @@ async fn main() {
         .await
         .unwrap();
 
-
 }
 
 async fn ws_handler(
@@ -68,13 +74,10 @@ async fn groundstation_handler(mut gs: impl GroundStation, ws_state: Arc<WsState
         let name = status.name.clone();
         println!("{:?}", status.clone());
         ws_state
-            .apply(Action::UpdateStation {
-                name: name.clone(),
-                status,
-            })
+            .update()
             .await
             .unwrap_or_else(|err| {
-                println!("could not apply state from {}: {err}", name);
+                println!("could not update state from {}: {err}", name);
             });
     }
 }

@@ -70,8 +70,25 @@ impl WsState {
         let mut state = self.state.lock().await;
         let old_json = serde_json::to_value(&*state)?;
 
-        state.apply(action);
+        // state.apply(action);
+        action.apply(&mut state);
 
+        let new_json = serde_json::to_value(&*state)?;
+
+        let ops = json_patch::diff(&old_json, &new_json).0;
+
+        if !ops.is_empty() {
+            let msg = serde_json::to_string(&ServerMessage::Patch { ops })?;
+            self.broadcast_all(msg).await;
+        }
+
+        Ok(())
+    }
+
+    pub async fn update(&self) -> Result<(), Error> {
+        let state = self.state.lock().await;
+
+        let old_json = serde_json::to_value(&*state)?;
         let new_json = serde_json::to_value(&*state)?;
 
         let ops = json_patch::diff(&old_json, &new_json).0;
@@ -94,10 +111,20 @@ pub async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
     // process incoming messages
     while let Some(Ok(msg)) = rx.next().await {
         if let Message::Text(text) = msg {
-            println!("{text}");
-            // TODO: Action decoding
-            state.broadcast_all(text.clone()).await;
-            // add the message to the current state
+            
+            if let Ok(action) = serde_json::from_str::<Action>(&text) {
+                if let Err(err) = state.apply(action).await {
+                    println!("could not apply '{text}' to state due to {err}");
+                }
+            } else {
+                println!("Recieved invalid message {text}");
+            }
+
+            // println!("{text}");
+            // // TODO: Action decoding
+            // state.broadcast_all(text.clone()).await;
+            // // add the message to the current state
         }
+
     }
 }

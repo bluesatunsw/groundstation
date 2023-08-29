@@ -11,10 +11,10 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      {/* <Home/> */}
-      <p>hello</p>
+      {/* <p>hello</p> */}
       {state === undefined && <p>yo</p>}
       {state && <p>{`${JSON.stringify(state)}`}</p>}
+      {/*  <Home/>  */}
     </div>
   );
 }

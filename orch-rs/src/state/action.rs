@@ -1,13 +1,29 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-use super::GroundStation;
+// use super::GroundStation;
+use super::{State, Satellite};
 
-#[derive(Deserialize)]
+pub trait Action {
+    // UpdateStation{name : str, status : str}
+    // SelectSatellite{satellite: Satellite},
+    fn apply(self, state: &mut State);
+}
+
+#[derive(Serialize, Deserialize)]
 #[serde(tag = "type")]
-pub enum Action {
-    // some operations on the state
-    UpdateStation {
-        name: String,
-        status: GroundStation,
-    },
+pub struct FrontendAction {
+    SelectSatellite{satellite: Satellite},
+}
+
+impl Action for FrontendAction {
+    fn apply(self, state: &mut State) {
+        match self {
+            FrontendAction::SelectSatellite { satellite } => {
+                state.current_satellite = satellite;
+            },
+            // Action::UpdateStation{name, status} => {
+            //     state.stations.insert(name, status);
+            // }
+        }
+    }
 }
