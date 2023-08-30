@@ -29,7 +29,7 @@ pub fn test () {
     // Set the initial start time of the scenario
     let epoch = Epoch::from_gregorian_tai_at_noon(2021, 2, 25);
     // Nearly circular orbit (ecc of 0.01), inclination of 49 degrees and TA at 30.0
-    let orbit = Orbit::keplerian(500.0, 0.01, -33.0, 0.0, 0.0, 30.0, epoch, eme2k);
+    let orbit = Orbit::keplerian(6800.0, 0.01, 0.0, 0.0, 0.0, 30.0, epoch, eme2k);
 
     let landmark = GroundStation::from_point(
         "Sydney".into(),
@@ -56,27 +56,35 @@ pub fn test () {
 
     for state in traj.every(2 * Unit::Minute) {
         // Compute the elevation
-        let (elevation, _, _) = landmark.elevation_of(&state);
-        let (azimuth, _, _) = landmark.elevation_of(&state);
+        // let (elevation, _, _) = landmark.elevation_of(&state);
 
-        let rx_gs_frame = landmark.cosm.frame_chg(&state, self.frame);
+        let sat_gs_frame = cosm.frame_chg(&state, landmark.frame);
 
-        let dt = &state.dt;
-        // Then, compute the rotation matrix from the body fixed frame of the ground station to its topocentric frame SEZ.
-        let tx_gs_frame = landmark.to_orbit(*dt);
+        let dt = &state.dt; // the current time
+        // Then, compute the rotation matrix from the body fixed frame of the ground station to its topocentric frame SEZ
+        // get the landmark's position at the current time
+        let land_gs_frame = landmark.to_orbit(*dt); 
+
         // Note: we're only looking at the radis so we don't need to apply the transport theorem here.
-        let dcm_topo2fixed = tx_gs_frame.dcm_from_traj_frame(Frame::SEZ).unwrap();
+        // get the horizon-frame from the landmark's current position
+        let dcm_topo2fixed = land_gs_frame.dcm_from_traj_frame(Frame::SEZ).unwrap(); 
 
         // Now, rotate the spacecraft in the SEZ frame to compute its elevation as seen from the ground station.
         // We transpose the DCM so that it's the fixed to topocentric rotation.
-        let rx_sez = rx_gs_frame.with_position_rotated_by(dcm_topo2fixed.transpose());
-        let tx_sez = tx_gs_frame.with_position_rotated_by(dcm_topo2fixed.transpose());
+        // move both 
+        let sat_sez = sat_gs_frame.with_position_rotated_by(dcm_topo2fixed.transpose());
+        let land_sez = land_gs_frame.with_position_rotated_by(dcm_topo2fixed.transpose());
         // Now, let's compute the range ρ.
-        let rho_sez = rx_sez - tx_sez;
+        let diff_sez = sat_sez - land_sez;
 
         // Finally, compute the elevation (math is the same as declination)
-        let elevation = rho_sez.declination();
-        let elevation = rho_sez;
+        let elevation = diff_sez.declination();
+        let azimuth = f64::atan2(-diff_sez.x, diff_sez.y).to_degrees();
+
+        println!("{} el:{elevation} az:{azimuth}", state.epoch());
+        println!("{} {} {}", state.x, state.y, state.z);
+        println!("{} {} {}", diff_sez.x, diff_sez.y, diff_sez.z);
+        println!("");
     }
 
     std::process::exit(0);
