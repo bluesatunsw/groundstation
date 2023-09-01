@@ -1,24 +1,41 @@
-use std::time::Duration;
+// use std::time::Duration;
 
-pub fn test () {
+use std::f64::consts::PI;
+use plotters::prelude::*;
+
+pub fn main () {
 
     // let response = ureq::get("https://celestrak.com/NORAD/elements/gp.php")
     //     .query("GROUP", "galileo")
-    //     .query("FORMAT", "json")
+    //     // .query("FORMAT", "json")
     //     .call().unwrap();
     //
-    // let elements_vec: Vec<sgp4::Elements> = response.into_json().unwrap();
-    //
-    // for elements in &elements_vec {
-    //     println!("{}", elements.object_name.as_ref().unwrap());
-    //     let constants = sgp4::Constants::from_elements(elements).unwrap();
-    //     for hours in &[12, 24] {
-    //         println!("    t = {} min", hours * 60);
-    //         let prediction = constants.propagate((hours * 60) as f64).unwrap();
-    //         println!("        r = {:?} km", prediction.position);
-    //         println!("        ṙ = {:?} km.s⁻¹", prediction.velocity);
-    //     }
-    // }
+    // let tle = response.into_string().unwrap().lines()
+    //     .skip(3) // for some reason it doesn't like the first tle?
+    //     .take(3)
+    //     .collect::<Vec<&str>>()
+    //     .join("\n");
+    let tle = "ISS (ZARYA)
+1 25544U 98067A   08264.51782528 -.00002182  00000-0 -11606-4 0  2927
+2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.72125391563537";
+    println!("{tle}");
+    let tle = parse_tle::tle::parse(&tle);
+
+    // Set the initial start time of the scenario
+    let epoch = Epoch::from_gregorian_tai(
+        tle.epoch_year.try_into().unwrap(), // yay rust 
+        tle.epoch_month.try_into().unwrap(),
+        tle.epoch_day.try_into().unwrap(),
+        tle.epoch_hours.try_into().unwrap(),
+        tle.epoch_min.try_into().unwrap(),
+        tle.epoch_sec.try_into().unwrap(),
+        0
+    );
+
+    // from https://space.stackexchange.com/questions/18289/how-to-get-semi-major-axis-from-tle
+    let mu: f64 = 3.986004418e14; // earth's gravitational parameter
+    let n = tle.mean_motion;
+    let sma = mu.powf(1.0/3.0) / (2.0*PI*n/86400.0).powf(2.0/3.0);
 
     use nyx_space::md::ui::*;
     use nyx_space::od::ui::*;
@@ -26,10 +43,16 @@ pub fn test () {
     let cosm = Cosm::de438();
     let eme2k = cosm.frame("EME2000");
 
-    // Set the initial start time of the scenario
-    let epoch = Epoch::from_gregorian_tai_at_noon(2021, 2, 25);
-    // Nearly circular orbit (ecc of 0.01), inclination of 49 degrees and TA at 30.0
-    let orbit = Orbit::keplerian(6800.0, 0.01, 0.0, 0.0, 0.0, 30.0, epoch, eme2k);
+    let orbit = Orbit::keplerian(
+        sma,
+        tle.eccentricity,
+        tle.inc,
+        tle.raan,
+        tle.arg_perigee,
+        tle.mean_anomaly, // should be true anomaly idk
+        epoch,
+        eme2k
+    );
 
     let landmark = GroundStation::from_point(
         "Sydney".into(),
@@ -54,6 +77,8 @@ pub fn test () {
     // Printing the state with `:o` will print its Keplerian elements
     println!("{}", final_state.to_keplerian_vec());
 
+    let mut pts: Vec<(f64, f64)> = Vec::new();
+
     for state in traj.every(2 * Unit::Minute) {
         // Compute the elevation
         // let (elevation, _, _) = landmark.elevation_of(&state);
@@ -64,7 +89,6 @@ pub fn test () {
         // Then, compute the rotation matrix from the body fixed frame of the ground station to its topocentric frame SEZ
         // get the landmark's position at the current time
         let land_gs_frame = landmark.to_orbit(*dt); 
-
         // Note: we're only looking at the radis so we don't need to apply the transport theorem here.
         // get the horizon-frame from the landmark's current position
         let dcm_topo2fixed = land_gs_frame.dcm_from_traj_frame(Frame::SEZ).unwrap(); 
@@ -81,11 +105,29 @@ pub fn test () {
         let elevation = diff_sez.declination();
         let azimuth = f64::atan2(-diff_sez.x, diff_sez.y).to_degrees();
 
-        println!("{} el:{elevation} az:{azimuth}", state.epoch());
-        println!("{} {} {}", state.x, state.y, state.z);
-        println!("{} {} {}", diff_sez.x, diff_sez.y, diff_sez.z);
-        println!("");
+        pts.push((azimuth, elevation));
+
+        // println!("{} el:{elevation} az:{azimuth}", state.epoch());
+        // println!("{} {} {}", state.x, state.y, state.z);
+        // println!("{} {} {}", diff_sez.x, diff_sez.y, diff_sez.z);
+        // println!("");
+        println!("el:{elevation}\taz:{azimuth}");
     }
 
-    std::process::exit(0);
+    let root_drawing_area = BitMapBackend::new("images/horizon.png", (1024, 768))
+        .into_drawing_area();
+
+    root_drawing_area.fill(&WHITE).unwrap();
+
+    let mut chart = ChartBuilder::on(&root_drawing_area)
+        .set_label_area_size(LabelAreaPosition::Left, 40)
+        .set_label_area_size(LabelAreaPosition::Bottom, 40)
+        .build_cartesian_2d(-180.0..180.0, -90.0..90.0)
+        .unwrap();
+
+    chart.configure_mesh().draw().unwrap();
+
+    chart.draw_series(pts.iter().map(|pt| Circle::new(*pt, 5, &BLACK)))
+        .unwrap();
+
 }

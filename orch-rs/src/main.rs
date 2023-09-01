@@ -9,7 +9,6 @@ use axum::{
 mod groundstation;
 mod state;
 mod websocket;
-mod prop_test;
 
 use groundstation::GroundStation;
 use websocket::{handle_socket, WsState};
@@ -26,7 +25,6 @@ async fn main() {
     //     ).unwrap()
     // );
     //
-    prop_test::test();
 
     println!("Starting server");
 

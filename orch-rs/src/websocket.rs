@@ -44,6 +44,8 @@ impl WsState {
             return;
         }
 
+        println!("New client {tx:?}");
+
         let mut txs = self.txs.lock().await;
         txs.push(tx);
     }
@@ -85,10 +87,11 @@ impl WsState {
         Ok(())
     }
 
-    pub async fn update(&self) -> Result<(), Error> {
-        let state = self.state.lock().await;
+    pub async fn update(&self, update_fn: &dyn Fn(&mut State)) -> Result<(), Error> {
+        let mut state = self.state.lock().await;
 
         let old_json = serde_json::to_value(&*state)?;
+        update_fn(&mut state);
         let new_json = serde_json::to_value(&*state)?;
 
         let ops = json_patch::diff(&old_json, &new_json).0;
@@ -119,12 +122,6 @@ pub async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
             } else {
                 println!("Recieved invalid message {text}");
             }
-
-            // println!("{text}");
-            // // TODO: Action decoding
-            // state.broadcast_all(text.clone()).await;
-            // // add the message to the current state
         }
-
     }
 }

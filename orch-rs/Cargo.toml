@@ -14,8 +14,21 @@ serde_json = "*"
 tokio = { version = "1.27", features = ["full"] }
 serial = "0.4.0"
 serialport = "4.2.1"
+
 nyx-space = "1.1.2"
-sgp4 = "1.2.2"
-# reqwest = "0.11.20"
+# sgp4 = "1.2.2"
+parse-tle = "0.1.0"
+
+# reqwest = "0.11.20" # for when we want to move to async requests
 ureq = { version = "*", features = ["json"] }
+
 nalgebra = "0.32.3"
+
+# if we wanted to have 
+plotters = "0.3"
+# plotters-cairo = "*"
+
+# because this package is super slow to run if not compiled
+# in release mode
+[profile.dev.package.nyx-space]
+opt-level = 3
