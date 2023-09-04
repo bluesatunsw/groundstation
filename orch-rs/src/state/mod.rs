@@ -10,9 +10,9 @@ pub use action::{Action, FrontendAction, BackendAction};
 
 #[derive(Default, Debug, Serialize)]
 pub struct State {
-    stations: HashMap<String, GroundStation>,
-    current_satellite: Satellite,
-    backend_status: BackendStatus,
+    pub stations: HashMap<String, GroundStation>,
+    pub current_satellite: Satellite,
+    pub backend_status: BackendStatus,
 }
 
 

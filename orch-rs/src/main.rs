@@ -14,14 +14,14 @@ use groundstation::GroundStation;
 use websocket::{handle_socket, WsState};
 
 use groundstation::MockGroundStation;
-use state::{BackendAction, Satellite};
+use state::{FrontendAction, BackendAction, Satellite};
 // use prop_test;
 
 #[tokio::main]
 async fn main() {
     // println!("{}", 
     //     serde_json::to_string(
-    //         &Action::SelectSatellite{satellite: Satellite::default()}
+    //         &FrontendAction::SelectSatellite{satellite: Satellite::default()}
     //     ).unwrap()
     // );
     //
@@ -73,15 +73,21 @@ async fn groundstation_handler(mut gs: impl GroundStation, ws_state: Arc<WsState
 
         let status = gs.get_status();
         let name = status.name.clone();
-        println!("{:?}", status.clone());
-        ws_state
-            .apply(BackendAction::UpdateStation{
+        // println!("{:?}", status.clone());
+
+        ws_state.apply(BackendAction::UpdateStation {
                 name: name.clone(),
                 groundstation: status,
-            })
-            .await
-            .unwrap_or_else(|err| {
+            }).await.unwrap_or_else(|err| {
+
                 println!("could not update state from {}: {err}", name);
             });
+
+        // ws_state.update(&|state: &mut state::State| {
+        //         state.stations.insert(name.clone(), status.clone());
+        //     }).await
+        //     .unwrap_or_else(|err| {
+        //         println!("could not update state from {}: {err}", name);
+        //     });
     }
 }
