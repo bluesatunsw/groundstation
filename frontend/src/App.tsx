@@ -15,8 +15,8 @@ const App: React.FC = () => {
       {/* <p>hello</p> */}
       {state === undefined && <p>State not yet initialised</p>}
       {state && <p>{`${JSON.stringify(state)}`}</p>}
-      {/*  <Home/>  */}
-      <Plot
+      {<Home/>}
+      {<Plot
         data={[
           {
             x: [0, 90, 180, 270],
@@ -33,7 +33,7 @@ const App: React.FC = () => {
           width:720, height: 480, 
           title: 'A fancy plot',
         }}
-      />
+      />}
     </div>
   );
 }
