@@ -75,19 +75,19 @@ async fn groundstation_handler(mut gs: impl GroundStation, ws_state: Arc<WsState
         let name = status.name.clone();
         // println!("{:?}", status.clone());
 
-        ws_state.apply(BackendAction::UpdateStation {
-                name: name.clone(),
-                groundstation: status,
-            }).await.unwrap_or_else(|err| {
-
-                println!("could not update state from {}: {err}", name);
-            });
-
-        // ws_state.update(&|state: &mut state::State| {
-        //         state.stations.insert(name.clone(), status.clone());
-        //     }).await
-        //     .unwrap_or_else(|err| {
+        // ws_state.apply(BackendAction::UpdateStation {
+        //         name: name.clone(),
+        //         groundstation: status.clone(),
+        //     }).await.unwrap_or_else(|err| {
+        //
         //         println!("could not update state from {}: {err}", name);
         //     });
+
+        ws_state.update(|state: &mut state::State| {
+                state.stations.insert(name.clone(), status);
+            }).await
+            .unwrap_or_else(|err| {
+                println!("could not update state from {}: {err}", name);
+            });
     }
 }

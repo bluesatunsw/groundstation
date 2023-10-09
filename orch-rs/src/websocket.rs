@@ -87,7 +87,10 @@ impl WsState {
         Ok(())
     }
 
-    pub async fn update(&self, update_fn: &dyn Fn(&mut State)) -> Result<(), Error> {
+    pub async fn update<F>(&self, update_fn: F) -> Result<(), Error> 
+    where 
+        F: FnOnce(&mut State),
+    {
         let mut state = self.state.lock().await;
 
         let old_json = serde_json::to_value(&*state)?;
