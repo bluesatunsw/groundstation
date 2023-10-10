@@ -28,12 +28,12 @@ pub trait GroundStation {
 pub struct MockGroundStation {
     // whatever else might be needed ig
     name: String,
-    location: String,
+    location: (f32, f32),
     orientation: (f32, f32),
 }
 
 impl MockGroundStation {
-    pub fn new(name: String, location: String, orientation: (f32, f32)) -> Self {
+    pub fn new(name: String, location: (f32, f32), orientation: (f32, f32)) -> Self {
         Self {
             name,
             location,

@@ -34,8 +34,8 @@ pub fn main () {
 
     // from https://space.stackexchange.com/questions/18289/how-to-get-semi-major-axis-from-tle
     let mu: f64 = 3.986004418e14; // earth's gravitational parameter
-    let n = tle.mean_motion;
-    let sma = mu.powf(1.0/3.0) / (2.0*PI*n/86400.0).powf(2.0/3.0);
+    let n = tle.mean_motion; // rev / day
+    let sma = mu.powf(1.0/3.0) / (2.0*PI*n/86400.0).powf(2.0/3.0) / 1000.0; 
 
     use nyx_space::md::ui::*;
     use nyx_space::od::ui::*;
@@ -63,7 +63,8 @@ pub fn main () {
         cosm.clone(),
     );
 
-    println!("{}", landmark);
+    println!("landmark:\n{}", landmark);
+    println!("orbit:\n{}", orbit);
 
     // Let's specify the force model to be two body dynamics
     // And use the default propagator setup: a variable step Runge-Kutta 8-9
@@ -79,7 +80,7 @@ pub fn main () {
 
     let mut pts: Vec<(f64, f64)> = Vec::new();
 
-    for state in traj.every(2 * Unit::Minute) {
+    for state in traj.every(1 * Unit::Minute) {
         // Compute the elevation
         // let (elevation, _, _) = landmark.elevation_of(&state);
 

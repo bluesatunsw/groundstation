@@ -19,9 +19,9 @@ pub struct State {
 #[derive(Default, Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct GPSPosition {
-    pub latitude: String,
-    pub longitude: String,
-    pub altitude: String,
+    pub latitude: f32,
+    pub longitude: f32,
+    pub altitude: f32,
     pub valid: bool,
 }
 

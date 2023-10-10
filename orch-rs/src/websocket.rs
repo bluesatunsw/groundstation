@@ -11,7 +11,7 @@ use crate::state::{Action, FrontendAction, State};
 
 pub struct WsState {
     txs: Mutex<Vec<SplitSink<WebSocket, Message>>>,
-    state: Mutex<State>,
+    pub state: Mutex<State>,
 }
 
 #[derive(Serialize, Debug)]
