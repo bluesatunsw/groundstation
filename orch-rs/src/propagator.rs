@@ -133,3 +133,15 @@ pub fn traj_to_geodetic(traj: nm::Traj<nm::Orbit>, cosm: Arc<nm::Cosm>) -> Vec<(
 
     pts
 }
+
+pub fn state_to_geodetic(state: nm::Orbit, cosm: Arc<nm::Cosm>) -> (f64, f64) {
+    // let frame = cosm.frame("IAU Earth");
+    let frame = cosm.frame("EME2000");
+
+    let state = cosm.frame_chg(&state, frame);
+    (
+        state.geodetic_latitude(),
+        state.geodetic_longitude()
+    )
+
+}

@@ -20,9 +20,12 @@ use groundstation::MockGroundStation;
 
 #[tokio::main]
 async fn main() {
-    let tle = "ISS (ZARYA)             
-1 25544U 98067A   23283.04537684  .00020393  00000+0  36429-3 0  9998
-2 25544  51.6412 119.6207 0005129  92.4695  44.1476 15.49999052419608";
+//     let tle = "ISS (ZARYA)             
+// 1 25544U 98067A   23283.04537684  .00020393  00000+0  36429-3 0  9998
+// 2 25544  51.6412 119.6207 0005129  92.4695  44.1476 15.49999052419608";
+    let tle = "ISS (ZARYA)
+1 25544U 98067A   08264.51782528 -.00002182  00000-0 -11606-4 0  2927
+2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.72125391563537";
 
     let tle = parse_tle::tle::parse(&tle);
     println!("{tle}");
@@ -125,7 +128,11 @@ async fn trajectory_handler(ws_state: Arc<WsState>) -> ! {
     // hardcoding the requried duration
     let tle = "ISS (ZARYA)             
 1 25544U 98067A   23283.04537684  .00020393  00000+0  36429-3 0  9998
-2 25544  51.6412 119.6207 0005129  92.4695  44.1476 15.49999052419608";
+2 25544  51.6412 119.6207 0005129 092.4695 044.1476 15.49999052419608";
+    //                            ^ added leading zero due to bug in 
+//     let tle = "ISS (ZARYA)
+// 1 25544U 98067A   08264.51782528 -.00002182  00000-0 -11606-4 0  2927
+// 2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.72125391563537";
 
     let tle = parse_tle::tle::parse(&tle);
 
@@ -135,7 +142,9 @@ async fn trajectory_handler(ws_state: Arc<WsState>) -> ! {
         nm::Epoch::from_unix_seconds(time)
     }
 
+    println!("starting propagation...");
     let traj = propagator::get_traj_from_tle(tle, frame, curr_epoch() + 1 * nm::Unit::Day);
+    println!("progagation complete!");
 
     loop {
         let state = traj.at(curr_epoch()).unwrap();
@@ -143,7 +152,8 @@ async fn trajectory_handler(ws_state: Arc<WsState>) -> ! {
         let global_state = ws_state.state.lock().await;
         let (_name, gs) = global_state.stations.iter().next().unwrap();
         let obs = propagator::state_to_observation(&gs, state, cosm.clone());
-        println!("{obs:?}");
+        let geo = propagator::state_to_geodetic(state, cosm.clone());
+        println!("az,el:{obs:?} lat,long:{geo:?}");
         sleep(Duration::from_millis(1000)).await;
     }
 }
