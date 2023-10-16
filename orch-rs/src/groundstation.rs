@@ -1,10 +1,14 @@
-use crate::state;
+use crate::state::{self, PolarPoint};
 // #[derive(Debug, Serialize, Deserialize, Clone)]
 // pub struct GroundStationStatus {
 //     pub name: String,
 //     pub orientation: (f32, f32),
 // }
+use serial::{
+    SerialPortSettings,
+};
 
+use serialport;
 pub trait GroundStation {
     fn get_status(&self) -> state::GroundStation;
     // fn get_name(&self) -> String;
@@ -16,6 +20,7 @@ pub trait GroundStation {
                           // fn subsribers(&mut self)
                           // fn subscribe(&mut self, subsriber: &dyn Fn(GroundSationStatus));
                           // whatever else might be needed for this?
+    fn get_gps(&self);
 }
 
 // this stuff will probably get moved out to some sorta test module later
@@ -23,12 +28,12 @@ pub trait GroundStation {
 pub struct MockGroundStation {
     // whatever else might be needed ig
     name: String,
-    location: String,
+    location: (f32, f32),
     orientation: (f32, f32),
 }
 
 impl MockGroundStation {
-    pub fn new(name: String, location: String, orientation: (f32, f32)) -> Self {
+    pub fn new(name: String, location: (f32, f32), orientation: (f32, f32)) -> Self {
         Self {
             name,
             location,
@@ -39,13 +44,24 @@ impl MockGroundStation {
 
 impl GroundStation for MockGroundStation {
     fn get_status(&self) -> state::GroundStation {
-        state::GroundStation::default()
+        state::GroundStation {
+            orientation: PolarPoint {
+                az: self.orientation.0,
+                el: self.orientation.1,
+            },
+            ..state::GroundStation::default()
+        }
+        
     }
 
     fn update(&mut self) {
         // println!("doing an update on {}", self.name);
         self.orientation.1 += 0.1;
         self.orientation.1 %= 360.0;
+    }
+    fn get_gps(&self) {
+        let available_ports = serialport::available_ports();
+
     }
 }
 
@@ -57,6 +73,10 @@ impl GroundStation for MobileGroundStation {
     }
 
     fn update(&mut self) {
+        todo!()
+    }
+
+    fn get_gps(&self) {
         todo!()
     }
 }
@@ -71,4 +91,9 @@ impl GroundStation for PhysicsGroundStation {
     fn update(&mut self) {
         todo!()
     }
+
+    fn get_gps(&self) {
+        todo!()
+    }
+
 }

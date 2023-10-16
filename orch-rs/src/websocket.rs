@@ -7,11 +7,11 @@ use serde::Serialize;
 use serde_json::Error;
 use tokio::sync::Mutex;
 
-use crate::state::{Action, State};
+use crate::state::{Action, FrontendAction, State};
 
 pub struct WsState {
     txs: Mutex<Vec<SplitSink<WebSocket, Message>>>,
-    state: Mutex<State>,
+    pub state: Mutex<State>,
 }
 
 #[derive(Serialize, Debug)]
@@ -44,6 +44,8 @@ impl WsState {
             return;
         }
 
+        println!("New client {tx:?}");
+
         let mut txs = self.txs.lock().await;
         txs.push(tx);
     }
@@ -66,12 +68,33 @@ impl WsState {
         }
     }
 
-    pub async fn apply(&self, action: Action) -> Result<(), Error> {
+    pub async fn apply(&self, action: impl Action) -> Result<(), Error> {
         let mut state = self.state.lock().await;
         let old_json = serde_json::to_value(&*state)?;
 
-        state.apply(action);
+        // state.apply(action);
+        action.apply(&mut state);
 
+        let new_json = serde_json::to_value(&*state)?;
+
+        let ops = json_patch::diff(&old_json, &new_json).0;
+
+        if !ops.is_empty() {
+            let msg = serde_json::to_string(&ServerMessage::Patch { ops })?;
+            self.broadcast_all(msg).await;
+        }
+
+        Ok(())
+    }
+
+    pub async fn update<F>(&self, update_fn: F) -> Result<(), Error> 
+    where 
+        F: FnOnce(&mut State),
+    {
+        let mut state = self.state.lock().await;
+
+        let old_json = serde_json::to_value(&*state)?;
+        update_fn(&mut state);
         let new_json = serde_json::to_value(&*state)?;
 
         let ops = json_patch::diff(&old_json, &new_json).0;
@@ -94,9 +117,14 @@ pub async fn handle_socket(socket: WebSocket, state: Arc<WsState>) {
     // process incoming messages
     while let Some(Ok(msg)) = rx.next().await {
         if let Message::Text(text) = msg {
-            println!("{text}");
-            state.broadcast_all(text.clone()).await;
-            // add the message to the current state
+            
+            if let Ok(action) = serde_json::from_str::<FrontendAction>(&text) {
+                if let Err(err) = state.apply(action).await {
+                    println!("could not apply '{text}' to state due to {err}");
+                }
+            } else {
+                println!("Recieved invalid message {text}");
+            }
         }
     }
 }

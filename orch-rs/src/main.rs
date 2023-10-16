@@ -1,4 +1,5 @@
 use std::{net::SocketAddr, sync::Arc};
+use tokio::time::{sleep, Duration};
 
 use axum::{
     extract::{ws::WebSocketUpgrade, Extension},
@@ -9,26 +10,57 @@ use axum::{
 mod groundstation;
 mod state;
 mod websocket;
+mod propagator;
 
 use groundstation::GroundStation;
 use websocket::{handle_socket, WsState};
 
-use crate::{groundstation::MockGroundStation, state::Action};
+use groundstation::MockGroundStation;
+// use state::{FrontendAction, BackendAction, Satellite};
 
 #[tokio::main]
 async fn main() {
+//     let tle = "ISS (ZARYA)             
+// 1 25544U 98067A   23283.04537684  .00020393  00000+0  36429-3 0  9998
+// 2 25544  51.6412 119.6207 0005129  92.4695  44.1476 15.49999052419608";
+    let tle = "ISS (ZARYA)
+1 25544U 98067A   08264.51782528 -.00002182  00000-0 -11606-4 0  2927
+2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.72125391563537";
+
+    let tle = parse_tle::tle::parse(&tle);
+    println!("{tle}");
+    // println!("{}", 
+    //     serde_json::to_string(
+    //         &FrontendAction::SelectSatellite{satellite: Satellite::default()}
+    //     ).unwrap()
+    // );
+    //
+
     println!("Starting server");
 
     // TODO: setup logging
 
-    let ws_state = Arc::new(WsState::new());
+    let ws_state: Arc<WsState> = Arc::new(WsState::new());
 
     // it should probably generate groundstations from a config file
+    // for now, copy this block for every new gs
     tokio::spawn({
-        let ws_state = ws_state.clone();
+        let ws_state: Arc<WsState> = ws_state.clone();
         async {
-            let gs = MockGroundStation::new("test".into(), "nowhere".into(), (0., 0.));
+            let gs = MockGroundStation::new(
+                "test".into(),
+                (-33.86, 151.21),
+                (0., 0.)
+            ); 
             groundstation_handler(gs, ws_state).await;
+        }
+    });
+
+    // satellite prediction loop thing
+    tokio::spawn({
+        let ws_state: Arc<WsState> = ws_state.clone();
+        async {
+            trajectory_handler(ws_state).await;
         }
     });
 
@@ -44,6 +76,7 @@ async fn main() {
         .serve(app.into_make_service())
         .await
         .unwrap();
+
 }
 
 async fn ws_handler(
@@ -56,23 +89,71 @@ async fn ws_handler(
 
 async fn groundstation_handler(mut gs: impl GroundStation, ws_state: Arc<WsState>) -> ! {
     loop {
-        use tokio::time::{sleep, Duration};
-        sleep(Duration::from_millis(100)).await;
+        sleep(Duration::from_millis(1000)).await;
         gs.update();
         // this could probably be reversed so that this function
         // awaits updates from ground station, rather than polling it.
+        // although polling better reflects how rotctl works
 
         let status = gs.get_status();
         let name = status.name.clone();
-        println!("{:?}", status.clone());
-        ws_state
-            .apply(Action::UpdateStation {
-                name: name.clone(),
-                status,
-            })
-            .await
+        // println!("{:?}", status.clone());
+
+        // ws_state.apply(BackendAction::UpdateStation {
+        //         name: name.clone(),
+        //         groundstation: status.clone(),
+        //     }).await.unwrap_or_else(|err| {
+        //
+        //         println!("could not update state from {}: {err}", name);
+        //     });
+
+        ws_state.update(
+                |state: &mut state::State| {
+                    state.stations.insert(name.clone(), status);
+                }
+            ).await
             .unwrap_or_else(|err| {
-                println!("could not apply state from {}: {err}", name);
+                println!("could not update state from {}: {err}", name);
             });
+    }
+}
+
+async fn trajectory_handler(ws_state: Arc<WsState>) -> ! {
+    use nyx_space as ns;
+    use ns::md::ui as nm;
+
+    let cosm = nm::Cosm::de438();
+    let frame = cosm.frame("EME2000");
+
+    // hardcoding the requried duration
+    let tle = "ISS (ZARYA)             
+1 25544U 98067A   23283.04537684  .00020393  00000+0  36429-3 0  9998
+2 25544  51.6412 119.6207 0005129 092.4695 044.1476 15.49999052419608";
+    //                            ^ added leading zero due to bug in 
+//     let tle = "ISS (ZARYA)
+// 1 25544U 98067A   08264.51782528 -.00002182  00000-0 -11606-4 0  2927
+// 2 25544  51.6416 247.4627 0006703 130.5360 325.0288 15.72125391563537";
+
+    let tle = parse_tle::tle::parse(&tle);
+
+    fn curr_epoch() -> nm::Epoch {
+        let time = std::time::SystemTime::now();
+        let time = time.duration_since(std::time::SystemTime::UNIX_EPOCH).unwrap().as_secs_f64();
+        nm::Epoch::from_unix_seconds(time)
+    }
+
+    println!("starting propagation...");
+    let traj = propagator::get_traj_from_tle(tle, frame, curr_epoch() + 1 * nm::Unit::Day);
+    println!("progagation complete!");
+
+    loop {
+        let state = traj.at(curr_epoch()).unwrap();
+        
+        let global_state = ws_state.state.lock().await;
+        let (_name, gs) = global_state.stations.iter().next().unwrap();
+        let obs = propagator::state_to_observation(&gs, state, cosm.clone());
+        let geo = propagator::state_to_geodetic(state, cosm.clone());
+        println!("az,el:{obs:?} lat,long:{geo:?}");
+        sleep(Duration::from_millis(1000)).await;
     }
 }

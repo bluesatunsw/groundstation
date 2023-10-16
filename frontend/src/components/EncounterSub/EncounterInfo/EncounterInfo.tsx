@@ -2,10 +2,12 @@
 // Segment responsible for displaying information about the targeted satellite
 // Matt
 
-import React from 'react';
+import {useEffect} from 'react';
 import { Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from "@mui/material"
 import { n2yo_radio_passes, n2yo_visual_passes } from '../../../types/n2yotypes';
 import UTCtoD from '../../../logic/utility';
+
+
 
 interface EncounterInfoProps {
   vp: n2yo_visual_passes,
