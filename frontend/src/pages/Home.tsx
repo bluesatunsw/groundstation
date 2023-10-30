@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
-import { Dialog, DialogContent, Divider, Snackbar } from "@mui/material"
+import { Button, Dialog, DialogContent, Divider, Snackbar } from "@mui/material"
 import type { gps_pos } from '../types/hardwareTypes';
 import type { targetSat } from '../types/targetSat';
 import LocationModal from '../components/LocationModal';
@@ -16,6 +16,7 @@ import EncounterSub from '../components/EncounterSub/EncounterSub';
 import MapSub from '../components/MapSub/MapSub';
 import MonitorSub from '../components/MonitorSub/MonitorSub';
 import LogSub from '../components/LogSub/LogSub';
+import { sendAction, useWebsocket } from '../Websocket';
 
 
 const Index: React.FC = () => {
@@ -39,6 +40,14 @@ const Index: React.FC = () => {
 
     // What's up state
     const [whatsUpModal, setWhatsUpModal] = useState(false);
+    const state = useWebsocket();
+    const tsat = {  tle: "TEST SAT",
+        name: "TEST SAT",
+        norad_id: 1,
+        ind_designator: "string",}
+
+
+    const SelectSatellite = {satellite:tsat}
 
     const findId = () => { }
 
@@ -87,11 +96,30 @@ const Index: React.FC = () => {
         // Move monitor tab to show tracking info
         setMonitorTab('tracking');
 
+        
+
     }
 
     return (
+        
 
         <div style={{ display: 'flex', height: "650px", width: "1200px" }}>
+
+            {/* <div>{state && `${JSON.stringify(state)}`}</div> */}
+            {/* 
+            export interface UpdateStation {
+                name: String,
+                status: GroundStation,
+            }
+
+            export interface SelectSatellite {
+                satellite: Satellite,
+            } */}
+            
+
+
+            {/* <button onPress={sendAction(SelectSatellite)}>SEND TEST REQUEST</button> */}
+            <Button></Button>
             <Snackbar
                 open={!beConnected}
                 message="Warning: backend is not connected or n2yo not reachable. Cannot interface with API." />

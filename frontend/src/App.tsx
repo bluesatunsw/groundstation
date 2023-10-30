@@ -14,7 +14,7 @@ const App: React.FC = () => {
     <div className="App">
       {/* <p>hello</p> */}
       {state === undefined && <p>State not yet initialised</p>}
-      {state && <p>{`${JSON.stringify(state)}`}</p>}
+      {/* {state && <p>{`${JSON.stringify(state)}`}</p>} */}
       {<Home/>}
       {<Plot
         data={[
