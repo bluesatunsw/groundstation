@@ -38,7 +38,8 @@ const NavBar = ({ setWhatsUpModal, onFindId, onCalcEn, setTargetModal }:SideBarP
   return (
     <div className="navbar bg-base-200">
         <div className='flex-1'>
-            <a className="btn btn-ghost normal-case text-xl">Bluesat Ground Station</a>
+            <img src={require('./1Asset 1.png')} alt='BluesatLogo' className='w-10'/>
+            <a href='/' className="btn btn-ghost normal-case text-xl">Bluesat Ground Station</a>
         </div>
         <div className="flex-none">
         <button className="btn btn-ghost normal-case text-lg" onClick={(e) => {setWhatsUpModal(true)}}>What's Up</button>

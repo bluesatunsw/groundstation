@@ -148,7 +148,7 @@ const Index: React.FC = () => {
             </Dialog> */}
 
             {/* What's up modal */}
-            {/* <Dialog
+            <Dialog
                 open={whatsUpModal && beConnected}
                 onClose={() => setWhatsUpModal(false)}
                 maxWidth={'sm'}
@@ -158,7 +158,7 @@ const Index: React.FC = () => {
                     <WhatsUpModal setTarget={setTarget} target={target}
                         setModalOpen={setWhatsUpModal} location={loc} />
                 </DialogContent>
-            </Dialog> */}
+            </Dialog>
 
 
 
