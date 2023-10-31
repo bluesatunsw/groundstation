@@ -1,3 +1,7 @@
+// Navbar.tsx
+// Inital design from Dasiy UI but then added icons and theme changes by me
+// William Papantoniou
+
 import React, { useEffect, useState } from 'react';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/solid'
 

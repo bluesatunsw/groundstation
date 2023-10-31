@@ -1,3 +1,7 @@
+// App.tsx
+// App Redesign by me, Matt made all the functionality to connect to back end tho as far as i know
+// William Papantoniou
+
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Home from './Home'
