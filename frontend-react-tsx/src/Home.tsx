@@ -116,28 +116,27 @@ const Index: React.FC = () => {
                 satellite: Satellite,
             } */}
 
-            <h1 className="text-3xl font-bold underline">TEST WITH TAILWIND</h1>
             
 
 
             {/* <button onPress={sendAction(SelectSatellite)}>SEND TEST REQUEST</button> */}
-            <Button></Button>
+           
             <Snackbar
                 open={!beConnected}
                 message="Warning: backend is not connected or n2yo not reachable. Cannot interface with API." />
 
             {/* Location selector modal */}
-            <Dialog
+            {/* <Dialog
                 open={locModal && beConnected}
                 onClose={() => setLocModal(false)}
             >
                 <DialogContent>
                     <LocationModal onSetLocation={setLoc} location={loc} setModalOpen={setLocModal} />
                 </DialogContent>
-            </Dialog>
+            </Dialog> */}
 
             {/* Target selector modal */}
-            <Dialog
+            {/* <Dialog
                 open={targetModal && beConnected}
                 onClose={() => setTargetModal(false)}
                 fullWidth={true}
@@ -146,10 +145,10 @@ const Index: React.FC = () => {
                     <SelectTargetModal onSetTarget={setTarget} cursat={target}
                         setModalOpen={setTargetModal} pos={loc} />
                 </DialogContent>
-            </Dialog>
+            </Dialog> */}
 
             {/* What's up modal */}
-            <Dialog
+            {/* <Dialog
                 open={whatsUpModal && beConnected}
                 onClose={() => setWhatsUpModal(false)}
                 maxWidth={'sm'}
@@ -159,17 +158,17 @@ const Index: React.FC = () => {
                     <WhatsUpModal setTarget={setTarget} target={target}
                         setModalOpen={setWhatsUpModal} location={loc} />
                 </DialogContent>
-            </Dialog>
+            </Dialog> */}
 
 
 
             {/* Dashboard layout */}
             <Grid container spacing={1} xs={12} sx={{ margin: "20px", width: "100%" }}>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                     <SideBar setWhatsUpModal={setWhatsUpModal} onFindId={findId}
                         setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
                     <Divider sx={{ margin: "10px" }} />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={8} sx={{ height: "50%" }}>
                     <EncounterSub sat={target} vp={visualEncounter} rp={radioEncounter} />
                 </Grid>
