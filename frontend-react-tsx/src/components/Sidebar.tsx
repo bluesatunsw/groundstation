@@ -2,11 +2,10 @@
 // Borrowed from csesoc website, but I did write the first version of it xd
 // Matt
 
-import React from 'react';
-import styled from '@emotion/styled';
-import Button from '@mui/material/Button';
-import { Stack, Typography } from '@mui/material';
-
+import React from 'react'
+import styled from '@emotion/styled'
+import Button from '@mui/material/Button'
+import { Stack, Typography } from '@mui/material'
 
 const ButtonFlex = styled.div`
   display: flex;
@@ -23,25 +22,25 @@ const ButtonGroup = styled.div`
 `
 
 interface SideBarButtonProps {
-  bgcolor: string;
-  Color: string;
+  bgcolor: string
+  Color: string
 }
 
-const SidebarButton = styled(Button) <SideBarButtonProps>`
+const SidebarButton = styled(Button)<SideBarButtonProps>`
   && {
     width: 200px;
-    background-color: ${props => props.bgcolor};
-    color: ${props => props.Color};
+    background-color: ${(props) => props.bgcolor};
+    color: ${(props) => props.Color};
     border-radius: 15px;
     text-transform: none;
   }
 `
 
 interface SideBarProps {
-  onFindId: () => void;
-  onCalcEn: () => void;
-  setTargetModal: (b: boolean) => void;
-  setWhatsUpModal: (b: boolean) => void;
+  onFindId: () => void
+  onCalcEn: () => void
+  setTargetModal: (b: boolean) => void
+  setWhatsUpModal: (b: boolean) => void
 }
 
 // Wrapper component ${props => props.color}
@@ -53,10 +52,24 @@ const SideBar: React.FC<SideBarProps> = ({ setWhatsUpModal, onFindId, onCalcEn, 
       </Typography>
       <ButtonFlex>
         <ButtonGroup>
-          <SidebarButton variant="contained" bgcolor="#4b66a4" Color="#ffffff" onClick={(e) => {setWhatsUpModal(true)}}>
+          <SidebarButton
+            variant="contained"
+            bgcolor="#4b66a4"
+            Color="#ffffff"
+            onClick={(e) => {
+              setWhatsUpModal(true)
+            }}
+          >
             What&apos;s up
           </SidebarButton>
-          <SidebarButton variant="contained" bgcolor="#4b66a4" Color="#ffffff" onClick={(e) => { setTargetModal(true) }}>
+          <SidebarButton
+            variant="contained"
+            bgcolor="#4b66a4"
+            Color="#ffffff"
+            onClick={(e) => {
+              setTargetModal(true)
+            }}
+          >
             Find by ID
           </SidebarButton>
           <SidebarButton variant="outlined" bgcolor="#06132f" Color="#ffffff" onClick={onCalcEn}>
@@ -68,4 +81,4 @@ const SideBar: React.FC<SideBarProps> = ({ setWhatsUpModal, onFindId, onCalcEn, 
   )
 }
 
-export default SideBar;
+export default SideBar

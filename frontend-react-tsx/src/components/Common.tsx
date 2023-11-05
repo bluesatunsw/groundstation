@@ -5,9 +5,9 @@
 import styled from '@emotion/styled'
 
 export const Container = styled.div`
-width: 250px;
-height: 100%;
-margin: 5px;
+  width: 250px;
+  height: 100%;
+  margin: 5px;
 `
 
 export const Title = styled.div`
@@ -28,7 +28,7 @@ export const Param = styled.div`
 `
 
 export const Body = styled.div`
-display: flex;
-flex-direction: row; 
-height: 50%;
+  display: flex;
+  flex-direction: row;
+  height: 50%;
 `

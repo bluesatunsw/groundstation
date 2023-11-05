@@ -2,26 +2,23 @@
 // Matt Rossouw (omeh-a)
 // 10/22
 
-import React from 'react';
-import { Card, CardContent, Grid, Typography } from "@mui/material"
+import React from 'react'
+import { Card, CardContent, Grid, Typography } from '@mui/material'
 
-interface LoggingSubProps {
-
-}
+interface LoggingSubProps {}
 
 const LoggingSub: React.FC<LoggingSubProps> = () => {
-    return (
-        <Grid>
-            <Card sx={{ minWidth: 240 }} variant="outlined">
-                <CardContent>
-                    <Typography variant="h6" component="div">
-                        Logging
-                    </Typography>
-                    
-                </CardContent>
-            </Card>
-        </Grid>
-    )
+  return (
+    <Grid>
+      <Card sx={{ minWidth: 240 }} variant="outlined">
+        <CardContent>
+          <Typography variant="h6" component="div">
+            Logging
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
+  )
 }
 
-export default LoggingSub;
+export default LoggingSub
