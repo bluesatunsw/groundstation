@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dialog, DialogContent, Divider, Grid } from '@mui/material'
 import type { gps_pos } from '../types/hardwareTypes'
 import type { targetSat } from '../types/targetSat'
@@ -11,16 +11,13 @@ import {
 import { useWebsocket } from './Websocket'
 import WhatsUpModal from './components/WhatsUpModal/WhatsUpModal'
 import EncounterSub from './components/EncounterSub/EncounterSub'
-import MapSub from './components/MapSub/MapSub'
 import MonitorSub from './components/MonitorSub/MonitorSub'
-import LoggingSub from './components/LogSub/LogSub'
 import SideBar from './components/Sidebar'
 import { getRadioPasses, getVisualPasses } from './logic/backend_req'
-import { TileLayer, MapContainer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import markerIconPng from 'leaflet/dist/images/marker-icon.png'
-import L, { Icon, LatLngLiteral } from 'leaflet'
 import Map, { GroundStation } from './components/MapComponent'
+import { LatLngExpression, LatLngLiteral } from 'leaflet'
+import { Debug } from './components/Debug2'
 
 const Index: React.FC = () => {
   // Location state
@@ -119,20 +116,27 @@ const Index: React.FC = () => {
     },
   ]
 
-  const [satList, setSatList] = useState([])
+  const [satList, setSatList] = useState<LatLngExpression[][]>()
 
-  setInterval(async () => {
-    await fetch(`http://api.open-notify.org/iss-now.json`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSatList(data)
-      })
+  useEffect(() => {
+    let interval = setInterval(async () => {
+      await fetch(`http://api.open-notify.org/iss-now.json`)
+        .then((response) => response.json())
+        .then((data) => {
+          const val = data.iss_position
+          setSatList({ satList, ...val })
+          console.debug('final', satList)
+        })
+        .catch((error) => console.error(error))
+    }, 10000)
 
-    console.log(satList)
-  }, 2000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [satList])
 
   return (
-    <div style={{ display: 'flex', height: '650px', width: '1200px' }}>
+    <div className="flex justify-center px-[600px]  ">
       {/* <div>{state && `${JSON.stringify(state)}`}</div> */}
       {/* 
             export interface UpdateStation {
@@ -197,7 +201,7 @@ const Index: React.FC = () => {
 
       {/* Dashboard layout */}
 
-      <Grid container spacing={1} xs={12} sx={{ margin: '20px', width: '100%' }}>
+      {/* <Grid container spacing={1} xs={12} sx={{ margin: '20px', width: '100%' }}>
         <Grid item xs={12}>
           <SideBar
             setWhatsUpModal={setWhatsUpModal}
@@ -209,11 +213,11 @@ const Index: React.FC = () => {
         </Grid>
         <Grid item xs={8} sx={{ height: '50%' }}>
           <EncounterSub sat={target} vp={visualEncounter} rp={radioEncounter} />
-        </Grid>
-        <Grid item xs={4} sx={{ height: '50%' }}>
+        </Grid> */}
+      {/* <Grid item xs={4} sx={{ height: '50%' }}>
           <MapSub sat={target} />
-        </Grid>
-        <Grid item xs={8} sx={{ height: '50%' }}>
+        </Grid> */}
+      {/* <Grid item xs={8} sx={{ height: '50%' }}>
           <MonitorSub
             tab={monitorTab}
             setTab={setMonitorTab}
@@ -222,12 +226,26 @@ const Index: React.FC = () => {
             location={loc}
             setLocModal={setLocModal}
           />
-        </Grid>
-        <Grid item xs={4} sx={{ height: '50%' }}>
+        </Grid> */}
+      {/* <Grid item xs={4} sx={{ height: '50%' }}>
           <LoggingSub />
-        </Grid>
-      </Grid>
-      <Map groundStations={groundstationsList} />
+        </Grid> */}
+      {/* </Grid> */}
+      {/* <Debug>{satList}</Debug> */}
+
+      <div className="hero rounded-lg bg-base-200">
+        <div className="hero-content flex-col lg:flex-row-reverse">
+          <Map groundStations={groundstationsList} Satellites={satList} />
+          <div>
+            <h1 className="text-5xl font-bold">Ground Station and Satilite tracking!</h1>
+            <p className="py-6">
+              This is a really cool way to display the world map with some tracking data that we can update with info
+              and new groundstations as we want!
+            </p>
+            <button className="btn btn-primary">We can also add buttons here so that we can do changes</button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

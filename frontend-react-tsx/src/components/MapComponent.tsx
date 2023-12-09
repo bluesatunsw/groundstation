@@ -31,6 +31,7 @@ const Map = ({ groundStations, Satellites }: MapProps) => {
         zoom={1}
         scrollWheelZoom={true}
         className="h-[35rem] w-[35rem]"
+
         // className="map-container"
       >
         <TileLayer
@@ -38,11 +39,12 @@ const Map = ({ groundStations, Satellites }: MapProps) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {groundStations ? (
-          groundStations.map((s) => {
+          groundStations.map((s, i) => {
             return (
               <Marker
                 position={[s.lat, s.lon]}
                 icon={new Icon({ iconUrl: markerIconPng, iconSize: [25, 41], iconAnchor: [12, 41] })}
+                key={i}
               >
                 <Popup>
                   <p>{s.name}</p>

@@ -30,7 +30,7 @@ const SidebarButton = styled(Button)<SideBarButtonProps>`
   && {
     width: 200px;
     background-color: ${(props) => props.bgcolor};
-    color: ${(props) => props.Color};
+    color: ${(props) => props.color};
     border-radius: 15px;
     text-transform: none;
   }
