@@ -2,7 +2,7 @@
 // App Redesign by me, Matt made all the functionality to connect to back end tho as far as i know
 // William Papantoniou
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import './App.css'
 import Home from './Home'
 import { useWebsocket } from './Websocket'
@@ -18,8 +18,13 @@ import {
 } from '../types/n2yotypes'
 import { getRadioPasses, getVisualPasses } from './logic/backend_req'
 import { gps_pos } from '../types/hardwareTypes'
+import { TileLayer, MapContainer, Marker, Popup } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
 
-const App: React.FC = () => {
+import markerIconPng from 'leaflet/dist/images/marker-icon.png'
+import L, { Icon, LatLngLiteral } from 'leaflet'
+
+const App: FC = () => {
   // Location state
   const [loc, setLoc] = useState<gps_pos>(default_pos)
   const [locModal, setLocModal] = useState(false)
@@ -102,56 +107,22 @@ const App: React.FC = () => {
 
   return (
     <div className="h-full min-h-full">
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      />
+      <script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      ></script>
+
       <NavBar setWhatsUpModal={setWhatsUpModal} setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
       {/* <p>hello</p> */}
       {state === undefined && <p className="text-center">State not yet initialised</p>}
       {state && <p className="text-center">{`${JSON.stringify(state)}`}</p>}
-      {<Home />}
-      <Plot
-        data={[
-          {
-            x: [0, 90, 180, 270],
-            y: [45, 30, -15, 30],
-            type: 'scatter',
-            mode: 'markers',
-            // marker: {color: 'red'},
-          },
-          // {type:'bar', x:[1, 2, 3], y:[2, 5, 3]},
-        ]}
-        layout={{
-          xaxis: { range: [0, 360] },
-          yaxis: { range: [-90, 90] },
-          width: 720,
-          height: 480,
-          title: 'A fancy plot',
-        }}
-      />
+      <Home />
     </div>
-
-    // <div data-theme="corporate" className="App">
-    // {/* <p>hello</p> */}
-    // {state === undefined && <p>State not yet initialised</p>}
-    // {state && <p>{`${JSON.stringify(state)}`}</p>}
-    // {<Home/>}
-    // {<Plot
-    //   data={[
-    //     {
-    //       x: [0, 90, 180, 270],
-    //       y: [45, 30, -15, 30],
-    //       type: 'scatter',
-    //       mode: 'markers',
-    //       // marker: {color: 'red'},
-    //     },
-    //     // {type:'bar', x:[1, 2, 3], y:[2, 5, 3]},
-    //   ]}
-    //   layout={{
-    //     xaxis: {range: [0, 360]},
-    //     yaxis: {range: [-90, 90]},
-    //     width:720, height: 480,
-    //     title: 'A fancy plot',
-    //   }}
-    // />}
-    // </div>
   )
 }
 export default App

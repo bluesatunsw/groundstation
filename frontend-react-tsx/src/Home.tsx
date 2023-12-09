@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Dialog, DialogContent, Divider, Grid, Snackbar } from '@mui/material'
+import { Dialog, DialogContent, Divider, Grid } from '@mui/material'
 import type { gps_pos } from '../types/hardwareTypes'
 import type { targetSat } from '../types/targetSat'
 import {
@@ -8,16 +8,19 @@ import {
   n2yo_get_visual_passes,
   n2yo_get_radio_passes,
 } from '../types/n2yotypes'
-import { sendAction, useWebsocket } from './Websocket'
-import SelectTargetModal from './components/SelectTargetModal'
+import { useWebsocket } from './Websocket'
 import WhatsUpModal from './components/WhatsUpModal/WhatsUpModal'
 import EncounterSub from './components/EncounterSub/EncounterSub'
 import MapSub from './components/MapSub/MapSub'
 import MonitorSub from './components/MonitorSub/MonitorSub'
 import LoggingSub from './components/LogSub/LogSub'
-import LocationModal from './components/LocationModal'
 import SideBar from './components/Sidebar'
 import { getRadioPasses, getVisualPasses } from './logic/backend_req'
+import { TileLayer, MapContainer, Marker, Popup } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css'
+import markerIconPng from 'leaflet/dist/images/marker-icon.png'
+import L, { Icon, LatLngLiteral } from 'leaflet'
+import Map, { GroundStation } from './components/MapComponent'
 
 const Index: React.FC = () => {
   // Location state
@@ -42,9 +45,9 @@ const Index: React.FC = () => {
   const [whatsUpModal, setWhatsUpModal] = useState(false)
   const state = useWebsocket()
 
-  if (state && beConnected != true) {
+  if (state && beConnected !== true) {
     setBeConnected(true)
-  } else if (!state && beConnected == true) {
+  } else if (!state && beConnected === true) {
     setBeConnected(false)
   }
 
@@ -108,6 +111,26 @@ const Index: React.FC = () => {
     setMonitorTab('tracking')
   }
 
+  const groundstationsList: GroundStation[] = [
+    {
+      name: 'UNSW BlueSat',
+      lat: -33.918006,
+      lon: 151.231303,
+    },
+  ]
+
+  const [satList, setSatList] = useState([])
+
+  setInterval(async () => {
+    await fetch(`http://api.open-notify.org/iss-now.json`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSatList(data)
+      })
+
+    console.log(satList)
+  }, 2000)
+
   return (
     <div style={{ display: 'flex', height: '650px', width: '1200px' }}>
       {/* <div>{state && `${JSON.stringify(state)}`}</div> */}
@@ -123,10 +146,10 @@ const Index: React.FC = () => {
 
       {/* <button onPress={sendAction(SelectSatellite)}>SEND TEST REQUEST</button> */}
 
-      <Snackbar
+      {/* <Snackbar
         open={!beConnected}
         message="Warning: backend is not connected or n2yo not reachable. Cannot interface with API."
-      />
+      /> */}
 
       {!beConnected ? (
         <div className="toast toast-start">
@@ -173,6 +196,7 @@ const Index: React.FC = () => {
       </Dialog>
 
       {/* Dashboard layout */}
+
       <Grid container spacing={1} xs={12} sx={{ margin: '20px', width: '100%' }}>
         <Grid item xs={12}>
           <SideBar
@@ -203,6 +227,7 @@ const Index: React.FC = () => {
           <LoggingSub />
         </Grid>
       </Grid>
+      <Map groundStations={groundstationsList} />
     </div>
   )
 }
