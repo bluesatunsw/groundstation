@@ -18,6 +18,15 @@ import 'leaflet/dist/leaflet.css'
 import Map, { GroundStation } from './components/MapComponent'
 import { LatLngExpression, LatLngLiteral } from 'leaflet'
 import { Debug } from './components/Debug2'
+import NavBar from './components/Navbar'
+import MapCard, { trackingSat } from './components/Cards/MapCard'
+
+export interface ISSReturnTypeJson {
+  iss_position: {
+    latitude: number
+    longitude: number
+  }
+}
 
 const Index: React.FC = () => {
   // Location state
@@ -116,135 +125,94 @@ const Index: React.FC = () => {
     },
   ]
 
-  const [satList, setSatList] = useState<LatLngExpression[][]>()
+  const [satList, setSatList] = useState<ISSReturnTypeJson>({
+    iss_position: {
+      latitude: 0,
+      longitude: 0,
+    },
+  })
 
   useEffect(() => {
     let interval = setInterval(async () => {
       await fetch(`http://api.open-notify.org/iss-now.json`)
         .then((response) => response.json())
         .then((data) => {
-          const val = data.iss_position
-          setSatList({ satList, ...val })
-          console.debug('final', satList)
+          const issData: ISSReturnTypeJson = {
+            iss_position: {
+              latitude: data.latitude,
+              longitude: data.longitude,
+            },
+          }
+
+          setSatList(issData)
         })
         .catch((error) => console.error(error))
-    }, 10000)
+    }, 2000)
 
     return () => {
       clearInterval(interval)
     }
   }, [satList])
 
+  const ISStracking: trackingSat = {
+    name: 'ISS',
+    positionData: {
+      lat: 0,
+      lng: 0,
+      alt: 0,
+    },
+  }
+
+  if (satList) {
+    ISStracking.positionData.lat = satList.iss_position.latitude
+    ISStracking.positionData.lng = satList.iss_position.longitude
+  }
+
   return (
-    <div className="flex justify-center px-[600px]  ">
-      {/* <div>{state && `${JSON.stringify(state)}`}</div> */}
-      {/* 
-            export interface UpdateStation {
-                name: String,
-                status: GroundStation,
-            }
+    <div>
+      <div key={'HEADDER'}>
+        <NavBar setWhatsUpModal={setWhatsUpModal} setTargetModal={setTargetModal} onCalcEn={calcEncounter} />
+        {/* <p>hello</p> */}
+        {state === undefined && <p className="text-center">State not yet initialised</p>}
+        {state && <p className="text-center">{`${JSON.stringify(state)}`}</p>}
+      </div>
 
-            export interface SelectSatellite {
-                satellite: Satellite,
-            } */}
+      <div key={'BODY'}>
+        <Dialog
+          open={whatsUpModal && beConnected}
+          onClose={() => setWhatsUpModal(false)}
+          maxWidth={'sm'}
+          fullWidth={true}
+        >
+          <DialogContent>
+            <WhatsUpModal setTarget={setTarget} target={target} setModalOpen={setWhatsUpModal} location={loc} />
+          </DialogContent>
+        </Dialog>
 
-      {/* <button onPress={sendAction(SelectSatellite)}>SEND TEST REQUEST</button> */}
+        <MapCard
+          groundStations={groundstationsList}
+          trackedSat={{
+            name: 'ISS',
+            positionData: {
+              lat: satList.iss_position.latitude,
+              lng: satList.iss_position.longitude,
+              alt: 0,
+            },
+          }}
+        />
+      </div>
 
-      {/* <Snackbar
-        open={!beConnected}
-        message="Warning: backend is not connected or n2yo not reachable. Cannot interface with API."
-      /> */}
-
-      {!beConnected ? (
-        <div className="toast toast-start">
-          <div className="alert alert-info bg-warning">
-            <span>Warning: backend is not connected or n2yo not reachable. Cannot interface with API.</span>
+      <div key={'FOOTER'}>
+        {' '}
+        {!beConnected ? (
+          <div className="toast toast-start">
+            <div className="alert alert-info bg-warning">
+              <span>Warning: backend is not connected or n2yo not reachable. Cannot interface with API.</span>
+            </div>
           </div>
-        </div>
-      ) : (
-        <></>
-      )}
-
-      {/* Location selector modal */}
-      {/* <Dialog
-                open={locModal && beConnected}
-                onClose={() => setLocModal(false)}
-            >
-                <DialogContent>
-                    <LocationModal onSetLocation={setLoc} location={loc} setModalOpen={setLocModal} />
-                </DialogContent>
-            </Dialog> */}
-
-      {/* Target selector modal */}
-      {/* <Dialog
-                open={targetModal && beConnected}
-                onClose={() => setTargetModal(false)}
-                fullWidth={true}
-            >
-                <DialogContent>
-                    <SelectTargetModal onSetTarget={setTarget} cursat={target}
-                        setModalOpen={setTargetModal} pos={loc} />
-                </DialogContent>
-            </Dialog> */}
-
-      {/* What's up modal */}
-      <Dialog
-        open={whatsUpModal && beConnected}
-        onClose={() => setWhatsUpModal(false)}
-        maxWidth={'sm'}
-        fullWidth={true}
-      >
-        <DialogContent>
-          <WhatsUpModal setTarget={setTarget} target={target} setModalOpen={setWhatsUpModal} location={loc} />
-        </DialogContent>
-      </Dialog>
-
-      {/* Dashboard layout */}
-
-      {/* <Grid container spacing={1} xs={12} sx={{ margin: '20px', width: '100%' }}>
-        <Grid item xs={12}>
-          <SideBar
-            setWhatsUpModal={setWhatsUpModal}
-            onFindId={findId}
-            setTargetModal={setTargetModal}
-            onCalcEn={calcEncounter}
-          />
-          <Divider sx={{ margin: '10px' }} />
-        </Grid>
-        <Grid item xs={8} sx={{ height: '50%' }}>
-          <EncounterSub sat={target} vp={visualEncounter} rp={radioEncounter} />
-        </Grid> */}
-      {/* <Grid item xs={4} sx={{ height: '50%' }}>
-          <MapSub sat={target} />
-        </Grid> */}
-      {/* <Grid item xs={8} sx={{ height: '50%' }}>
-          <MonitorSub
-            tab={monitorTab}
-            setTab={setMonitorTab}
-            connected={beConnected}
-            setConnected={setBeConnected}
-            location={loc}
-            setLocModal={setLocModal}
-          />
-        </Grid> */}
-      {/* <Grid item xs={4} sx={{ height: '50%' }}>
-          <LoggingSub />
-        </Grid> */}
-      {/* </Grid> */}
-      {/* <Debug>{satList}</Debug> */}
-
-      <div className="hero rounded-lg bg-base-200">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <Map groundStations={groundstationsList} Satellites={satList} />
-          <div>
-            <h1 className="text-5xl font-bold">Ground Station and Satilite tracking!</h1>
-            <p className="py-6">
-              This is a really cool way to display the world map with some tracking data that we can update with info
-              and new groundstations as we want!
-            </p>
-            <button className="btn btn-primary">We can also add buttons here so that we can do changes</button>
-          </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   )

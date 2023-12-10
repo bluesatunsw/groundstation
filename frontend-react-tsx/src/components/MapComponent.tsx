@@ -13,9 +13,9 @@ export interface GroundStation {
   lon: number
 }
 
-interface MapProps {
+export interface MapProps {
   groundStations?: GroundStation[]
-  Satellites?: LatLngExpression[][]
+  satellites?: LatLngExpression[][]
 }
 
 const sydney: LatLngLiteral = {
@@ -23,7 +23,7 @@ const sydney: LatLngLiteral = {
   lng: 151.2093,
 }
 
-const Map = ({ groundStations, Satellites }: MapProps) => {
+const Map = ({ groundStations, satellites }: MapProps) => {
   return (
     <div className="p-5">
       <MapContainer
@@ -47,7 +47,9 @@ const Map = ({ groundStations, Satellites }: MapProps) => {
                 key={i}
               >
                 <Popup>
-                  <p>{s.name}</p>
+                  <p>
+                    {s.name} Lat:{s.lat} Lng:{s.lon}
+                  </p>
                 </Popup>
               </Marker>
             )
@@ -56,7 +58,7 @@ const Map = ({ groundStations, Satellites }: MapProps) => {
           <></>
         )}
 
-        {Satellites ? <Polyline positions={Satellites}></Polyline> : <></>}
+        {satellites ? <Polyline positions={satellites}></Polyline> : <></>}
       </MapContainer>
     </div>
   )
