@@ -2,43 +2,26 @@ use std::collections::HashMap;
 
 use serde::{Deserialize, Serialize};
 
+pub mod action;
 mod point;
 
 pub use point::{CartesianPoint, PolarPoint};
+pub use action::{Action, FrontendAction, BackendAction};
 
 #[derive(Default, Debug, Serialize)]
 pub struct State {
-    stations: HashMap<String, GroundStation>,
-    current_satellite: Satellite,
-    backend_status: BackendStatus,
+    pub stations: HashMap<String, GroundStation>,
+    pub current_satellite: Satellite,
+    pub backend_status: BackendStatus,
 }
 
-#[derive(Deserialize)]
-#[serde(tag = "type")]
-pub enum Action {
-    // some operations on the state
-    UpdateStation {
-        name: String,
-        status: GroundStation,
-    },
-}
-
-impl State {
-    pub fn apply(&mut self, action: Action) {
-        match action {
-            Action::UpdateStation { name, status } => {
-                self.stations.insert(name, status);
-            }
-        }
-    }
-}
 
 #[derive(Default, Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct GPSPosition {
-    pub latitude: String,
-    pub longitude: String,
-    pub altitude: String,
+    pub latitude: f32,
+    pub longitude: f32,
+    pub altitude: f32,
     pub valid: bool,
 }
 

@@ -61,8 +61,11 @@ export async function getWhatsUp(pos: gps_pos, search_radius: number, cat_id: nu
 }
 
 // Get backend status
-export async function getStatus() : Promise<backend_status> {
-    return await fetch(`http://127.0.0.1:${port}/status`)
-        .then(res => res.json())
-        .then(res => {return res as backend_status})
+export async function getStatus() {
+    /*
+        return await fetch(`http://127.0.0.1:${port}/status`)
+            .then(res => res.json())
+            .then(res => {return res as backend_status})
+    //*/
+    return null
 }
